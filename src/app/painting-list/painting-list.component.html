@@ -1,0 +1,44 @@
+<div id="myPaintings" style="margin-top: 200px;">
+	<div *ngIf="!paintings">
+		Cargando listado de cuadros
+	</div>
+
+	<div *ngIf="isVisible" style="margin-top: 50px; margin-bottom: 30px;">
+		<a (click)="onSelectPainting(-1)">
+			Add new painting <i class="fa fa-plus-circle" aria-hidden="true"></i>
+		</a>
+	</div>
+
+
+	<div class="example-container" cdkDropListGroup>
+	  <div cdkDropList [cdkDropListEnterPredicate]="enter" (cdkDropListDropped)="drop()" #placeholder></div>
+	  <div cdkDropList *ngFor="let painting of paintings; let i = index;"
+	       [cdkDropListEnterPredicate]="enter" (cdkDropListDropped)="drop()">
+	    <div cdkDrag [cdkDragData]="i" [ngClass]="setPaintingClasses(painting)" >
+	    	<div>
+
+	    		<div class="thumbnail">
+	    			<div>
+	    				<img src="http://localhost:4000/images/{{painting.image}}" style="width: 60%; margin-top: 10%;" />
+	    			</div>
+	    			<div class="caption">
+	    				<span style="font-size: 14px;">{{painting.title}}</span>
+	    				<p>
+							<a (click)="onSelectPainting(painting)">
+								<i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 15px;"></i>
+							</a>
+							<a (click)="onDeletePainting(painting.idPainting)">
+								<i class="fa fa-trash" aria-hidden="true" style="font-size: 15px;"></i>
+							</a>
+						</p>
+	    			</div>
+	    		
+	    		</div>
+	    	</div>
+
+	    </div>
+	  </div>
+	</div> 
+
+
+</div>

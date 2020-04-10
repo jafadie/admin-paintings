@@ -1,0 +1,28 @@
+<div *ngIf="!series">
+	Cargando listado de cuadros
+</div>
+
+<div *ngIf="series" style="margin-top: 60px; font-size: 20px; line-height: 1.5em;">
+	<ul>
+		<li *ngFor="let serie of series">
+			<strong>{{serie.title}}</strong>
+			
+				<i (click)="onSelectIdSerie(serie.idSerie)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+			
+				<i (click)="onDeleteSerie(serie.idSerie)" class="fa fa-trash" aria-hidden="true"></i>
+		</li>
+	</ul>
+</div>
+
+
+<form (ngSubmit)="onSubmit()" class="col-lg-8" id="form-painting" style="margin-top: 60px;">
+
+	<div class="form-group"> <!-- Technique-->
+		<label for="technique" class="control-label">Texto</label>
+		<input type="text" class="form-control" id="technique" name="technique" placeholder="Mi texto">
+	</div>
+
+	<div class="form-group"> <!-- Create Button -->
+		<button type="submit" class="btn btn-primary">Visita mi sitio</button>
+	</div>
+</form>
