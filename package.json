@@ -39,7 +39,6 @@
     "lg-video": "^1.2.2",
     "lg-zoom": "^1.1.0",
     "lightgallery": "^1.6.12",
-    "node-cron": "^2.0.3",
     "nodemailer": "^6.4.6",
     "path": "^0.12.7",
     "rxjs": "~6.4.0",
