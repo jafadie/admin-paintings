@@ -9,7 +9,7 @@
 					<div class="col-md-9 col-sm-9 col-xs-9">
 						<div class="form-group"> <!-- Title -->
 							<label for="title" class="control-label">Title</label>
-							<input type="text" class="form-control" id="title" name="title" #title="ngModel" [(ngModel)]="painting.title" placeholder="Mi cuadro">
+							<input type="text" class="form-control" id="title" name="title" #title="ngModel" [(ngModel)]="painting['title']" placeholder="Mi cuadro">
 						</div>
 					</div>
 					<div class="col-md-3 col-sm-3 col-xs-3">
@@ -62,7 +62,7 @@
 			<div class="form-group"> <!-- Image-->
 				<label for="image" class="control-label">Image</label>
 				<div *ngIf="is_edit">
-					<img src="http://localhost:4000/images/{{painting.image}}" width="60%;" />
+					<img src="http://localhost:4000/images/{{painting['image']}}" width="60%;" />
 				</div>
 				<input type="file" class="form-control" id="image" name="image" placeholder="image001.jpeg" (change)="fileChangeEvent($event)">
 			</div>
