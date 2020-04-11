@@ -15,7 +15,7 @@
 					<div class="col-md-3 col-sm-3 col-xs-3">
 						<div class="form-group"> <!-- Year -->
 							<label for="year" class="control-label">Year</label>
-							<input type="text" class="form-control" id="year" name="year" #year="ngModel" [(ngModel)]="painting.year" placeholder="2020">
+							<input type="text" class="form-control" id="year" name="year" #year="ngModel" [(ngModel)]="painting['year']" placeholder="2020">
 						</div>
 					</div>
 					
@@ -27,14 +27,14 @@
 					<div class="col-md-3 col-sm-3 col-xs-3">
 						<div class="form-group"> <!-- Height -->
 							<label for="height" class="control-label">Height</label>
-							<input type="text" class="form-control" id="height" name="height" #height="ngModel" [(ngModel)]="painting.height" placeholder="110cm">
+							<input type="text" class="form-control" id="height" name="height" #height="ngModel" [(ngModel)]="painting['height']" placeholder="110cm">
 						</div>
 					</div>
 
 					<div class="col-md-3 col-sm-3 col-xs-3">
 						<div class="form-group"> <!-- Width -->
 							<label for="width" class="control-label">Width</label>
-							<input type="text" class="form-control" id="width" name="width" #width="ngModel" [(ngModel)]="painting.width" placeholder="150cm">
+							<input type="text" class="form-control" id="width" name="width" #width="ngModel" [(ngModel)]="painting['width']" placeholder="150cm">
 						</div>	
 					</div>
 				</div>
@@ -47,13 +47,13 @@
 									
 			<div class="form-group"> <!-- Technique-->
 				<label for="technique" class="control-label">Technique</label>
-				<input type="text" class="form-control" id="technique" name="technique" #technique="ngModel" [(ngModel)]="painting.technique" placeholder="Oleo">
+				<input type="text" class="form-control" id="technique" name="technique" #technique="ngModel" [(ngModel)]="painting['technique']" placeholder="Oleo">
 			</div>
 
 
 			<div class="form-group"> <!-- Available-->
 				<div class="custom-control custom-checkbox"> 
-			    	<input type="checkbox" class="custom-control-input" name="available" #available="ngModel" id="available" [(ngModel)]="painting.available">
+			    	<input type="checkbox" class="custom-control-input" name="available" #available="ngModel" id="available" [(ngModel)]="painting['available']">
 			    	<label class="custom-control-label" for="available">Available</label>
 				</div>
 			</div>

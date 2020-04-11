@@ -23,7 +23,7 @@
 					</div>
 
 					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="form-group" id="divEventType" *ngIf="notification.type">
+						<div class="form-group" id="divEventType" *ngIf="notification['type']">
 							<!--<label for="selectEventType" class="control-label">Event Type</label>-->
 							<select  class="form-control" #selectEventType name="selectEventType" id="selectEventType" (change)="onOptionEventSelected(selectEventType.value)">
 		     					<option *ngFor="let eventType of eventTypes" [value]="eventType.idEventType">{{eventType.description}}</option>
@@ -32,7 +32,7 @@
 					</div>
 
 					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="form-group" id="divMediaType" *ngIf="notification.type && notification.type==1">
+						<div class="form-group" id="divMediaType" *ngIf="notification['type'] && notification['type']==1">
 							<!--<label for="selectMediaType" class="control-label">Media</label>-->
 							<select  class="form-control" #selectMediaType name="selectMediaType" id="selectMediaType" (change)="onOptionMediaSelected(selectMediaType.value)">
 		     					<option *ngFor="let mediaType of mediaTypes" [value]="mediaType.idMediaType">{{mediaType.description}}</option>
@@ -41,35 +41,35 @@
 					</div>
 
 					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="form-group" id="divTitle" *ngIf="notification.type && notification.type==0"> 
+						<div class="form-group" id="divTitle" *ngIf="notification['type'] && notification['type']==0"> 
 							<label for="title" class="control-label">Características/Título</label>
-							<input type="text" class="form-control" id="title" name="title" #title="ngModel" [(ngModel)]="notification.title" placeholder="Title" required>
+							<input type="text" class="form-control" id="title" name="title" #title="ngModel" [(ngModel)]="notification['title']" placeholder="Title" required>
 						</div>
 					    				
      				
-     					<div class="form-group" id="divLocalization" *ngIf="notification.type"> 
+     					<div class="form-group" id="divLocalization" *ngIf="notification['type']"> 
 							<label for="localization" class="control-label">Localization</label>
-							<input type="text" class="form-control" id="localization" name="localization" #localization="ngModel" [(ngModel)]="notification.localization" placeholder="Localization" required>
+							<input type="text" class="form-control" id="localization" name="localization" #localization="ngModel" [(ngModel)]="notification['localization']" placeholder="Localization" required>
 						</div>
 
 
-						<div class="form-group" id="divOpeningDate" *ngIf="notification.type && notification.type==0">
+						<div class="form-group" id="divOpeningDate" *ngIf="notification['type'] && notification['type']==0">
 							<label for="openingDate" class="control-label">Opening date</label>
-						  	<input type="datetime-local" class="form-control" name="openingDate" #openingDate="ngModel" id="openingDate" [(ngModel)]="notification.openingDate" required>
+						  	<input type="datetime-local" class="form-control" name="openingDate" #openingDate="ngModel" id="openingDate" [(ngModel)]="notification['openingDate']" required>
 						</div>
 
 
-						<div class="form-group" id="divClosingDate" *ngIf="notification.type && notification.type==0">
+						<div class="form-group" id="divClosingDate" *ngIf="notification['type'] && notification['type']==0">
 							<label for="closingDate" class="control-label">Closing date</label>
-						  	<input type="datetime-local" class="form-control" name="closingDate" #closingDate="ngModel" id="closingDate" [(ngModel)]="notification.closingDate" required>
+						  	<input type="datetime-local" class="form-control" name="closingDate" #closingDate="ngModel" id="closingDate" [(ngModel)]="notification['closingDate']" required>
 						</div>
 
-						<div class="form-group" id="divLink" *ngIf="notification.type && notification.type==1"> 
+						<div class="form-group" id="divLink" *ngIf="notification['type'] && notification['type']==1"> 
 							<label for="link" class="control-label">Link</label>
-							<input type="text" class="form-control" id="link" name="link" #link="ngModel" [(ngModel)]="notification.link" placeholder="Link" required>
+							<input type="text" class="form-control" id="link" name="link" #link="ngModel" [(ngModel)]="notification['link']" placeholder="Link" required>
 						</div>
 
-						<div class="form-group" id="divImage" *ngIf="notification.type && notification.type==0"> <!-- Image-->
+						<div class="form-group" id="divImage" *ngIf="notification['type'] && notification['type']==0"> <!-- Image-->
 							<label for="image" class="control-label">Image</label>
 							<div>
 								<img src="" width="60%;" />
@@ -84,21 +84,21 @@
 
 					<div class="col-md-12 col-sm-12 col-xs-12">
 
-						<div class="form-group" id="divScheduled" *ngIf="notification.type"> <!-- Scheduled-->
+						<div class="form-group" id="divScheduled" *ngIf="notification['type']"> <!-- Scheduled-->
 							<div class="custom-control custom-checkbox"> 
-				    			<input type="checkbox" class="custom-control-input" name="scheduled" #scheduled="ngModel" id="scheduled" [(ngModel)]="notification.scheduled" (change)="checkValueScheduled(notification.scheduled)">
+				    			<input type="checkbox" class="custom-control-input" name="scheduled" #scheduled="ngModel" id="scheduled" [(ngModel)]="notification['scheduled']" (change)="checkValueScheduled(notification['scheduled'])">
 				    			<label class="custom-control-label" for="scheduled">Scheduled</label>
 							</div>
 						</div>
 
 
-						<div class="form-group" id="divDeliveryDate" *ngIf="notification.type && notification.scheduled">
+						<div class="form-group" id="divDeliveryDate" *ngIf="notification['type'] && notification['scheduled']">
 							<label for="deliveryDate" class="control-label">Delivery date</label>
-						  	<input type="datetime-local" class="form-control" name="deliveryDate" #deliveryDate="ngModel" id="deliveryDate" [(ngModel)]="notification.deliveryDate" required>
+						  	<input type="datetime-local" class="form-control" name="deliveryDate" #deliveryDate="ngModel" id="deliveryDate" [(ngModel)]="notification['deliveryDate']" required>
 						</div>
 
 
-						<div class="form-group" id="divUserList" *ngIf="notification.type">
+						<div class="form-group" id="divUserList" *ngIf="notification['type']">
 							<div class="custom-control custom-checkbox" *ngFor="let myUser of myUserList; let i= index"> 
 
 								<input type="checkbox" class="custom-control-input" name="{{'inlineCheckbox' + i}}" id="{{'inlineCheckbox' + i}}" [(ngModel)]="myUser[0]">
@@ -116,7 +116,7 @@
 
 			
 			
-			<div class="form-group" id="divBtnSaveNotification" *ngIf="notification.type"> <!-- Create Button -->
+			<div class="form-group" id="divBtnSaveNotification" *ngIf="notification['type']"> <!-- Create Button -->
 				<button type="submit" class="btn btn-default" [disabled]="!formUser.valid">{{buttonName}}</button>
 			</div>
 

@@ -29,17 +29,17 @@
 
 <div *ngIf="paintings && serie">
     <div class="container">
-        <h2>{{serie.title}}</h2>
+        <h2>{{serie['title']}}</h2>
         <div id="relative-caption">
         <div id="lightgallery">
-            <a *ngFor="let painting of paintings;" href="http://localhost:4000/images/{{painting.image}}" data-sub-html=".caption" data-html=".caption">
+            <a *ngFor="let painting of paintings;" href="http://localhost:4000/images/{{painting['image']}}" data-sub-html=".caption" data-html=".caption">
                 
-                <img [ngClass]="setPaintingClasses(painting)" src="http://localhost:4000/images/{{painting.image}}" />
+                <img [ngClass]="setPaintingClasses(painting)" src="http://localhost:4000/images/{{painting['image']}}" />
                 
                 {{onClickImage()}}
 
                 <div class="caption" style="display: none;">
-                    <h5 style='margin-top:-260px; text-align:left; margin-left:20px; height:200px; width:20%; white-space:normal;'><b>{{painting.title}}</b> | {{painting.year}} <br/> {{painting.height}}cm x {{painting.width}}cm <br/> {{painting.technique}} <br/> <span *ngIf="painting.available">Available</span></h5>
+                    <h5 style='margin-top:-260px; text-align:left; margin-left:20px; height:200px; width:20%; white-space:normal;'><b>{{painting['title']}}</b> | {{painting['year']}} <br/> {{painting.height}}cm x {{painting['width']}}cm <br/> {{painting['technique']}} <br/> <span *ngIf="painting.available">Available</span></h5>
                 </div>
 
             </a>

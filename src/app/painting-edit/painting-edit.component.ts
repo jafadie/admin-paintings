@@ -14,6 +14,7 @@ export class PaintingEditComponent implements OnInit {
   	public nameButton : string;
     public is_edit: boolean;
     public is_visible: boolean;
+    public filesToUpload;
 
     //public valorReseteoPainting = -2;
 
@@ -73,6 +74,10 @@ export class PaintingEditComponent implements OnInit {
   	onSubmit(){
 		  this.updatePainting();
   	}
+
+    fileChangeEvent(fileInput: any){
+      this.filesToUpload = fileInput.target.files;
+    }
 
     updatePainting(){
       /*this._paintingService.updatePainting(this.painting['idPainting'] ,this.painting).subscribe(
