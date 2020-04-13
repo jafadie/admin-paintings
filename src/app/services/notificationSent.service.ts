@@ -8,7 +8,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 })
 export class NotificationSentService {
 
-	baseUri:string = 'http://localhost:4000/api/notificationSent';
+  baseUri:string = 'https://api-paintings.herokuapp.com/api/notificationSent';
+	//baseUri:string = 'http://localhost:4000/api/notificationSent';
 	headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }

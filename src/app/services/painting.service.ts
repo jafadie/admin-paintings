@@ -8,7 +8,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 })
 export class PaintingService {
 
-	baseUri:string = 'http://localhost:4000/api/painting';
+  baseUri:string = 'https://api-paintings.herokuapp.com/api/painting';
+	//baseUri:string = 'http://localhost:4000/api/painting';
 	headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
