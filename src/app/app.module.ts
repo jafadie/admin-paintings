@@ -5,7 +5,6 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { PaintingCreateComponent } from './painting-create/painting-create.component';
-import { PaintingEditComponent } from './painting-edit/painting-edit.component';
 import { PaintingListComponent } from './painting-list/painting-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PaintingService } from './services/painting.service';
@@ -33,7 +32,6 @@ import { NotificationSentService } from './services/notificationSent.service';
   declarations: [
     AppComponent,
     PaintingCreateComponent,
-    PaintingEditComponent,
     PaintingListComponent,
     HomeComponent,
     PortfolioComponent,

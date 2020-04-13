@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PaintingListComponent } from './painting-list/painting-list.component';
 import { PaintingCreateComponent } from './painting-create/painting-create.component';
-import { PaintingEditComponent } from './painting-edit/painting-edit.component';
 import { HomeComponent } from './home/home.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { BioComponent } from './bio/bio.component';
@@ -23,7 +22,6 @@ const routes: Routes = [
   { path: 'app-contact', component: ContactComponent },
   { path: 'painting-list', component: PaintingListComponent },
   { path: 'painting-create', component: PaintingCreateComponent },
-  { path: 'painting-edit/:id', component: PaintingEditComponent },
   { path: 'serie-create', component: SerieCreateComponent },
   { path: 'serie-list', component: SerieListComponent },
   { path: 'admin-paintings', component: AdminPaintingsComponent },
