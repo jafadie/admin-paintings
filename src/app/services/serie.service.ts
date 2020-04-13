@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { GLOBAL } from './global';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SerieService {
 
-
-  baseUri:string = 'https://api-paintings.herokuapp.com/api/serie';
-	//baseUri:string = 'http://localhost:4000/api/serie';
+  baseUri:string = GLOBAL.baseUri + '/api/serie';
 	headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 	constructor(private http: HttpClient) { }
