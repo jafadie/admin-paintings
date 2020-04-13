@@ -62,7 +62,7 @@
 			<div class="form-group"> <!-- Image-->
 				<label for="image" class="control-label">Image</label>
 				<div *ngIf="is_edit">
-					<img src="http://localhost:4000/images/{{painting['image']}}" width="60%;" />
+					<img src="{{baseUri}}/images/{{painting['image']}}" width="60%;" />
 				</div>
 				<input type="file" class="form-control" id="image" name="image" placeholder="image001.jpeg" (change)="fileChangeEvent($event)">
 			</div>

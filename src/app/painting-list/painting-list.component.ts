@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { PaintingService } from '../services/painting.service';
 import { Painting } from '../models/painting.model';
 import { Serie } from '../models/serie.model';
+import { GLOBAL } from '../services/global';
 import {
   CdkDrag,
   CdkDragStart,
@@ -29,6 +30,8 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 
 	public paintings:any = [];
 	public isVisible: Boolean;
+
+  baseUri:string = GLOBAL.baseUri;
 
 	public valorReseteoPainting = -2;
 

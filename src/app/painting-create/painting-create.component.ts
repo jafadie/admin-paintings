@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { PaintingService } from '../services/painting.service';
 import { Painting } from '../models/painting.model';
+import { GLOBAL } from '../services/global';
 
 @Component({
   selector: 'app-painting-create',
@@ -15,6 +16,7 @@ export class PaintingCreateComponent implements OnInit {
 	public filesToUpload;
 	public is_edit: boolean;
 	public is_visible: boolean;
+	baseUri:string = GLOBAL.baseUri;
 
 	public valorReseteoPainting = -2;
 

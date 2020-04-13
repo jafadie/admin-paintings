@@ -32,9 +32,9 @@
         <h2>{{serie['title']}}</h2>
         <div id="relative-caption">
         <div id="lightgallery">
-            <a *ngFor="let painting of paintings;" href="http://localhost:4000/images/{{painting['image']}}" data-sub-html=".caption" data-html=".caption">
+            <a *ngFor="let painting of paintings;" href="{{baseUri}}/images/{{painting['image']}}" data-sub-html=".caption" data-html=".caption">
                 
-                <img [ngClass]="setPaintingClasses(painting)" src="http://localhost:4000/images/{{painting['image']}}" />
+                <img [ngClass]="setPaintingClasses(painting)" src="{{baseUri}}/images/{{painting['image']}}" />
                 
                 {{onClickImage()}}
 

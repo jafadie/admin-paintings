@@ -4,6 +4,7 @@ import { PaintingService } from '../services/painting.service';
 import { SerieService } from '../services/serie.service';
 import { Painting } from '../models/painting.model';
 import { Serie } from '../models/serie.model';
+import { GLOBAL } from '../services/global';
 declare var jQuery: any;
 
 @Component({
@@ -18,6 +19,7 @@ export class PortfolioComponent implements OnInit {
   public serie: Serie;
   public idPainting: number;
   public clickExecuted = true; // initialize it to true for the first run
+  baseUri:string = GLOBAL.baseUri;
 	
 	constructor(
 		private _route: ActivatedRoute,
