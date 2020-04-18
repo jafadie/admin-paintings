@@ -188,7 +188,8 @@ export class PortfolioComponent implements OnInit {
 		
 		let classes = {
         	img_vertical: painting.width <= painting.height,
-        	img_horizontal: painting.width > painting.height
+        	img_horizontal: painting.width > painting.height,
+        	img_painting: true
     	};
     	return classes;
 	}

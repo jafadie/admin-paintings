@@ -1,0 +1,24 @@
+#titulo_bio {
+	margin-bottom: 4%;
+	margin-top: 1%;
+	font-size: 2.4em;
+	color: #012e67;	/*prefiero gris*/
+}
+
+.text_format {
+	font-size: 1.1em;
+}
+
+#subtitulo_bio {
+	margin-bottom: 3%;
+	margin-top: 5%;
+	font-size: 2em;
+}
+
+.space_line {
+	margin-top: 1%;
+}
+
+.reset_padding {
+	padding: 0px;
+}

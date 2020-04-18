@@ -1,0 +1,27 @@
+.text_format{
+	margin-bottom: 4%;
+	margin-top: 1%;
+	font-size: 1.1em;
+}
+
+.input_format {
+	padding-top: 1.2em;
+	padding-bottom: 1.2em;
+}
+
+.btn_format {
+	padding-left: 5em;
+	padding-right: 5em;
+}
+
+.reset_padding {
+	padding: 0px;
+}
+
+.symbol_format {
+	font-size: 2em;
+	color: black;
+	padding:0.3em;
+	border: 0.1em solid black;
+	margin-right: 1%;
+}
