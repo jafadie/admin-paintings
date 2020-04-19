@@ -126,7 +126,7 @@ export class PortfolioComponent implements OnInit {
 					$customEvents.lightGallery({
 						mode: 'lg-slide',
 						speed: 600,
-						height: '600px',
+						height: '100%',
 						width: '100%',
 						showThumbByDefault:false,
 						thumbnail: false,
@@ -136,7 +136,7 @@ export class PortfolioComponent implements OnInit {
 						escKey: true,
 						counter: false,
 						autoplayControls: false,
-						fullScreen: true,
+						fullScreen: false,
 						share: false,
 						html: false,
 						appendSubHtmlTo: '.lg-html',
@@ -145,6 +145,8 @@ export class PortfolioComponent implements OnInit {
 
 
 					$customEvents.on('onBeforeSlide.lg',function(event){
+						$('.lg-item').css('margin-top', '7em');
+						
 						$('.lg-toolbar').css('background-color', '#ffffff');
 						$('.lg-next').css('background-color', '#ffffff');
 						$('.lg-prev').css('background-color', '#ffffff');
@@ -164,7 +166,7 @@ export class PortfolioComponent implements OnInit {
 
 					});
 
-	        		console.log("Hello from jQuery!");
+	        		
 	      		});
     		})(jQuery);
         }
