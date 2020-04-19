@@ -1,5 +1,6 @@
 .img_painting {
     max-width: 100%;
+    max-height: 100%;
     margin-bottom: 1.2em;
     border: 1em solid white;
 }
