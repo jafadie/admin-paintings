@@ -14,16 +14,18 @@
 }
 
 .header_painting {
+	border: 0.5em solid white;
 	text-align: left;
-	font-size: 1.8em;
-	margin-left: 0.5em;
+	font-size: 2.1em;
+	font-family: "Lato", sans-serif;
 }
 
 .caption_painting {
-	margin-top:-16em;
+	margin-top:-12%;
 	text-align:left;
-	margin-left:2em;
+	margin-left:6%;
 	width:20%;
 	white-space:normal;
+	font-size: 1.3em;
 	font-family: "Lato", sans-serif;
 }
