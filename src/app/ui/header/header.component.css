@@ -1,30 +1,57 @@
-  .logo {
-    margin-left: 8%;
-  }
+/* __________ Logo __________ */
+.logo {
+  float:left;
+  margin-left: 10%;
+}
 
-  .navbar-collapse {
-    margin-right: 8%;
-  }
+.logo a {
+  /*text-transform:uppercase;*/
+  line-height: 4em;
+  color:#012e67;
+  font-family: 'Roboto', sans-serif;
+}
+.logo a span {
+  padding-right: 0.5%;
 
-  .navbarSupportedContent .nav-item {
-    font-size: 1.1em;
-  }
+}
 
-  .navbar-nav a {
-    font-size: 1.1em;
-    /*font-weight: 600;*/
-    margin-right: 1.5em;
-    color: #012e67;
-  }
+.logo a span.logoIndigo {
+  font-size: 4em;
+  font-family: 'roboto-medium', sans-serif;
+}
 
-  .navbar-nav a:hover,
-  .navbar-nav li > a.active {
-    /*font-size: 1.1em;*/
-    /*color:#000;*/
-    /*font-weight:600;*/
-    /*text-decoration: underline;*/
-  }
+.logo a span.logoGris {
+  color: #A19C9B;
+  font-size: 3em;
+  font-family: 'roboto-light', sans-serif;
+}
 
-  .dropdown-menu {
-    font-size: 1.1em;
-  }
+
+
+
+/* __________ Menu __________ */
+.navbar-collapse {
+  margin-right: 10%;
+}
+
+.navbarSupportedContent .nav-item {
+  font-size: 1.1em;
+}
+
+.navbar-nav a {
+  font-size: 110%;
+  margin-right: 1.5em;
+  color: #012e67;
+}
+
+.navbar-nav a:hover,
+.navbar-nav li > a.active {
+  font-size: 1.2em;
+  /*color:#000;*/
+  /*font-weight:600;*/
+  /*text-decoration: underline;*/
+}
+
+.dropdown-menu {
+  font-size: 110%;
+}
