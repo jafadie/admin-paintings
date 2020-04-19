@@ -145,10 +145,10 @@ export class PortfolioComponent implements OnInit {
 
 
 					$customEvents.on('onBeforeSlide.lg',function(event){
-						$('.lg-item').css('margin-top', '7em');
+						//$('.lg-item').css('margin-top', '7em');
 						$('.lg-item').css('max-width', '100%');
 						$('.lg-item').css('max-height', '100%');
-						$('.lg-item').css('height', '85%');
+						$('.lg-item').css('height', '95%');
 
 						
 						$('.lg-toolbar').css('background-color', '#ffffff');
