@@ -15,13 +15,13 @@
   max-width: 900px;
   padding: 0;
   margin: 0;
-  background-color: yellow;
+  /*background-color: yellow;*/
   align-items: center;
   justify-content: center;
 }
 
 .my_box {
-  height: 280px;
+  height: 21em;
   border: solid 1px #ccc;
   font-size: 10pt;
   font-weight: bold;
@@ -42,11 +42,11 @@
 }
 
 .box_vertical {
-  width: 230px;
+  width: 17em;
 }
 
 .box_horizontal {
-  width: 460px;
+  width: 34em;
 }
 
 
