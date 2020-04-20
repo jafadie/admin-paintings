@@ -1,3 +1,9 @@
+/* __________ Header __________ */
+header {
+  position:relative;
+  height:3em;
+}
+
 /* __________ Logo __________ */
 .logo {
   float:left;

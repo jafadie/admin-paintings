@@ -1,28 +1,60 @@
-<div *ngIf="!series">
-	Cargando listado de cuadros
+<div class="container-fluid" style="margin-top: 4em;">
+	<div class="row">
+		<div class="col-md-1 col-sm-1 col-xs-1">
+		</div>
+
+		<div class="col-md-10 col-sm-10 col-xs-10">
+			<div *ngIf="!series">
+				Cargando listado de cuadros
+			</div>
+
+			<div *ngIf="series" style="font-size: 1.6em; line-height: 1.5em;">
+				<ul>
+					<li *ngFor="let serie of series">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-8 col-sm-8 col-xs-8">
+									<strong>{{serie.title}}</strong>
+								</div>
+
+								<div class="col-md-3 col-sm-3 col-xs-3">
+									<i (click)="onSelectIdSerie(serie.idSerie)" class="fa fa-pencil-square-o" aria-hidden="true" style="margin-left: 1em; color:#012e67;"></i>
+						
+									<i (click)="onDeleteSerie(serie.idSerie)" class="fa fa-trash" aria-hidden="true" style="margin-left: 0.2em; color:#012e67;"></i>
+								</div>
+							</div>
+						</div>
+
+						
+						
+							
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="col-md-1 col-sm-1 col-xs-1">
+		</div>
+	</div>
 </div>
 
-<div *ngIf="series" style="margin-top: 60px; font-size: 20px; line-height: 1.5em;">
-	<ul>
-		<li *ngFor="let serie of series">
-			<strong>{{serie.title}}</strong>
-			
-				<i (click)="onSelectIdSerie(serie.idSerie)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
-			
-				<i (click)="onDeleteSerie(serie.idSerie)" class="fa fa-trash" aria-hidden="true"></i>
-		</li>
-	</ul>
-</div>
 
 
+
+
+
+
+
+<!--
 <form class="col-lg-8" id="form-painting" style="margin-top: 60px;">
 
-	<div class="form-group"> <!-- Technique-->
+	<div class="form-group">
 		<label for="technique" class="control-label">Texto</label>
 		<input type="text" class="form-control" id="technique" name="technique" placeholder="Mi texto">
 	</div>
 
-	<div class="form-group"> <!-- Create Button -->
+	<div class="form-group">
 		<button type="submit" class="btn btn-primary">Visita mi sitio</button>
 	</div>
 </form>
+-->

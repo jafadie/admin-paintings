@@ -1,18 +1,14 @@
-
 /*-----------------------------------------------------------------------------------*/
 /*	GENERAL STYLING
 /*-----------------------------------------------------------------------------------*/
-
-
 body {
 	overflow-x:hidden;
 	position:relative;
 	margin: 0;
 	padding:0;
 	font-family: 'roboto-medium', sans-serif;
-	font-weight:300;
-	font-size: 13px;
-	line-height: 20px;
+	font-size: 0.8em;
+	line-height: 1.5em;
 	color: #666;
 	background-color:#fff;
 }
@@ -22,7 +18,7 @@ img {
 	outline:0;
 	vertical-align:top;
 	border:0;
-	max-width:100.1%;
+	max-width:100%;
 	height:auto;
 }
 
@@ -60,12 +56,6 @@ h6 {margin:0 0 15px; line-height:20px; font-size:12px;}
 .right {text-align:right;}
 
 .color_text {color:#30a67c;}
-.color_dark {color:#505050;}
-.color_light {color:#979797;}
-.color_white {color:#fff;}
-.color_red {color:#c10707;}
-.color_yellow {color:#fec400;}
-
 .color_bg {background:#30a67c;}
 
 
@@ -76,14 +66,13 @@ h6 {margin:0 0 15px; line-height:20px; font-size:12px;}
 /* __________ Buttons __________ */
 .btn {
 	margin: 0;
-	padding: 24px 27px 22px;
 	border:2px solid #ccc;
 	border-radius: 0;
 	box-shadow: none;
 	text-transform:uppercase;
 	font-weight: 900;
-	line-height: 20px;
-	font-size: 13px;
+	line-height: 1.5em;
+	font-size: 0.9em;
 	color:#999;
 	text-shadow: none;
 	background-image: none !important;
@@ -92,7 +81,7 @@ h6 {margin:0 0 15px; line-height:20px; font-size:12px;}
 }
 .btn:focus, .btn:hover {color:#012e67; border-color:#012e67;}
 
-.btn-active {background-color:#1c1c1c; color:#fff; border-color:#1c1c1c;}
+.btn-active {background-color:#1c1c1c; color:#012e67; border-color:#012e67;}
 .btn-active:hover {color:#fff;}
 
 
@@ -100,69 +89,13 @@ h6 {margin:0 0 15px; line-height:20px; font-size:12px;}
 .btn-sm {padding: 6px 20px 5px; font-size:13px;}
 .btn-xs {padding: 2px 15px 3px; font-size:11px;}
 
+.btn-md {padding: 0.5em 3em 0.5em; font-size:1.1em;}
 
 .btn_shortcodes .btn {margin:0 7px 10px 0;}
 .btn_shortcodes .btn:last-child {margin-right:0;}
 
 
 .ie .btn, .ie .btn-default {filter:none !important;}
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	HEADER
-/*-----------------------------------------------------------------------------------*/
-header {
-	position:relative;
-	height:60px;
-	background-color:#fff;
-}
-
-
-
-
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	FOOTER
-/*-----------------------------------------------------------------------------------*/
-#contacts {
-	position: relative;
-	z-index:0;
-	padding:0;
-	background:transparent;
-}
-
-footer {
-	overflow:hidden;
-	position:fixed;
-	z-index:1;
-	bottom:0;
-	left:50%;
-	opacity:0;
-	width:100%;
-	padding:60px 0 10px;
-	color:#999;
-	background-color:#1c1c1c;
-	transform: translateX(-50%);
-	-ms-transform: translateX(-50%);
-	-webkit-transform: translateX(-50%);
-}
-footer h4 {color:#fff;}
-
-
-
-/* __________ Footer About Block __________ */
-.foot_about_block p {
-	margin-bottom:24px;
-	padding-right:71px;
-	line-height:24px;
-	font-size:12px;
-}
-
-
-
 
 
 
@@ -174,13 +107,12 @@ footer h4 {color:#fff;}
 textarea,
 input[type="text"] {
 	width:100%;
-	margin:0 0 10px;
+	margin:0 0 0.7em;
 	padding: 10px 8px;
 	text-transform:none;
-	font-family: 'Roboto', sans-serif;
-	font-weight:400;
-	line-height:20px;
-	font-size: 12px;
+	font-family: 'roboto-light', sans-serif;
+	line-height: 1.5em;
+	font-size: 0.9em;
 	color: #333;
 	font-style:normal;
 	border-radius: 0;	
@@ -196,8 +128,7 @@ textarea {
 	resize: none;
 }
 textarea,
-input[type="text"].last {margin-right:0;
-}
+input[type="text"].last {margin-right:0;}
 
 
 textarea:focus,
@@ -222,36 +153,15 @@ input[type="color"]:focus {
 }
 
 
-.contact_btn {
-	display:inline-block;
-	cursor:pointer;
-	margin: 0 7px 10px 0;
-	padding:13px 30px;
-	border: 2px solid #242424;
-	border-radius: 0;
-	box-shadow: 0;
-	text-shadow:none;
-	text-decoration:none;
-	text-transform:uppercase;
-	font-family: 'Roboto', sans-serif;
-	font-weight:900;
-	line-height:20px;
-	font-size:13px;
-	color:#333;
-	background: none; 
-	transition: all 0.3s ease-in-out;
-	-webkit-transition: all 0.3s ease-in-out;
-}
-.contact_btn.active, .contact_btn:hover {background: none; color:#fff; border-color:#ccc;}
-
 .notification_error {color:#30a67c;}
 
 
 
 @media (max-width: 1024px) {
-
 	
 }
+
+
 
 @media (min-width: 992px) and (max-width: 1199px) {
 	.parallax, .cleancode_block, #team {background-attachment:scroll !important; background-size:100% auto !important; -webkit-background-size:100% auto !important;}
@@ -264,12 +174,16 @@ input[type="color"]:focus {
 
 }
 
+
+
 @media (min-width: 768px) and (max-width: 991px) {
 	.logo a {font-size:22px;}
 	
 /* __________ Footer __________ */
 	footer {position:static; left:auto; bottom:auto; transform:none; -webkit-transform:none;}
 }
+
+
 
 @media (max-width: 767px) {
 	.container {padding-left:15px; padding-right:15px;}
@@ -280,26 +194,6 @@ input[type="color"]:focus {
 	
 	.logo a {font-size:22px;}
 	
-/* __________ Menu __________ */
-	a.menu_toggler {display:inline-block; float:right; margin: 20px 0 0 20px; width:40px; height:40px; text-align:center; line-height:38px; font-size:23px; color:#fff; background-color:#333;}
-	a.menu_toggler:hover {background-color:#333;}
-	
-	.navmenu {position:absolute; left:0; right:0; top:80px; background-color:#fff;}
-	.navmenu ul {padding:10px 0;}
-	.navmenu ul li {display:block; text-align:left;}
-	.navmenu ul li a {padding:4px 20px;}
-	
-	.sub-menu ul {display:block; position:static; width:100%; box-shadow:none; padding:0; margin:0;}
-	.sub-menu ul:before {display:none !important;}
-	.navmenu li.sub-menu:hover, .navmenu li.sub-menu.active_page {background:none;}
-	.sub-menu ul li a {background:none; border:0; padding-left:30px;}
-	.sub-menu ul li a:hover, .sub-menu ul li.active a {background:none !important; color:#333 !Important;}
-	.sub-menu ul li a:before {content:'-'; position:absolute; z-index:10; left:17px; top:4px; color:#666;}
-
-
-
-/* __________ Footer __________ */
-	footer {position:static; left:auto; bottom:auto; transform:none; -webkit-transform:none;}
 }
 
 @media (max-width: 479px) {
@@ -310,6 +204,7 @@ input[type="color"]:focus {
 }
 
 
+/* __________ Fonts __________ */
 @font-face {
   font-family: roboto-bold;
   src: url(assets/fonts/Roboto-Bold.ttf) format("truetype");

@@ -1,19 +1,24 @@
-
-
-<div class="container-fluid" style="margin-top: 50px;">
+<div class="container-fluid">
 	<div class="row">
-		
-		<form #formSerie="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12" id="form-serie">
-			<div class="form-group"> <!-- Serie -->
-				<label for="serie" class="control-label">Serie</label>
-				<input type="text" class="form-control" id="serie" name="serie" #title="ngModel" [(ngModel)]="serie['title']" placeholder="Name serie">
-			</div>
+		<div class="col-md-1 col-sm-1 col-xs-1">
+		</div>
 
-			<div class="form-group"> <!-- Create Button -->
-				<button type="submit" class="btn btn-sm btn-primary">Create</button>
-			</div>
-		</form>
+		<div class="col-md-10 col-sm-10 col-xs-10">
+			<form #formSerie="ngForm" (ngSubmit)="onSubmit()" id="form-serie">
+				<div class="form-group"> <!-- Serie -->
+					<label for="serie" class="control-label">Serie</label>
+					<input type="text" id="serie" name="serie" #title="ngModel" [(ngModel)]="serie['title']" placeholder="Name serie" required>
+				</div>
 
+				<div class="form-group"> <!-- Create Button -->
+					<button type="submit" class="btn btn-md btn-default" [disabled]="!formSerie.valid">Create</button>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-md-1 col-sm-1 col-xs-1">
+		</div>
 
 	</div>
 </div>
+

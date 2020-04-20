@@ -28,7 +28,7 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
   public source: CdkDropListContainer;
   public sourceIndex: number;
 
-	public paintings:any = [];
+	public paintings:any;
 	public isVisible: Boolean;
 
   baseUri:string = GLOBAL.baseUri;
