@@ -122,6 +122,49 @@ input[type="text"] {
 	transition: border-color 0.3s ease-in-out; 
 	-webkit-transition: border-color 0.3s ease-in-out;
 }
+
+input[type="file"] {
+	width:100%;
+	padding-bottom: 2.2em;
+	text-transform:none;
+	font-family: 'roboto-light', sans-serif;
+	line-height: 1.4em;
+	font-size: 1.1em;
+	color: #333;
+	font-style:normal;
+	border-radius: 0;	
+	background: none;
+	border: 2px solid #242424;
+	box-shadow: none;
+	transition: border-color 0.3s ease-in-out; 
+	-webkit-transition: border-color 0.3s ease-in-out;
+}
+
+
+input[type="checkbox"]:not(old):checked + label {
+  background: url("./assets/images/check-mark-8-16.png") no-repeat 0 0;
+}
+
+input[type="checkbox"]:not(old) + label {
+  background: url("./assets/images/square-outline-16.png") no-repeat 0 0; 
+  cursor: pointer;
+  padding-left: 1.7em;
+}
+
+
+input[type="radio"]:not(old):checked + label {
+  background: url("./assets/images/circle-16.png") no-repeat 0 0;
+}
+
+input[type="radio"]:not(old) + label {
+  background: url("./assets/images/circle-outline-16.png") no-repeat 0 0;
+  cursor: pointer;
+  padding-left: 1.7em;
+}
+
+
+
+
 textarea {
 	overflow:hidden;
 	min-height:95px;
@@ -133,6 +176,7 @@ input[type="text"].last {margin-right:0;}
 
 textarea:focus,
 input[type="text"]:focus,
+input[type="file"]:focus,
 input[type="password"]:focus,
 input[type="datetime"]:focus,
 input[type="datetime-local"]:focus,

@@ -53,6 +53,8 @@ export class PaintingCreateComponent implements OnInit {
 	ngOnInit(){
   		console.log('painting-create.component.ts cargado');
 		this.painting = this.initializePainting();
+
+		this.painting['available'] = true;
   	}
 
   	onSubmit(){

@@ -1,77 +1,108 @@
-
-<div *ngIf="is_visible" class="container-fluid" style="margin-top: 50px;">
+<div class="container-fluid">
 	<div class="row">
-		
-		<form #formPainting="ngForm" (ngSubmit)="onSubmit()" class="col-lg-8" id="form-painting">
+		<div class="col-md-1 col-sm-1 col-xs-1">
+		</div>
 
-			<div class="container">
-				<div class="row">
-					<div class="col-md-9 col-sm-9 col-xs-9">
-						<div class="form-group"> <!-- Title -->
-							<label for="title" class="control-label">Title</label>
-							<input type="text" class="form-control" id="title" name="title" #title="ngModel" [(ngModel)]="painting['title']" placeholder="Mi cuadro">
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-3 col-xs-3">
-						<div class="form-group"> <!-- Year -->
-							<label for="year" class="control-label">Year</label>
-							<input type="text" class="form-control" id="year" name="year" #year="ngModel" [(ngModel)]="painting['year']" placeholder="2020">
-						</div>
-					</div>
-					
-				</div>
-			</div>
 
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-sm-3 col-xs-3">
-						<div class="form-group"> <!-- Height -->
-							<label for="height" class="control-label">Height</label>
-							<input type="text" class="form-control" id="height" name="height" #height="ngModel" [(ngModel)]="painting['height']" placeholder="110cm">
-						</div>
-					</div>
+		<!--<div class="col-md-10 col-sm-10 col-xs-10" *ngIf="is_visible">-->
+		<div class="col-md-10 col-sm-10 col-xs-10">
+			<form #formPainting="ngForm" (ngSubmit)="onSubmit()" id="form-painting">
 
-					<div class="col-md-3 col-sm-3 col-xs-3">
-						<div class="form-group"> <!-- Width -->
-							<label for="width" class="control-label">Width</label>
-							<input type="text" class="form-control" id="width" name="width" #width="ngModel" [(ngModel)]="painting['width']" placeholder="150cm">
-						</div>	
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-7 col-sm-7 col-xs-7">
+							<div class="form-group"> <!-- Title -->
+								<label for="title" class="control-label">Title</label>
+								<input type="text" id="title" name="title" #title="ngModel" [(ngModel)]="painting['title']" placeholder="Mi cuadro" required>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-3 col-xs-3">
+							<div class="form-group"> <!-- Year -->
+								<label for="year" class="control-label">Year</label>
+								<input type="text" id="year" name="year" #year="ngModel" [(ngModel)]="painting['year']" placeholder="2020" required>
+							</div>
+						</div>
+
+						
 					</div>
 				</div>
-			</div>
-			
 
-			
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-3 col-sm-3 col-xs-3">
+							<div class="form-group"> <!-- Height -->
+								<label for="height" class="control-label">Height</label>
+								<input type="text" id="height" name="height" #height="ngModel" [(ngModel)]="painting['height']" placeholder="110cm" required>
+							</div>
+						</div>
 
+						<div class="col-md-3 col-sm-3 col-xs-3">
+							<div class="form-group"> <!-- Width -->
+								<label for="width" class="control-label">Width</label>
+								<input type="text" id="width" name="width" #width="ngModel" [(ngModel)]="painting['width']" placeholder="150cm" required>
+							</div>	
+						</div>
+					</div>
+				</div>
+
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-10 col-sm-10 col-xs-10">
+							<div class="form-group"> <!-- Technique-->
+								<label for="technique" class="control-label">Technique</label>
+								<input type="text" id="technique" name="technique" #technique="ngModel" [(ngModel)]="painting['technique']" placeholder="Oleo" required>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-10 col-sm-10 col-xs-10">
+							<div class="form-group"> <!-- Available-->
+								<div class="demo"> 
+							    	
+							    	<span><input type="checkbox" name="available" #available="ngModel" id="available" [(ngModel)]="painting['available']" style="opacity: 0;" checked required><label for="available" style="">Available</label></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-10 col-sm-10 col-xs-10">
+							<div class="form-group"> <!-- Image-->
+								<label for="image" class="control-label">Image</label>
+								<div *ngIf="is_edit">
+									<img src="{{baseUri}}/images/{{painting['image']}}" width="60%;" />
+								</div>
+								<input type="file" class="form-control" id="image" name="image" placeholder="image001.jpeg" (change)="fileChangeEvent($event)" required>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-10 col-sm-10 col-xs-10">
+							<div class="form-group"> <!-- Create Button -->
+								<button type="submit" class="btn btn-md btn-default" [disabled]="!formPainting.valid">{{nameButton}}</button>
+							</div>
+						</div>
+					</div>
+				</div>
 				
-									
-			<div class="form-group"> <!-- Technique-->
-				<label for="technique" class="control-label">Technique</label>
-				<input type="text" class="form-control" id="technique" name="technique" #technique="ngModel" [(ngModel)]="painting['technique']" placeholder="Oleo">
-			</div>
+			</form>
+		</div>
 
-
-			<div class="form-group"> <!-- Available-->
-				<div class="custom-control custom-checkbox"> 
-			    	<input type="checkbox" class="custom-control-input" name="available" #available="ngModel" id="available" [(ngModel)]="painting['available']">
-			    	<label class="custom-control-label" for="available">Available</label>
-				</div>
-			</div>
-			
-
-			<div class="form-group"> <!-- Image-->
-				<label for="image" class="control-label">Image</label>
-				<div *ngIf="is_edit">
-					<img src="{{baseUri}}/images/{{painting['image']}}" width="60%;" />
-				</div>
-				<input type="file" class="form-control" id="image" name="image" placeholder="image001.jpeg" (change)="fileChangeEvent($event)">
-			</div>
-			
-			
-			<div class="form-group"> <!-- Create Button -->
-				<button type="submit" class="btn btn-primary">{{nameButton}}</button>
-			</div>
-		</form>
-		
+		<div class="col-md-1 col-sm-1 col-xs-1">
+		</div>
 	</div>
 </div>
+
+

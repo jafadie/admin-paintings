@@ -1,23 +1,40 @@
-<div id="myNotifications" style="margin-top: 70px;">
-	<div *ngIf="!notifications">
-		Cargando listado de notificaciones
-	</div>
+<div class="container-fluid" style="margin-top: 40px;">
+	<div class="row">
+		<div class="col-md-1 col-sm-1 col-xs-1">
+		</div>
 
-	<div class="container-fluid" *ngIf="notifications">
-		<div *ngFor="let notification of notifications">
-			<div class="row">
-				<div class="col-md-2 col-sm-2 col-xs-2">
-					{{notification.type}}
+		<div class="col-md-10 col-sm-10 col-xs-10">
+			<div id="myNotifications">
+				<div *ngIf="!notifications">
+					Cargando listado de notificaciones
 				</div>
-				<div class="col-md-2 col-sm-2 col-xs-2">
-					{{notification.eventType}}
+
+				<div class="container-fluid" *ngIf="notifications">
+					<div *ngFor="let notification of notifications">
+						<div class="row">
+							<div class="col-md-2 col-sm-2 col-xs-2">
+								{{notification.type}}
+							</div>
+							<div class="col-md-2 col-sm-2 col-xs-2">
+								{{notification.eventType}}
+							</div>
+							<div class="col-md-8 col-sm-8 col-xs-8">
+								{{notification.deliveryDate}}
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="col-md-8 col-sm-8 col-xs-8">
-					{{notification.deliveryDate}}
-				</div>
+
 			</div>
 		</div>
-	</div>
 
+		<div class="col-md-1 col-sm-1 col-xs-1">
+		</div>
+	</div>
 </div>
+
+
+
+
+
 
