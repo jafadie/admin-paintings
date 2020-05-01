@@ -11,6 +11,7 @@ import { NotificationSent } from '../models/notificationSent.model';
 import Swal from 'sweetalert2'
 declare var jQuery: any;
 
+
 @Component({
   selector: 'app-notification-create',
   templateUrl: './notification-create.component.html',
@@ -27,6 +28,8 @@ export class NotificationCreateComponent implements OnInit {
 	public filesToUpload;
 	public myUserList: any = [];
 	public buttonName: string;
+  public deliveryDate:Date;
+  public myGlobalCheck;
 
 
   constructor(
@@ -42,8 +45,9 @@ export class NotificationCreateComponent implements OnInit {
 
   ngOnInit() {
   	console.log('notification-create.component.ts cargado'); 	
-  }
 
+    this.notification['deliveryDate'] = new Date().toISOString().slice(0, 16);
+  }
 
 
   fillEventTypesNuevaExpo(){
@@ -112,6 +116,13 @@ export class NotificationCreateComponent implements OnInit {
 			console.log(<any>error);
 		}
 	);
+  }
+
+  checkValueGlobalCheck(event: any) {
+    
+      for (let myUser of this.myUserList) {
+        myUser[0] = event;
+      }
   }
 
 
@@ -244,7 +255,9 @@ export class NotificationCreateComponent implements OnInit {
 				let myUser: [boolean, User] = [false, user];
 				this.myUserList[i] = myUser;
 				i++;
-			}		
+			}
+
+      this.checkValueGlobalCheck(this.myGlobalCheck);		
 
 		},
 		error => {
@@ -253,10 +266,17 @@ export class NotificationCreateComponent implements OnInit {
 	);
   }
 
+  initializeUsers() {
+
+    this.getUsers();
+
+    this.myGlobalCheck = true;
+    
+  }
   
   onChangeNotificationType(e){
 
-  	this.getUsers();
+  	this.initializeUsers();
   	
 
   	//inicializar notificacion

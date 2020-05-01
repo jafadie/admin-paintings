@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-1 col-sm-1 col-xs-1">
@@ -25,23 +24,30 @@
 							</div>
 						</div>
 
-						<div class="col-md-10 col-sm-10 col-xs-10">
+						<div class="col-md-5 col-sm-5 col-xs-5">
 							<div class="form-group" id="divEventType" *ngIf="notification['type']">
-								<!--<label for="selectEventType" class="control-label">Event Type</label>-->
-								<select  class="form-control" #selectEventType name="selectEventType" id="selectEventType" (change)="onOptionEventSelected(selectEventType.value)">
-			     					<option *ngFor="let eventType of eventTypes" [value]="eventType.idEventType">{{eventType.description}}</option>
-			     				</select>
+								<label for="selectEventType" class="control-label">Event Type</label>
+								<div class="select_box">
+									<select  class="pruSelect select-selected" #selectEventType name="selectEventType" id="selectEventType" (change)="onOptionEventSelected(selectEventType.value)">
+			     						<option *ngFor="let eventType of eventTypes" [value]="eventType.idEventType">{{eventType.description}}</option>
+			     					</select>
+								</div>
+								
 	     					</div>
 						</div>
 
-						<div class="col-md-10 col-sm-10 col-xs-10">
+						<div class="col-md-5 col-sm-5 col-xs-5">
 							<div class="form-group" id="divMediaType" *ngIf="notification['type'] && notification['type']==1">
-								<!--<label for="selectMediaType" class="control-label">Media</label>-->
-								<select  class="form-control" #selectMediaType name="selectMediaType" id="selectMediaType" (change)="onOptionMediaSelected(selectMediaType.value)">
-			     					<option *ngFor="let mediaType of mediaTypes" [value]="mediaType.idMediaType">{{mediaType.description}}</option>
-			     				</select>
+								<label for="selectMediaType" class="control-label">Media</label>
+								<div class="select_box">
+									<select class="pruSelect select-selected" #selectMediaType name="selectMediaType" id="selectMediaType" (change)="onOptionMediaSelected(selectMediaType.value)">
+			     						<option *ngFor="let mediaType of mediaTypes" [value]="mediaType.idMediaType">{{mediaType.description}}</option>
+			     					</select>
+								</div>
 	     					</div>
 						</div>
+
+
 
 						<div class="col-md-10 col-sm-10 col-xs-10">
 							<div class="form-group" id="divTitle" *ngIf="notification['type'] && notification['type']==0"> 
@@ -54,19 +60,23 @@
 								<label for="localization" class="control-label">Localization</label>
 								<input type="text" id="localization" name="localization" #localization="ngModel" [(ngModel)]="notification['localization']" placeholder="Localization" required>
 							</div>
+						</div>
 
-
+						<div class="col-md-5 col-sm-5 col-xs-5">
 							<div class="form-group" id="divOpeningDate" *ngIf="notification['type'] && notification['type']==0">
 								<label for="openingDate" class="control-label">Opening date</label>
 							  	<input type="datetime-local" class="form-control" name="openingDate" #openingDate="ngModel" id="openingDate" [(ngModel)]="notification['openingDate']" required>
 							</div>
+						</div>
 
-
+						<div class="col-md-5 col-sm-5 col-xs-5">
 							<div class="form-group" id="divClosingDate" *ngIf="notification['type'] && notification['type']==0">
 								<label for="closingDate" class="control-label">Closing date</label>
 							  	<input type="datetime-local" class="form-control" name="closingDate" #closingDate="ngModel" id="closingDate" [(ngModel)]="notification['closingDate']" required>
 							</div>
+						</div>
 
+						<div class="col-md-10 col-sm-10 col-xs-10">
 							<div class="form-group" id="divLink" *ngIf="notification['type'] && notification['type']==1"> 
 								<label for="link" class="control-label">Link</label>
 								<input type="text" id="link" name="link" #link="ngModel" [(ngModel)]="notification['link']" placeholder="Link" required>
@@ -79,47 +89,68 @@
 								</div>
 								<input type="file" class="form-control" id="image" name="image" placeholder="image001.jpeg" (change)="fileChangeEvent($event)">
 							</div>
-	     				
-							
 						</div>
 
-						
+						<!--<div class="custom-file">
+						  <input type="file" class="custom-file-input" id="customFile">
+						  <label class="custom-file-label" for="customFile">Choose file</label>
+						</div>-->
 
-						<div class="col-md-12 col-sm-12 col-xs-12">
+
+						<div class="col-md-5 col-sm-5 col-xs-5">
 
 							<div class="form-group" id="divScheduled" *ngIf="notification['type']"> <!-- Scheduled-->
-								<div class="custom-control custom-checkbox"> 
-					    			<input type="checkbox" class="custom-control-input" name="scheduled" #scheduled="ngModel" id="scheduled" [(ngModel)]="notification['scheduled']" (change)="checkValueScheduled(notification['scheduled'])">
-					    			<label class="custom-control-label" for="scheduled">Scheduled</label>
+								<div class="custom-control custom-checkbox scheduledMargin">
+							    	<span><input type="checkbox" name="scheduled" #scheduled="ngModel" id="scheduled" [(ngModel)]="notification['scheduled']" style="opacity: 0;" (change)="checkValueScheduled(notification['scheduled'])" required><label for="scheduled">Scheduled</label></span>
 								</div>
 							</div>
+						</div>
 
 
+
+						<div class="col-md-5 col-sm-5 col-xs-5">
 							<div class="form-group" id="divDeliveryDate" *ngIf="notification['type'] && notification['scheduled']">
 								<label for="deliveryDate" class="control-label">Delivery date</label>
 							  	<input type="datetime-local" class="form-control" name="deliveryDate" #deliveryDate="ngModel" id="deliveryDate" [(ngModel)]="notification['deliveryDate']" required>
 							</div>
-
-
-							<div class="form-group" id="divUserList" *ngIf="notification['type']">
-								<div class="custom-control custom-checkbox" *ngFor="let myUser of myUserList; let i= index"> 
-
-									<input type="checkbox" class="custom-control-input" name="{{'inlineCheckbox' + i}}" id="{{'inlineCheckbox' + i}}" [(ngModel)]="myUser[0]">
-					    			<label class="custom-control-label" for="{{'inlineCheckbox' + i}}">{{myUser[1]["email"]}}</label>
-
-					    			
-								</div>
-							</div>
-
 						</div>
 
-						
+
+
+						<div class="col-md-5 col-sm-5 col-xs-5" style="margin-top: 2em;">
+
+							<div class="form-group" style="margin-bottom: 0;" id="divGlobalCheck" *ngIf="notification['type']"> <!-- Global checkbox -->
+								<div class="custom-control custom-checkbox scheduledMargin">
+							    	<span><input type="checkbox" name="globalCheck" id="globalCheck" #globalCheck="ngModel" [(ngModel)]="myGlobalCheck" style="opacity: 0;" (change)="checkValueGlobalCheck(myGlobalCheck)" required><label for="globalCheck">Check all users</label></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-11 col-sm-11 col-xs-11" *ngIf="notification['type']">
+							<div class="boxCheckboxList">
+							    <div class="container-fluid">
+							        <div class="row">
+							            <div class="col-md-12 col-sm-12 col-xs-12">
+					                        <div *ngFor="let myUser of myUserList; let i= index">
+					                            <div href="#" style="width: 30%; float: left;">
+					                            	<span>
+														<input type="checkbox" name="{{'inlineCheckbox' + i}}" id="{{'inlineCheckbox' + i}}" [(ngModel)]="myUser[0]" style="opacity: 0;">
+								    					<label for="{{'inlineCheckbox' + i}}">{{myUser[1]["email"]}}</label>
+								    				</span>
+					                            </div>
+					                        </div>
+							            </div>
+							        </div>
+							    </div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 
 				
 				
-				<div class="form-group" id="divBtnSaveNotification" *ngIf="notification['type']"> <!-- Create Button -->
+				<div class="container-fluid form-group" id="divBtnSaveNotification" *ngIf="notification['type']"> <!-- Create Button -->
 					<button type="submit" class="btn btn-md btn-default" [disabled]="!formUser.valid">{{buttonName}}</button>
 				</div>
 
