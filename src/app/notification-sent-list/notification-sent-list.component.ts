@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NotificationSentService } from '../services/notificationSent.service';
+import { NotificationType } from '../models/notificationType.model';
+import { EventType } from '../models/eventType.model';
+import { MediaType } from '../models/mediaType.model';
 
 @Component({
   selector: 'app-notification-sent-list',
@@ -11,6 +14,10 @@ import { NotificationSentService } from '../services/notificationSent.service';
 export class NotificationSentListComponent implements OnInit {
 
 	public notificationsSent:any = [];
+	public notificationTypes: NotificationType[];
+	public eventTypes0: EventType[];
+	public eventTypes1: EventType[];
+	public mediaTypes: MediaType[];
 
   constructor(
   		private _route: ActivatedRoute,
@@ -22,6 +29,11 @@ export class NotificationSentListComponent implements OnInit {
   	console.log('notification-sent-list.component.ts cargado');
 
   	this.getSentLastFiveNotifications();
+
+  	this.fillNotificationTypes();
+  	this.fillEventTypesNuevaExpo();
+  	this.fillEventTypesArticulosPrensa();
+  	this.fillMediaTypes();
   }
 
   getSentLastFiveNotifications(){
@@ -36,5 +48,69 @@ export class NotificationSentListComponent implements OnInit {
 			}
 		);
 	}
+
+	fillNotificationTypes(){
+		this.notificationTypes = [
+	      {
+	        idNotificationType: 0,
+	        description: 'Nueva exposición'
+	      },
+	      {
+	        idNotificationType: 1,
+	        description: 'Artículos prensa'
+	      },
+	    ];
+	}
+
+	fillEventTypesNuevaExpo(){
+		this.eventTypes0 = [
+	      {
+	        idEventType: 0,
+	        description: 'Exposición individual'
+	      },
+	      {
+	        idEventType: 1,
+	        description: 'Exposición colectiva'
+	      },
+	      {
+	        idEventType: 2,
+	        description: 'Premio/Concurso'
+	      },
+	    ];
+	}
+
+  fillEventTypesArticulosPrensa(){
+	this.eventTypes1 = [
+      {
+        idEventType: 0,
+        description: 'Artículo'
+      },
+      {
+        idEventType: 1,
+        description: 'Entrevista'
+      },
+      {
+        idEventType: 2,
+        description: 'Reportaje'
+      },
+    ];
+  }
+
+  fillMediaTypes(){
+  	this.mediaTypes = [
+      {
+        idMediaType: 0,
+        description: 'Impreso'
+      },
+      {
+        idMediaType: 1,
+        description: 'Online'
+      },
+      {
+        idMediaType: 2,
+        description: 'Vídeo'
+      },
+    ];
+  }
 
 }

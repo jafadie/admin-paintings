@@ -1,25 +1,44 @@
-<div class="container-fluid" style="margin-top: 40px;">
+<div class="container-fluid" style="margin-top: 5em;">
 	<div class="row">
 		<div class="col-md-1 col-sm-1 col-xs-1">
 		</div>
 
-		<div class="col-md-10 col-sm-10 col-xs-10">
+		<div class="col-md-11 col-sm-11 col-xs-11">
 			<div id="myNotifications">
 				<div *ngIf="!notifications">
 					Cargando listado de notificaciones
 				</div>
 
-				<div class="container-fluid" *ngIf="notifications">
+				<div class="titleNotifications">
+					Scheduled notifications
+				</div>
+
+				<div class="container-fluid notificationsStyle" *ngIf="notifications">
 					<div *ngFor="let notification of notifications">
-						<div class="row">
-							<div class="col-md-2 col-sm-2 col-xs-2">
-								{{notification.type}}
+						<div class="row rowNotificationsStyle">
+							<div class="col-md-3 col-sm-3 col-xs-3">
+								{{notificationTypes[notification.type]['description']}}
 							</div>
-							<div class="col-md-2 col-sm-2 col-xs-2">
-								{{notification.eventType}}
+
+							<div class="col-md-2 col-sm-2 col-xs-2" *ngIf="notification['type']==0">
+								{{eventTypes0[notification.eventType]['description']}}
 							</div>
-							<div class="col-md-8 col-sm-8 col-xs-8">
-								{{notification.deliveryDate}}
+							<div class="col-md-2 col-sm-2 col-xs-2" *ngIf="notification['type']==1">
+								{{eventTypes1[notification.eventType]['description']}}
+							</div>
+
+							<div class="col-md-4 col-sm-4 col-xs-4">
+								<div class="miTooltip">{{notification.localization}}
+									<span *ngIf="notification['type']==0" class="tooltiptext">{{notification.title}}</span>
+									<span *ngIf="notification['type']==1" class="tooltiptext">
+										<a class="linkStyle" href="{{notification.link}}" target="_blank">{{notification.link}}</a>
+									</span>
+								</div>
+							</div>
+
+
+							<div class="col-md-3 col-sm-3 col-xs-3">
+								{{notification.deliveryDate | date:"MM/dd/yyyy 'at' h:mma"}}
 							</div>
 						</div>
 					</div>
@@ -28,8 +47,6 @@
 			</div>
 		</div>
 
-		<div class="col-md-1 col-sm-1 col-xs-1">
-		</div>
 	</div>
 </div>
 

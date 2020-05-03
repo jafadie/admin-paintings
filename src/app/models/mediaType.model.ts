@@ -1,7 +1,7 @@
 export class MediaType {
 	constructor(
 		idMediaType: number,
-		description: number
+		description: string
 	){
 
 	}
