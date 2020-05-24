@@ -59,8 +59,8 @@ sendMailNotifyChanges(data, date) {
 
 
 // 4: Send mail notify events
-sendMailNotifyEvents(data, date) {
-  let url = `${this.baseUri}/sendMailNotifyEvents/${date}`;
+sendMailNotifyEvents(user, data) {
+  let url = `${this.baseUri}/sendMailNotifyEvents/${user.email}`;
   return this.http.post(url, data)
     .pipe(
       catchError(this.errorMgmt)

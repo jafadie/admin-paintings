@@ -1,4 +1,4 @@
-<div class="container-fluid" style="margin-top: 5em;">
+<div class="container-fluid" style="margin-top: 5em;" *ngIf="notifications">
 	<div class="row">
 		<div class="col-md-1 col-sm-1 col-xs-1">
 		</div>
@@ -13,7 +13,7 @@
 					Scheduled notifications
 				</div>
 
-				<div class="container-fluid notificationsStyle" *ngIf="notifications">
+				<div class="container-fluid notificationsStyle">
 					<div *ngFor="let notification of notifications">
 						<div class="row rowNotificationsStyle">
 							<div class="col-md-3 col-sm-3 col-xs-3">

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="notificationsSent">
 	<div class="row">
 		<div class="col-md-1 col-sm-1 col-xs-1">
 		</div>
@@ -13,7 +13,7 @@
 					Last notifications
 				</div>
 
-				<div class="container-fluid notificationsStyle" *ngIf="notificationsSent">
+				<div class="container-fluid notificationsStyle">
 					<div *ngFor="let notificationSent of notificationsSent">
 						<div class="row rowNotificationsStyle">
 							<div class="col-md-3 col-sm-3 col-xs-3">

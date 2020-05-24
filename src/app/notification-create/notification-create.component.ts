@@ -39,14 +39,15 @@ export class NotificationCreateComponent implements OnInit {
 		private _notificationService: NotificationService,
 		private _notificationSentService: NotificationSentService
 	){
-  		this.notification = new Notification(0, 0, true, 0, '', '', '', '', '', '', 0, '', []); 		
+  		this.notification = new Notification(0, 0, true, 0, '', '', '', '', '', '', 0, '', [], ''); 		
   		this.notificationSent = new NotificationSent(0, 0, 0, true, 0, '', '', '', '', '', '', 0, '', []);
   }
 
   ngOnInit() {
-  	console.log('notification-create.component.ts cargado'); 	
+  	console.log('notification-create.component.ts cargado');
 
     this.notification['deliveryDate'] = new Date().toISOString().slice(0, 16);
+    this.notification['creationDate'] = new Date().toISOString().slice(0, 16);
   }
 
 
@@ -127,12 +128,12 @@ export class NotificationCreateComponent implements OnInit {
 
 
   onSubmit(){
-  		if (this.filesToUpload){
-			this.cargandoImagen(this.filesToUpload);
-			this.notification['image'] = this.filesToUpload[0].name;
-  		}
+		if (this.filesToUpload){
+		this.cargandoImagen(this.filesToUpload);
+		this.notification['image'] = this.filesToUpload[0].name;
+		}
 
-  		this.notification['userList'] = [];
+		this.notification['userList'] = [];
 		
     let i = 0;
 		for (let myUser of this.myUserList) {
@@ -142,11 +143,11 @@ export class NotificationCreateComponent implements OnInit {
 			}
 		}
 		 		
-  		this.createAndSendNewNotification();
+		this.createAndSendNewNotification();
   		
-  	}
+  }
 
-  	createAndSendNewNotification(){
+	createAndSendNewNotification(){
 		this._notificationService.getSequenceNumber().subscribe(
   			result => {
 				this.notification['idNotification'] = result['seq'];
@@ -158,7 +159,7 @@ export class NotificationCreateComponent implements OnInit {
 				console.log(<any>error);
 			}
   		);
-  	}
+	}
   	
   	createAndSendNotification(){
   		this._notificationService.createNotification(this.notification).subscribe(
@@ -178,7 +179,7 @@ export class NotificationCreateComponent implements OnInit {
 					this.notificationSent['openingDate'] = this.notification['openingDate'];
 					this.notificationSent['closingDate'] = this.notification['closingDate'];
 					this.notificationSent['image'] = this.notification['image'];
-					this.notificationSent['deliveryDate'] = new Date();
+					this.notificationSent['deliveryDate'] = this.notification['deliveryDate'];
 					this.notificationSent['mediaType'] = this.notification['mediaType'];
 					this.notificationSent['link'] = this.notification['link'];
 					this.notificationSent['userList'] = this.notification['userList'];
@@ -236,7 +237,7 @@ export class NotificationCreateComponent implements OnInit {
     }
 
   	contactForm(user) {
- 		   this._userService.sendMailNotifyEvents(user, this.notification['deliveryDate']).subscribe(() => {
+ 		   this._userService.sendMailNotifyEvents(user, this.notification).subscribe(() => {
  		     console.log('Mail sent correctly');
  		
   		});

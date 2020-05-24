@@ -82,12 +82,12 @@
 								<input type="text" id="link" name="link" #link="ngModel" [(ngModel)]="notification['link']" placeholder="Link" required>
 							</div>
 
-							<div class="form-group" id="divImage" *ngIf="notification['type'] && notification['type']==0"> <!-- Image-->
+							<div class="form-group" id="divImage" *ngIf="notification['type']"> <!-- Image-->
 								<label for="image" class="control-label">Image</label>
 								<div>
 									<img src="" width="60%;" />
 								</div>
-								<input type="file" class="form-control" id="image" name="image" placeholder="image001.jpeg" (change)="fileChangeEvent($event)">
+								<input type="file" class="form-control" id="image" name="image" placeholder="image001.jpeg" (change)="fileChangeEvent($event)" required>
 							</div>
 						</div>
 
@@ -121,7 +121,7 @@
 
 							<div class="form-group" style="margin-bottom: 0;" id="divGlobalCheck" *ngIf="notification['type']"> <!-- Global checkbox -->
 								<div class="custom-control custom-checkbox scheduledMargin">
-							    	<span><input type="checkbox" name="globalCheck" id="globalCheck" #globalCheck="ngModel" [(ngModel)]="myGlobalCheck" style="opacity: 0;" (change)="checkValueGlobalCheck(myGlobalCheck)" required><label for="globalCheck">Check all users</label></span>
+							    	<span><input type="checkbox" name="globalCheck" id="globalCheck" #globalCheck="ngModel" [(ngModel)]="myGlobalCheck" style="opacity: 0;" (change)="checkValueGlobalCheck(myGlobalCheck)"><label for="globalCheck">Check all users</label></span>
 								</div>
 							</div>
 						</div>

@@ -12,7 +12,8 @@ export class Notification {
 		deliveryDate: string,
 		mediaType: number,
 		link: string,
-		userList: any
+		userList: any,
+		creationDate: string
 	){
 
 	}
