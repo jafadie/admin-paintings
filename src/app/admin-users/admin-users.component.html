@@ -2,15 +2,17 @@
 	<div class="row">
 		<div class="col-lg-4">
 
-			<app-notification-sent-list></app-notification-sent-list>
+			<app-notification-fixed (selectTypeNotification)="processSelectedTypeNotification($event)"></app-notification-fixed>
 
-			<app-notification-scheduled-list></app-notification-scheduled-list>
+			<app-notification-sent-list style="display: none;"></app-notification-sent-list>
+
+			<app-notification-scheduled-list (selectIdNotification)="processSelectedIdNotification($event)"></app-notification-scheduled-list>
 
 		</div>
 
 		<div class="col-lg-8">
 
-			<app-notification-create></app-notification-create>
+			<app-notification-create [typeNotification]="selectedTypeNotification" [idNotification]="selectedIdNotification"></app-notification-create>
 
 		</div>
 	</div>

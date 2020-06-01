@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NotificationSentService } from '../services/notificationSent.service';
 import { NotificationType } from '../models/notificationType.model';
@@ -19,10 +19,11 @@ export class NotificationSentListComponent implements OnInit {
 	public eventTypes1: EventType[];
 	public mediaTypes: MediaType[];
 
+
   constructor(
   		private _route: ActivatedRoute,
-		private _router: Router,
-		private _notificationSentService: NotificationSentService
+		  private _router: Router,
+		  private _notificationSentService: NotificationSentService
 	) { }
 
   ngOnInit() {

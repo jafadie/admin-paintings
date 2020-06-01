@@ -10,10 +10,10 @@
 				</div>
 
 				<div class="titleNotifications">
-					Last notifications
+					Fixed notifications
 				</div>
 
-				<div class="container-fluid notificationsStyle">
+				<div class="container-fluid notificationsStyle" *ngIf="notificationSent">
 					<div *ngFor="let notificationSent of notificationsSent">
 						<div class="row rowNotificationsStyle">
 							<div class="col-md-3 col-sm-3 col-xs-3">
@@ -47,8 +47,6 @@
 
 			</div>
 		</div>
-
-		
 
 	</div>
 </div>

@@ -29,8 +29,8 @@ export class UserService {
   }
 
 // 1: Send mail after subscription
-sendMailAfterSubscription(data, date) {
-  let url = `${this.baseUri}/sendMailAfterSubscription/${date}`;
+sendMailAfterSubscription(user, data) {
+  let url = `${this.baseUri}/sendMailAfterSubscription/${user.email}`;
   return this.http.post(url, data)
     .pipe(
       catchError(this.errorMgmt)
@@ -39,8 +39,8 @@ sendMailAfterSubscription(data, date) {
 
 
 // 2: Send mail after communication
-sendMailAfterCommunication(data, date) {
-  let url = `${this.baseUri}/sendMailAfterCommunication/${date}`;
+sendMailAfterCommunication(user, data) {
+  let url = `${this.baseUri}/sendMailAfterCommunication/${user.email}`;
   return this.http.post(url, data)
     .pipe(
       catchError(this.errorMgmt)

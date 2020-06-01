@@ -8,10 +8,26 @@
 
 				<div class="container-fluid">
 					<div class="row">
+						<div class="col-md-2 col-sm-2 col-xs-2" style="display: none;">
+							<!-- Nueva exposición unchecked -->
+							<div>
+						  		<input type="radio" id="notificationRadioSubscription" name="notificationRadios" mdbInput value="2" (change)="onChangeNotificationType()" style="opacity: 0;" #notificationRadioSubscription="ngModel" [(ngModel)]="notification['type']">
+						  		<label for="notificationRadioSubscription">Subscribe</label>
+							</div>
+						</div>
+
+						<div class="col-md-2 col-sm-2 col-xs-2" style="display: none;">
+							<!-- Nueva exposición unchecked -->
+							<div>
+						  		<input type="radio" id="notificationRadioContacting" name="notificationRadios" mdbInput value="3" (change)="onChangeNotificationType()" style="opacity: 0;" #notificationRadioContacting="ngModel" [(ngModel)]="notification['type']">
+						  		<label for="notificationRadioContacting">Contact</label>
+							</div>
+						</div>
+
 						<div class="col-md-4 col-sm-4 col-xs-4">
 							<!-- Nueva exposición unchecked -->
 							<div>
-						  		<input type="radio" id="notificationRadioExpo" name="notificationRadios" mdbInput value="0" (change)="onChangeNotificationType($event)" style="opacity: 0;">
+						  		<input type="radio" id="notificationRadioExpo" name="notificationRadios" mdbInput value="4" (change)="onChangeNotificationType()" style="opacity: 0;" #notificationRadioExpo="ngModel" [(ngModel)]="notification['type']">
 						  		<label for="notificationRadioExpo">Nueva exposición</label>
 							</div>
 						</div>
@@ -19,29 +35,30 @@
 						<div class="col-md-4 col-sm-4 col-xs-4">
 							<!-- Artículos prensa unchecked -->
 							<div>
-								<input type="radio" id="notificationRadioPrensa" name="notificationRadios" mdbInput value="1" (change)="onChangeNotificationType($event)" style="opacity: 0;">
+								<input type="radio" id="notificationRadioPrensa" name="notificationRadios" mdbInput value="1" (change)="onChangeNotificationType()" style="opacity: 0;" #notificationRadioPrensa="ngModel" [(ngModel)]="notification['type']">
 						  		<label for="notificationRadioPrensa">Artículos prensa</label>
 							</div>
 						</div>
 
 						<div class="col-md-5 col-sm-5 col-xs-5">
-							<div class="form-group" id="divEventType" *ngIf="notification['type']">
+							<div class="form-group" id="divEventType" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4)">
 								<label for="selectEventType" class="control-label">Event Type</label>
 								<div class="select_box">
 									<select  class="pruSelect select-selected" #selectEventType name="selectEventType" id="selectEventType" (change)="onOptionEventSelected(selectEventType.value)">
-			     						<option *ngFor="let eventType of eventTypes" [value]="eventType.idEventType">{{eventType.description}}</option>
+			     						<option *ngFor="let eventType of eventTypes" [value]="eventType.idEventType" [selected]="eventType.idEventType == notification['eventType']">{{eventType.description}}</option>
 			     					</select>
 								</div>
 								
 	     					</div>
 						</div>
 
+
 						<div class="col-md-5 col-sm-5 col-xs-5">
 							<div class="form-group" id="divMediaType" *ngIf="notification['type'] && notification['type']==1">
 								<label for="selectMediaType" class="control-label">Media</label>
 								<div class="select_box">
 									<select class="pruSelect select-selected" #selectMediaType name="selectMediaType" id="selectMediaType" (change)="onOptionMediaSelected(selectMediaType.value)">
-			     						<option *ngFor="let mediaType of mediaTypes" [value]="mediaType.idMediaType">{{mediaType.description}}</option>
+			     						<option *ngFor="let mediaType of mediaTypes" [value]="mediaType.idMediaType" [selected]="mediaType.idMediaType == notification['mediaType']">{{mediaType.description}}</option>
 			     					</select>
 								</div>
 	     					</div>
@@ -50,27 +67,27 @@
 
 
 						<div class="col-md-10 col-sm-10 col-xs-10">
-							<div class="form-group" id="divTitle" *ngIf="notification['type'] && notification['type']==0"> 
+							<div class="form-group" id="divTitle" *ngIf="notification['type'] && notification['type']==4"> 
 								<label for="title" class="control-label">Características/Título</label>
 								<input type="text" id="title" name="title" #title="ngModel" [(ngModel)]="notification['title']" placeholder="Title" required>
 							</div>
 						    				
 	     				
-	     					<div class="form-group" id="divLocalization" *ngIf="notification['type']"> 
+	     					<div class="form-group" id="divLocalization" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4)"> 
 								<label for="localization" class="control-label">Localization</label>
 								<input type="text" id="localization" name="localization" #localization="ngModel" [(ngModel)]="notification['localization']" placeholder="Localization" required>
 							</div>
 						</div>
 
 						<div class="col-md-5 col-sm-5 col-xs-5">
-							<div class="form-group" id="divOpeningDate" *ngIf="notification['type'] && notification['type']==0">
+							<div class="form-group" id="divOpeningDate" *ngIf="notification['type'] && notification['type']==4">
 								<label for="openingDate" class="control-label">Opening date</label>
 							  	<input type="datetime-local" class="form-control" name="openingDate" #openingDate="ngModel" id="openingDate" [(ngModel)]="notification['openingDate']" required>
 							</div>
 						</div>
 
 						<div class="col-md-5 col-sm-5 col-xs-5">
-							<div class="form-group" id="divClosingDate" *ngIf="notification['type'] && notification['type']==0">
+							<div class="form-group" id="divClosingDate" *ngIf="notification['type'] && notification['type']==4">
 								<label for="closingDate" class="control-label">Closing date</label>
 							  	<input type="datetime-local" class="form-control" name="closingDate" #closingDate="ngModel" id="closingDate" [(ngModel)]="notification['closingDate']" required>
 							</div>
@@ -84,8 +101,8 @@
 
 							<div class="form-group" id="divImage" *ngIf="notification['type']"> <!-- Image-->
 								<label for="image" class="control-label">Image</label>
-								<div>
-									<img src="" width="60%;" />
+								<div *ngIf="notification['image']">
+									<img src="{{baseUri}}/images/{{notification['image']}}" width="30%;" />
 								</div>
 								<input type="file" class="form-control" id="image" name="image" placeholder="image001.jpeg" (change)="fileChangeEvent($event)" required>
 							</div>
@@ -99,7 +116,7 @@
 
 						<div class="col-md-5 col-sm-5 col-xs-5">
 
-							<div class="form-group" id="divScheduled" *ngIf="notification['type']"> <!-- Scheduled-->
+							<div class="form-group" id="divScheduled" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4)"> <!-- Scheduled-->
 								<div class="custom-control custom-checkbox scheduledMargin">
 							    	<span><input type="checkbox" name="scheduled" #scheduled="ngModel" id="scheduled" [(ngModel)]="notification['scheduled']" style="opacity: 0;" (change)="checkValueScheduled(notification['scheduled'])" required><label for="scheduled">Scheduled</label></span>
 								</div>
@@ -119,14 +136,14 @@
 
 						<div class="col-md-5 col-sm-5 col-xs-5" style="margin-top: 2em;">
 
-							<div class="form-group" style="margin-bottom: 0;" id="divGlobalCheck" *ngIf="notification['type']"> <!-- Global checkbox -->
+							<div class="form-group" style="margin-bottom: 0;" id="divGlobalCheck" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4)"> <!-- Global checkbox -->
 								<div class="custom-control custom-checkbox scheduledMargin">
 							    	<span><input type="checkbox" name="globalCheck" id="globalCheck" #globalCheck="ngModel" [(ngModel)]="myGlobalCheck" style="opacity: 0;" (change)="checkValueGlobalCheck(myGlobalCheck)"><label for="globalCheck">Check all users</label></span>
 								</div>
 							</div>
 						</div>
 
-						<div class="col-md-11 col-sm-11 col-xs-11" *ngIf="notification['type']">
+						<div class="col-md-11 col-sm-11 col-xs-11" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4)">
 							<div class="boxCheckboxList">
 							    <div class="container-fluid">
 							        <div class="row">
@@ -155,6 +172,10 @@
 				</div>
 
 			</form>
+
+			<button *ngIf="typeNotification" (click)="onPreviewSelectedNotification(typeNotificationAux)" class="btn btn-md btn-default">Vista previa</button>
+
+			<button *ngIf="idNotification" (click)="onPreviewSelectedNotification(notification['type'])" class="btn btn-md btn-default">Vista previa</button>
 		</div>
 
 		<div class="col-md-1 col-sm-1 col-xs-1">

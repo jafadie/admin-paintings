@@ -13,7 +13,8 @@ export class Notification {
 		mediaType: number,
 		link: string,
 		userList: any,
-		creationDate: string
+		creationDate: string,
+		preview: boolean
 	){
 
 	}
