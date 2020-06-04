@@ -4,7 +4,7 @@
 		</div>
 
 		<div class="col-md-10 col-sm-10 col-xs-10">
-			<form #formUser="ngForm" (ngSubmit)="onSubmit()" id="form-user">
+			<form #formUser="ngForm" (ngSubmit)="onSubmit(formUser)" id="form-user">
 
 				<div class="container-fluid">
 					<div class="row">
@@ -166,16 +166,36 @@
 				</div>
 
 				
-				
-				<div class="container-fluid form-group" id="divBtnSaveNotification" *ngIf="notification['type']"> <!-- Create Button -->
-					<button type="submit" class="btn btn-md btn-default" [disabled]="!formUser.valid">{{buttonName}}</button>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-3 col-sm-3 col-xs-3">
+							<div class="container-fluid form-group" id="divBtnSaveNotification" *ngIf="notification['type']"> <!-- Create Button -->
+								<button type="submit" class="btn btn-md btn-default" [disabled]="!formUser.valid">{{buttonName}}</button>
+							</div>
+						</div>
+
+						<div class="col-md-3 col-sm-3 col-xs-3" *ngIf="typeNotificationAux">
+							<div class="container-fluid form-group" id="divBtnSaveNotification" >
+							<button type="button" (click)="onPreviewSelectedNotification(typeNotificationAux)" class="btn btn-md btn-default" [disabled]="!formUser.valid">
+								View notification
+							</button>
+							</div>
+						</div>
+
+						<div class="col-md-3 col-sm-3 col-xs-3" *ngIf="typeNotificationAux && idNotificationAux">
+							<div class="container-fluid form-group" id="divBtnSendNotification" >
+								<button type="button" (click)="onSendNotification(formUser)" class="btn btn-md btn-default" [disabled]="!formUser.valid">
+									Send notification
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
+				
 
 			</form>
 
-			<button *ngIf="typeNotification" (click)="onPreviewSelectedNotification(typeNotificationAux)" class="btn btn-md btn-default">Vista previa</button>
-
-			<button *ngIf="idNotification" (click)="onPreviewSelectedNotification(notification['type'])" class="btn btn-md btn-default">Vista previa</button>
+			
 		</div>
 
 		<div class="col-md-1 col-sm-1 col-xs-1">

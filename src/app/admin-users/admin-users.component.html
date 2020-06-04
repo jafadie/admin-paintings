@@ -6,13 +6,13 @@
 
 			<app-notification-sent-list style="display: none;"></app-notification-sent-list>
 
-			<app-notification-scheduled-list (selectIdNotification)="processSelectedIdNotification($event)"></app-notification-scheduled-list>
+			<app-notification-scheduled-list [idNotification]="selectedIdNotification" (selectIdNotification)="processSelectedIdNotification($event)" [idNotification2]="selectedIdNotification2"></app-notification-scheduled-list>
 
 		</div>
 
 		<div class="col-lg-8">
 
-			<app-notification-create [typeNotification]="selectedTypeNotification" [idNotification]="selectedIdNotification"></app-notification-create>
+			<app-notification-create [typeNotification]="selectedTypeNotification" [idNotification]="selectedIdNotification" (selectIdNotification)="processSelectedIdNotification2($event)"></app-notification-create>
 
 		</div>
 	</div>

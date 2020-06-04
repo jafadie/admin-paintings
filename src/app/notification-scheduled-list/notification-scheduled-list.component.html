@@ -16,14 +16,14 @@
 				<div class="container-fluid notificationsStyle" *ngIf="notifications">
 					<div *ngFor="let notification of notifications">
 						<div class="row rowNotificationsStyle">
-							<div class="col-md-3 col-sm-3 col-xs-3">
+							<!--<div class="col-md-3 col-sm-3 col-xs-3">
 								{{notificationTypes.get(notification['type'])}}
-							</div>
+							</div>-->
 
-							<div class="col-md-2 col-sm-2 col-xs-2" *ngIf="notification['type']==4">
+							<div class="col-md-4 col-sm-4 col-xs-4" *ngIf="notification['type']==4">
 								{{eventTypes0[notification.eventType]['description']}}
 							</div>
-							<div class="col-md-2 col-sm-2 col-xs-2" *ngIf="notification['type']==1">
+							<div class="col-md-4 col-sm-4 col-xs-4" *ngIf="notification['type']==1">
 								{{eventTypes1[notification.eventType]['description']}}
 							</div>
 
@@ -37,12 +37,12 @@
 							</div>
 
 							<div class="col-md-3 col-sm-3 col-xs-3">
-								{{notification.deliveryDate | date:"MM/dd/yyyy 'at' h:mma"}}
+								{{notification.deliveryDate | date:"MM/dd/yyyy"}}
 							</div>
 
-							<div class="col-md-1 col-sm-1 col-xs-1">
-								<i (click)="onSelectIdNotification(notification.idNotification)" class="fa fa-pencil-square-o" style="font-size: 1.2em; color:#012e67;"></i>
-								<i (click)="onPreviewSelectedIdNotification(notification.idNotification)" class="fa fa-image" style="font-size: 1.2em; color:#012e67;"></i>
+							<div class="col-md-2 col-sm-2 col-xs-2">
+								<i (click)="onSelectIdNotification(notification.idNotification)" class="fa fa-pencil-square-o" style="font-size: 1.3em; color:#012e67; cursor:pointer;"></i>
+								<i (click)="onPreviewSelectedIdNotification(notification.idNotification)" class="fa fa-image" style="font-size: 1.3em; color:#012e67; margin-left: 0.03em; cursor:pointer;"></i>
 							</div>
 						</div>
 					</div>

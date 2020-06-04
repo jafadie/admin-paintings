@@ -23,6 +23,11 @@ export class NotificationScheduledListComponent implements OnInit {
 	public mediaTypes: MediaType[];
 	public notification: Notification;
 
+  @Input()
+  idNotification: Number;
+
+  @Input()
+  idNotification2: Number;
 
 	@Output()
 	selectIdNotification = new EventEmitter<Number>();
@@ -173,6 +178,13 @@ export class NotificationScheduledListComponent implements OnInit {
 
     	this.selectIdNotification.emit(idNotification);
   	}
+
+    ngOnChanges(changes: SimpleChanges ) {
+    //si se ha seleccionado una serie diferente
+      if( changes['idNotification2'] && changes['idNotification2'].previousValue != changes['idNotification2'].currentValue ) {
+        this.getScheduledNotifications();
+      }
+    }
 
 }
 

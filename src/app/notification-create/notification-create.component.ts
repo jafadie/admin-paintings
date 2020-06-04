@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
@@ -33,6 +33,7 @@ export class NotificationCreateComponent implements OnInit {
   public myGlobalCheck;
   public typeNotificationAux: Number;
   public idNotificationAux: Number;
+  public edition: boolean;
   baseUri:string = GLOBAL.baseUri;
 
   @Input()
@@ -40,6 +41,9 @@ export class NotificationCreateComponent implements OnInit {
 
   @Input()
   idNotification: Number;
+
+  @Output()
+  selectIdNotification = new EventEmitter<Number>();
 
 
   constructor(
@@ -56,11 +60,26 @@ export class NotificationCreateComponent implements OnInit {
 
   ngOnInit() {
   	console.log('notification-create.component.ts cargado');
-
-    this.notification['deliveryDate'] = new Date().toISOString().slice(0, 16);
-    this.notification['creationDate'] = new Date().toISOString().slice(0, 16);
-
   }
+
+  toDateString(date: Date): string {   
+
+        return (date.getFullYear().toString() + '-' 
+           + ("0" + (date.getMonth() + 1)).slice(-2) + '-' 
+           + ("0" + (date.getDate())).slice(-2))
+           + 'T' + date.toTimeString().slice(0,5);
+           
+    }
+
+  parseDateString(date): Date {
+       date = date.replace('T','-');
+       var parts = date.split('-');
+       var timeParts = parts[3].split(':');
+
+      // new Date(year, month [, day [, hours[, minutes[, seconds[, ms]]]]])
+      return new Date(parts[0], parts[1]-1, parts[2], timeParts[0], timeParts[1]);     // Note: months are 0-based
+
+    }
 
 
   fillEventTypesNuevaExpo(){
@@ -140,39 +159,36 @@ export class NotificationCreateComponent implements OnInit {
   }
 
 
-  onSubmit(){
-		if (this.filesToUpload){
-		this.cargandoImagen(this.filesToUpload);
-		this.notification['image'] = this.filesToUpload[0].name;
-		}
-
-		this.notification['userList'] = [];
-		
-    let i = 0;
-		for (let myUser of this.myUserList) {
-			if (myUser[0]){
-				this.notification['userList'][i] = myUser[1]['email'];
-				i++;
-			}
-		}
-		 	
-
-
-    //if (this.notification[idNotification])
-      //update
-    //else
-		  this.createAndSendNewNotification();
-
-
+  onSubmit(form){
+    console.log('onsubmit');
+    console.log(this.notification['idNotification']);
+    console.log(this.notification['_id']);
+    
+    this.saveInfoNotification(form);
   }
 
-	createAndSendNewNotification(){
+  fillUsers() {
+    this.notification['userList'] = [];
+      
+    let i = 0;
+    for (let myUser of this.myUserList) {
+      if (myUser[0]){
+        this.notification['userList'][i] = myUser[1]['email'];
+        i++;
+      }
+    }
+  }
+
+	createNewNotification(form){
 		this._notificationService.getSequenceNumber().subscribe(
   			result => {
 				this.notification['idNotification'] = result['seq'];
+        console.log('createNewNotification');
+        console.log(result);
+        console.log(this.notification);
 				
 				
-				this.createAndSendNotification();
+				this.createNotification(form);
 			},
 			error => {
 				console.log(<any>error);
@@ -180,34 +196,14 @@ export class NotificationCreateComponent implements OnInit {
   		);
 	}
   	
-  	createAndSendNotification(){
+  	createNotification(form){
   		this._notificationService.createNotification(this.notification).subscribe(
   			result => {
 				console.log('Notification successfully created!');
 
-				
+        this.selectIdNotification.emit(result['idNotification']);
 
-				//if (!this.notification['scheduled'])
-				//{
-					this.notificationSent['idNotification'] = this.notification['idNotification'];
-					this.notificationSent['type'] = this.notification['type'];
-					this.notificationSent['scheduled'] = this.notification['scheduled'];
-					this.notificationSent['eventType'] = this.notification['eventType'];
-					this.notificationSent['title'] = this.notification['title'];
-					this.notificationSent['localization'] = this.notification['localization'];
-					this.notificationSent['openingDate'] = this.notification['openingDate'];
-					this.notificationSent['closingDate'] = this.notification['closingDate'];
-					this.notificationSent['image'] = this.notification['image'];
-					this.notificationSent['deliveryDate'] = this.notification['deliveryDate'];
-					this.notificationSent['mediaType'] = this.notification['mediaType'];
-					this.notificationSent['link'] = this.notification['link'];
-					this.notificationSent['userList'] = this.notification['userList'];
-
-
-					this.createNewNotificationSent();
-
-          //resetear campos
-				//}
+        form.resetForm();
 								
 			},
 			error => {
@@ -217,7 +213,7 @@ export class NotificationCreateComponent implements OnInit {
   	}
 
 
-  	createNewNotificationSent() {
+  	/*createNewNotificationSent() {
   		this._notificationSentService.getSequenceNumber().subscribe(
   			result => {
 				this.notificationSent['idNotificationSent'] = result['seq'];
@@ -229,9 +225,9 @@ export class NotificationCreateComponent implements OnInit {
 				console.log(<any>error);
 			}
   		);
-  	}
+  	}*/
 
-  	createNotificationSent(){
+  	/*createNotificationSent(){
   		this._notificationSentService.createNotificationSent(this.notificationSent).subscribe(
   			result => {
 				console.log('NotificationSent successfully created!');
@@ -244,7 +240,7 @@ export class NotificationCreateComponent implements OnInit {
 				console.log(<any>error);
 			}
   		)
-  	}
+  	}*/
 
     sendPreviewNotification(){
       //correo lorena garcia
@@ -258,7 +254,29 @@ export class NotificationCreateComponent implements OnInit {
       this.contactForm(userPreview);
     }
 
-    sendNotification(){
+    saveInfoNotification(form) {
+      this.notification['creationDate'] = this.toDateString(new Date());
+
+      if (this.filesToUpload){
+        this.cargandoImagen(this.filesToUpload);
+        this.notification['image'] = this.filesToUpload[0].name;
+      }
+
+      this.fillUsers();
+
+      if (this.edition == true)
+        this.updateNotification(true, form);
+      else{
+        this.createNewNotification(form);
+
+        this.typeNotificationAux = undefined;
+        this.idNotificationAux = undefined;
+      }
+    }
+
+    sendNotification(form){
+      this.saveInfoNotification(form);
+
     
       for (let myUser of this.myUserList) {
         if (myUser[0] == true)
@@ -335,6 +353,8 @@ export class NotificationCreateComponent implements OnInit {
         }
         else{
           myUser = [false, user];
+          this.myUserList[i] = myUser;
+          i++;
           allSelected = false;
         }
 
@@ -360,15 +380,33 @@ export class NotificationCreateComponent implements OnInit {
 
   }
 
+  cleanNotification(){
+    this.notification['_id'] = undefined;
+    this.notification['idNotification'] = undefined;
+    this.notification['scheduled'] = false;
+    this.notification['eventType'] = 0;
+    this.notification['title'] = undefined;
+    this.notification['localization'] = undefined;
+    this.notification['openingDate'] = undefined;
+    this.notification['closingDate'] = undefined;
+    this.notification['image'] = undefined;
+    this.notification['deliveryDate'] = undefined;
+    this.notification['mediaType'] = 0;
+    this.notification['link'] = undefined;
+    this.notification['userList'] = undefined;
+    this.notification['creationDate'] = undefined;
+    this.notification['preview'] = false;
+  }
   
   
   onChangeNotificationType(){
-
     console.log('onChangeNotificationType');
 
-    let typeNotification = this.notification['type'];
-    console.log(typeNotification);
-    if (typeNotification == 1 || typeNotification == 4)
+    this.cleanNotification();
+
+    this.edition = false;
+
+    if (this.notification['type'] == 1 || this.notification['type'] == 4)
     {
       this.initializeUsers();
       this.notification['scheduled'] = false;
@@ -382,22 +420,19 @@ export class NotificationCreateComponent implements OnInit {
     }
 
     this.typeNotificationAux = this.notification['type'];
-    this.buttonName = 'Send notification';
+    this.idNotificationAux = -1;
+    this.buttonName = 'Save notification';
   	
-    this.initializeDropDownLists(typeNotification);
+    this.initializeDropDownLists(this.notification['type']);
 
   }
 
   initializeDropDownLists(typeNotification: Number){
-    console.log('initializeDropDownLists');
-    console.log(typeNotification);
-    console.log(this.notification['type']);
+
     if (this.notification['type'] == 4){
-      console.log('typeNotification');
       this.fillEventTypesNuevaExpo();
     }
     else if (this.notification['type'] == 1){
-        this.notification['mediaType'] = 0;
         this.fillEventTypesArticulosPrensa();
         this.fillMediaTypes();
     }
@@ -413,15 +448,6 @@ export class NotificationCreateComponent implements OnInit {
       this.notification['mediaType'] = undefined;
 
       this.getNotificationByType(this.notification['type']);
-
-      if (this.notification['type'] == 2){
-        this.buttonName = 'Save notification s';
-      }
-      else if (this.notification['type'] == 3){
-        this.buttonName = 'Send notification c';
-      }
-
-      
   }
 
   getNotificationByType(type){
@@ -429,7 +455,7 @@ export class NotificationCreateComponent implements OnInit {
     this._notificationService.getNotificationsByType(type).subscribe(
       result => {
         console.log(result);
-        this.notification['image'] = result[0]['image'];
+        this.notification = result[0];
         
       },
       error => {
@@ -444,30 +470,75 @@ export class NotificationCreateComponent implements OnInit {
   }
 
 
-  ngOnChanges(changes: SimpleChanges ) {
+  ngOnChanges(changes: SimpleChanges) {
       console.log('ngonchanges');
-      console.log(changes['idNotification']);
+      this.edition = false;
     
-      if( changes['typeNotification'] && changes['typeNotification'].previousValue != changes['typeNotification'].currentValue ) {
-        console.log('ngOnChanges');
+      if (changes['typeNotification'] && (
+        changes['typeNotification'].previousValue == 2 || changes['typeNotification'].previousValue == 3 ||
+        changes['typeNotification'].currentValue == 2 || changes['typeNotification'].currentValue == 3)
+        )
+      {
+        if( changes['typeNotification'] && changes['typeNotification'].previousValue != changes['typeNotification'].currentValue ) {
+          console.log('ngOnChanges');
 
-        this.notification['type'] = changes['typeNotification'].currentValue;
-        this.typeNotificationAux = this.notification['type'];
+          this.notification['type'] = changes['typeNotification'].currentValue;
+          this.typeNotificationAux = this.notification['type'];
 
-        this.initializeCreateNotifications();      
+          this.idNotificationAux = undefined;
+          this.edition = true;
+          this.buttonName = 'Save notification';
+
+          this.initializeCreateNotifications();
+
+          
+        }
       }
+      else {
+        if( changes['idNotification'] && changes['idNotification'].previousValue != changes['idNotification'].currentValue ) {
+          console.log('ngOnChanges 2');
+          
+          this.idNotificationAux = changes['idNotification'].currentValue;
+          this.edition = true;
+          this.buttonName = 'Save notification';
 
-      if( changes['idNotification'] && changes['idNotification'].previousValue != changes['idNotification'].currentValue ) {
-        console.log('ngOnChanges 2');
-        console.log(changes['idNotification'].currentValue);
 
-        
-        this.idNotificationAux = changes['idNotification'].currentValue;
+          this.getNotificationById(changes['idNotification'].currentValue);
 
 
-        this.getNotificationById(changes['idNotification'].currentValue);
+          console.log('resetSimpleChanges');
+          this.idNotification = undefined;
+          
+        }
       }
+      
+
+      
   }
+
+
+
+  updateNotification(clean, form){
+      this._notificationService.updateNotification(this.notification['idNotification'] ,this.notification).subscribe(
+      result => {
+        console.log('Notification successfully updated!');
+
+        //mostrar mensaje guardado
+
+        if (clean)
+          form.resetForm();
+
+      },
+      error => {
+        console.log(<any>error);
+      }
+      );
+    }
+
+    onSendNotification(form){
+      this.sendNotification(form)
+    }
+  
 
   onOptionEventSelected(eventType){
 	this.notification['eventType'] = eventType;
@@ -479,38 +550,42 @@ export class NotificationCreateComponent implements OnInit {
 
 
   checkValueScheduled(event: any){
-
-	if (event){
-		this.buttonName = 'Save notification';
-	}
-	else{
-		this.buttonName = 'Send notification';
-	}
+      this.notification['deliveryDate'] = this.toDateString(new Date());
   }
+
+
+  
 
 
   getNotificationById(idNotification){
     console.log('getNotificationById');
-    console.log(idNotification);
     this._notificationService.getNotification(idNotification).subscribe(
       result => {
         console.log(result);
         this.notification = result[0];
 
-        console.log(this.notification);
+        this.typeNotificationAux = this.notification['type'];    
 
-        
+        if (this.notification['type'] == 4){
+          this.notification['title'] = result[0]['title'];
 
+          let iniDate = this.parseDateString(result[0]['openingDate']);
+          let endDate = this.parseDateString(result[0]['closingDate']);
+          this.notification['openingDate'] = this.toDateString(iniDate);
+          this.notification['closingDate'] = this.toDateString(endDate);
+        } 
+
+
+        if (this.notification['scheduled']) {
+          let schedDate = this.parseDateString(result[0]['deliveryDate']);
+          this.notification['deliveryDate'] = this.toDateString(schedDate);
+        }
         
 
         this.notification['preview'] = true;
 
 
-
-
-
         this.initializeDropDownLists(this.notification['type']);
-        this.buttonName = 'Save notification';
         this.initializeUsers();
         
       },
