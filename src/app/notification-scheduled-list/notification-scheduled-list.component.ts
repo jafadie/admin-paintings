@@ -208,8 +208,10 @@ export class NotificationScheduledListComponent implements OnInit {
   	}
 
     ngOnChanges(changes: SimpleChanges ) {
+      console.log('ngOnChanges scheduled');
+      console.log(changes['idNotification']);
     //si se ha seleccionado una serie diferente
-      if( changes['idNotification2'] && changes['idNotification2'].previousValue != changes['idNotification2'].currentValue ) {
+      if( changes['idNotification'] && changes['idNotification'].previousValue != changes['idNotification'].currentValue ) {
         this.getScheduledNotifications();
       }
     }

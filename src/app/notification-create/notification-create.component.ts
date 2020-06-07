@@ -164,8 +164,6 @@ export class NotificationCreateComponent implements OnInit {
 
   onSubmit(form){
     console.log('onsubmit');
-    console.log(this.notification['idNotification']);
-    console.log(this.notification['_id']);
     
     this.saveInfoNotification(form);
   }
@@ -259,6 +257,7 @@ export class NotificationCreateComponent implements OnInit {
 
     saveInfoNotification(form) {
       this.notification['creationDate'] = this.toDateString(new Date());
+      this.notification['preview'] = false;
 
       if (this.filesToUpload){
         this.cargandoImagen(this.filesToUpload);
@@ -403,11 +402,8 @@ export class NotificationCreateComponent implements OnInit {
     this.notification['creationDate'] = undefined;
     this.notification['preview'] = false;
   }
-  
-  
-  onChangeNotificationType(){
-    console.log('onChangeNotificationType');
 
+  initializeNotification(){
     this.cleanNotification();
 
     this.edition = false;
@@ -428,11 +424,17 @@ export class NotificationCreateComponent implements OnInit {
     this.typeNotificationAux = this.notification['type'];
     this.idNotificationAux = -1;
     this.buttonName = 'Save notification';
-  	
+    
     this.initializeDropDownLists(this.notification['type']);
-
-    this.selectIdNotification.emit(-1);
-    this.selectTypeNotification.emit(-1);
+  }
+  
+  
+  onChangeNotificationType(){
+    
+    this.initializeNotification();
+    
+    this.selectIdNotification.emit(-2);
+    this.selectTypeNotification.emit(-2);
   }
 
   initializeDropDownLists(typeNotification: Number){
@@ -473,6 +475,7 @@ export class NotificationCreateComponent implements OnInit {
   }
 
   onPreviewSelectedNotification(typeNotification: Number){
+    this.notification['preview'] = true;
     //send mail vista previa
     this.sendPreviewNotification();
   }
@@ -480,10 +483,9 @@ export class NotificationCreateComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
       this.edition = false;
-
+      
       if (changes['typeNotification'] && (
-        changes['typeNotification'].currentValue == 2 || changes['typeNotification'].currentValue == 3)
-        )
+        changes['typeNotification'].currentValue == 2 || changes['typeNotification'].currentValue == 3) )
       {
         if( changes['typeNotification'] && changes['typeNotification'].previousValue != changes['typeNotification'].currentValue ) {
 
@@ -498,18 +500,30 @@ export class NotificationCreateComponent implements OnInit {
         }
       }
       else {
-        if( changes['idNotification'] && changes['idNotification'].previousValue != changes['idNotification'].currentValue ) {
-          
-          this.idNotificationAux = changes['idNotification'].currentValue;
-          this.edition = true;
-          this.buttonName = 'Save notification';
+        if (changes['idNotification']){
+          if (changes['idNotification'].currentValue == -2){
+            this.initializeNotification();
+          } else if (changes['idNotification'].previousValue == -2 && changes['idNotification'].currentValue == -1){
+            //no hago nada
+          } 
+          else if((changes['typeNotification'] && changes['typeNotification'].currentValue == -1 &&
+            changes['typeNotification'].previousValue == -2) ||
+            (changes['idNotification'].previousValue != changes['idNotification'].currentValue) ) {
 
-          this.getNotificationById(changes['idNotification'].currentValue);
+            if (this.notification['type']){
+
+              this.idNotificationAux = changes['idNotification'].currentValue;
+              this.edition = true;
+              this.buttonName = 'Save notification';
+
+              this.getNotificationById(changes['idNotification'].currentValue);
+            }
+          
+            
+          }
         }
       }
-      
-
-      
+       
   }
 
 
@@ -518,6 +532,8 @@ export class NotificationCreateComponent implements OnInit {
       this._notificationService.updateNotification(this.notification['idNotification'] ,this.notification).subscribe(
       result => {
         console.log('Notification successfully updated!');
+
+        this.selectIdNotification.emit(result['idNotification']);
 
         //mostrar mensaje guardado
 

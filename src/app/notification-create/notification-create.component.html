@@ -126,7 +126,7 @@
 
 							<div class="form-group" id="divScheduled" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4 || notification['type']==5)"> <!-- Scheduled-->
 								<div class="custom-control custom-checkbox scheduledMargin">
-							    	<span><input type="checkbox" name="scheduled" #scheduled="ngModel" id="scheduled" [(ngModel)]="notification['scheduled']" style="opacity: 0;" (change)="checkValueScheduled(notification['scheduled'])" required><label for="scheduled">Scheduled</label></span>
+							    	<span><input type="checkbox" name="scheduled" #scheduled="ngModel" id="scheduled" [(ngModel)]="notification['scheduled']" style="opacity: 0;" (change)="checkValueScheduled(notification['scheduled'])"><label for="scheduled">Scheduled</label></span>
 								</div>
 							</div>
 						</div>
