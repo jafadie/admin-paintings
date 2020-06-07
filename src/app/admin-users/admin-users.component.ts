@@ -9,7 +9,6 @@ export class AdminUsersComponent implements OnInit {
 
 	selectedTypeNotification: Number;
   selectedIdNotification: Number;
-  selectedIdNotification2: Number;
 
   constructor(){
   }
@@ -28,9 +27,4 @@ export class AdminUsersComponent implements OnInit {
     this.selectedIdNotification = idNotification;
   }
 
-  processSelectedIdNotification2(idNotification: Number) {
-    console.log('process idNotification');
-      console.log(idNotification);
-    this.selectedIdNotification2 = idNotification;
-  }
 }

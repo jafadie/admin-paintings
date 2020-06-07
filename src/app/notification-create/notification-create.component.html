@@ -40,6 +40,14 @@
 							</div>
 						</div>
 
+						<div class="col-md-4 col-sm-4 col-xs-4">
+							<!-- Nueva exposición unchecked -->
+							<div>
+						  		<input type="radio" id="notificationRadioGeneral" name="notificationRadios" mdbInput value="5" (change)="onChangeNotificationType()" style="opacity: 0;" #notificationRadioGeneral="ngModel" [(ngModel)]="notification['type']">
+						  		<label for="notificationRadioGeneral">General</label>
+							</div>
+						</div>
+
 						<div class="col-md-5 col-sm-5 col-xs-5">
 							<div class="form-group" id="divEventType" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4)">
 								<label for="selectEventType" class="control-label">Event Type</label>
@@ -67,13 +75,13 @@
 
 
 						<div class="col-md-10 col-sm-10 col-xs-10">
-							<div class="form-group" id="divTitle" *ngIf="notification['type'] && notification['type']==4"> 
+							<div class="form-group" id="divTitle" *ngIf="notification['type'] && (notification['type']==4 || notification['type']==5)"> 
 								<label for="title" class="control-label">Características/Título</label>
 								<input type="text" id="title" name="title" #title="ngModel" [(ngModel)]="notification['title']" placeholder="Title" required>
 							</div>
 						    				
 	     				
-	     					<div class="form-group" id="divLocalization" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4)"> 
+	     					<div class="form-group" id="divLocalization" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4 || notification['type']==5)"> 
 								<label for="localization" class="control-label">Localization</label>
 								<input type="text" id="localization" name="localization" #localization="ngModel" [(ngModel)]="notification['localization']" placeholder="Localization" required>
 							</div>
@@ -116,7 +124,7 @@
 
 						<div class="col-md-5 col-sm-5 col-xs-5">
 
-							<div class="form-group" id="divScheduled" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4)"> <!-- Scheduled-->
+							<div class="form-group" id="divScheduled" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4 || notification['type']==5)"> <!-- Scheduled-->
 								<div class="custom-control custom-checkbox scheduledMargin">
 							    	<span><input type="checkbox" name="scheduled" #scheduled="ngModel" id="scheduled" [(ngModel)]="notification['scheduled']" style="opacity: 0;" (change)="checkValueScheduled(notification['scheduled'])" required><label for="scheduled">Scheduled</label></span>
 								</div>
@@ -136,14 +144,14 @@
 
 						<div class="col-md-5 col-sm-5 col-xs-5" style="margin-top: 2em;">
 
-							<div class="form-group" style="margin-bottom: 0;" id="divGlobalCheck" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4)"> <!-- Global checkbox -->
+							<div class="form-group" style="margin-bottom: 0;" id="divGlobalCheck" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4 || notification['type']==5)"> <!-- Global checkbox -->
 								<div class="custom-control custom-checkbox scheduledMargin">
 							    	<span><input type="checkbox" name="globalCheck" id="globalCheck" #globalCheck="ngModel" [(ngModel)]="myGlobalCheck" style="opacity: 0;" (change)="checkValueGlobalCheck(myGlobalCheck)"><label for="globalCheck">Check all users</label></span>
 								</div>
 							</div>
 						</div>
 
-						<div class="col-md-11 col-sm-11 col-xs-11" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4)">
+						<div class="col-md-11 col-sm-11 col-xs-11" *ngIf="notification['type'] && (notification['type']==1 || notification['type']==4 || notification['type']==5)">
 							<div class="boxCheckboxList">
 							    <div class="container-fluid">
 							        <div class="row">

@@ -33,23 +33,26 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 
   baseUri:string = GLOBAL.baseUri;
 
-	public valorReseteoPainting = -2;
+	public valorReseteoPainting : number;
 
-	@Input()
+	  @Input()
     idSerie: Number;
 
     @Input()
-    paintingSelected: Painting;
+    paintingSelected: Painting;   
 
     @Output()
-	selectPainting = new EventEmitter<Painting>();
-	
+	  selectPainting = new EventEmitter<Painting>();
+
+    @Output()
+    selectIdSerie = new EventEmitter<number>();
+
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _paintingService: PaintingService
 	){
-		this.target = null;
+		  this.target = null;
     	this.source = null;
 	}
 
@@ -59,6 +62,8 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 		this.isVisible = false;
 
 		this.getPaintingsByIdSerie(-1);
+
+    this.valorReseteoPainting = -2;
 	}
 
 	getPaintings(){
@@ -74,6 +79,7 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 	}
 
 	getPaintingsByIdSerie(idSerie: Number){
+    this.isVisible = false;
 		if (idSerie != -1){
 			jQuery("#myPaintings").css('display', 'inline');
 			this.isVisible = true;
@@ -105,24 +111,29 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 	}
 
 	ngOnChanges(changes: SimpleChanges ) {
-		//si se ha seleccionado una serie diferente
-  		if( changes['idSerie'] && changes['idSerie'].previousValue != changes['idSerie'].currentValue ) {
-  			console.log('ngOnChanges');
-			
-			jQuery("#myPaintings").css('display', 'inline');
+
+  		//si se ha seleccionado una serie diferente
+  		if( changes['idSerie'] && changes['idSerie'].currentValue /*&& changes['idSerie'].previousValue != changes['idSerie'].currentValue*/ ) {		
+			  jQuery("#myPaintings").css('display', 'inline');
 	        
   			this.isVisible = true;
 
-
-    		this.getPaintingsByIdSerie(this.idSerie);
+        this.getPaintingsByIdSerie(changes['idSerie'].currentValue);
   		}
   		// si se ha guardado el painting y el selectedPainting = -2 (forzado desde el save)
   		else if( changes['paintingSelected'] 
-  			&& changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue
+  			&& (changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue)
   			&& changes['paintingSelected'].currentValue == this.valorReseteoPainting) {
 
   				this.getPaintingsByIdSerie(this.idSerie);
   		}
+      else if( changes['paintingSelected'] 
+        && (changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue)
+        && changes['paintingSelected'].currentValue == -3) {
+        
+        this.isVisible = true;
+        this.getPaintingsByIdSerie(this.idSerie);
+      }
 	}
 
 	onSelectPainting(painting: Painting) {
@@ -130,8 +141,15 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 
 		this.isVisible = false;
 
-    	this.selectPainting.emit(painting);
-  	}
+    console.log('onSelectPainting');
+    console.log(painting);
+
+  	this.selectPainting.emit(painting);
+
+    //falta resetear idSerie
+    if (painting == -1)
+      this.selectIdSerie.emit(-1);
+  }
 
   	ngAfterViewInit() {
   		if (this.placeholder)

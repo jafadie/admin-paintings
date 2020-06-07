@@ -45,6 +45,9 @@ export class NotificationCreateComponent implements OnInit {
   @Output()
   selectIdNotification = new EventEmitter<Number>();
 
+  @Output()
+  selectTypeNotification = new EventEmitter<Number>();
+
 
   constructor(
 		private _route: ActivatedRoute,
@@ -265,7 +268,7 @@ export class NotificationCreateComponent implements OnInit {
       this.fillUsers();
 
       if (this.edition == true)
-        this.updateNotification(true, form);
+        this.updateNotification(form);
       else{
         this.createNewNotification(form);
 
@@ -289,14 +292,17 @@ export class NotificationCreateComponent implements OnInit {
 
     contactForm(user) {
       console.log('contact form subscription');
-      console.log(this.notification['image']);
-      console.log(user);
 
       if (this.notification['type'] == 1 || this.notification['type'] == 4 ){
         this._userService.sendMailNotifyEvents(user, this.notification).subscribe(() => {
          console.log('Mail sent correctly: sendMailNotifyEvents');
     
         });
+      } else if (this.notification['type'] == 5){
+        this._userService.sendMailNotifyGeneralEvents(user, this.notification).subscribe(() => {
+         console.log('Mail sent correctly: sendMailNotifyGeneralEvents');
+         });
+      
       } else if (this.notification['type'] == 2){
         this._userService.sendMailAfterSubscription(user, this.notification).subscribe(() => {
          console.log('Mail sent correctly: sendMailAfterSubscription');
@@ -406,7 +412,7 @@ export class NotificationCreateComponent implements OnInit {
 
     this.edition = false;
 
-    if (this.notification['type'] == 1 || this.notification['type'] == 4)
+    if (this.notification['type'] == 1 || this.notification['type'] == 4 || this.notification['type'] == 5)
     {
       this.initializeUsers();
       this.notification['scheduled'] = false;
@@ -425,6 +431,8 @@ export class NotificationCreateComponent implements OnInit {
   	
     this.initializeDropDownLists(this.notification['type']);
 
+    this.selectIdNotification.emit(-1);
+    this.selectTypeNotification.emit(-1);
   }
 
   initializeDropDownLists(typeNotification: Number){
@@ -471,16 +479,13 @@ export class NotificationCreateComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-      console.log('ngonchanges');
       this.edition = false;
-    
+
       if (changes['typeNotification'] && (
-        changes['typeNotification'].previousValue == 2 || changes['typeNotification'].previousValue == 3 ||
         changes['typeNotification'].currentValue == 2 || changes['typeNotification'].currentValue == 3)
         )
       {
         if( changes['typeNotification'] && changes['typeNotification'].previousValue != changes['typeNotification'].currentValue ) {
-          console.log('ngOnChanges');
 
           this.notification['type'] = changes['typeNotification'].currentValue;
           this.typeNotificationAux = this.notification['type'];
@@ -490,25 +495,16 @@ export class NotificationCreateComponent implements OnInit {
           this.buttonName = 'Save notification';
 
           this.initializeCreateNotifications();
-
-          
         }
       }
       else {
         if( changes['idNotification'] && changes['idNotification'].previousValue != changes['idNotification'].currentValue ) {
-          console.log('ngOnChanges 2');
           
           this.idNotificationAux = changes['idNotification'].currentValue;
           this.edition = true;
           this.buttonName = 'Save notification';
 
-
           this.getNotificationById(changes['idNotification'].currentValue);
-
-
-          console.log('resetSimpleChanges');
-          this.idNotification = undefined;
-          
         }
       }
       
@@ -518,15 +514,12 @@ export class NotificationCreateComponent implements OnInit {
 
 
 
-  updateNotification(clean, form){
+  updateNotification(form){
       this._notificationService.updateNotification(this.notification['idNotification'] ,this.notification).subscribe(
       result => {
         console.log('Notification successfully updated!');
 
         //mostrar mensaje guardado
-
-        if (clean)
-          form.resetForm();
 
       },
       error => {
@@ -598,3 +591,4 @@ export class NotificationCreateComponent implements OnInit {
   
 
 }
+

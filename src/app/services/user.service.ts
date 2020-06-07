@@ -67,6 +67,15 @@ sendMailNotifyEvents(user, data) {
     )
 }
 
+// 5: Send mail notify events
+sendMailNotifyGeneralEvents(user, data) {
+  let url = `${this.baseUri}/sendMailNotifyGeneralEvents/${user.email}`;
+  return this.http.post(url, data)
+    .pipe(
+      catchError(this.errorMgmt)
+    )
+}
+
   // Error handling 
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';

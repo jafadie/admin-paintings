@@ -32,6 +32,9 @@ export class NotificationScheduledListComponent implements OnInit {
 	@Output()
 	selectIdNotification = new EventEmitter<Number>();
 
+  @Output()
+  selectTypeNotification = new EventEmitter<Number>();
+
   constructor(
   		private _route: ActivatedRoute,
 		private _router: Router,
@@ -128,9 +131,26 @@ export class NotificationScheduledListComponent implements OnInit {
   	this.getNotificationById(idNotification);
   }
 
+  onDeleteSelectedIdNotification(idNotification: Number) {
+    this.onDeleteNotification(idNotification);
+  }
+
+  onDeleteNotification(idNotification: Number){
+      this._notificationService.deleteNotification(idNotification).subscribe(
+      result => {
+        console.log(result);
+        //TODO preguntar con jQuery si estas seguro que quieres eliminar
+        this.getScheduledNotifications();
+      },
+      error => {
+        console.log(<any>error);
+      }
+
+    );
+    }
+
   getNotificationById(idNotification){
     console.log('getNotificationById');
-    console.log(idNotification);
     this._notificationService.getNotification(idNotification).subscribe(
       result => {
         console.log(result);
@@ -160,15 +180,21 @@ export class NotificationScheduledListComponent implements OnInit {
 
     contactForm(user) {
       console.log('contact form notification');
-      console.log(this.notification['image']);
-      console.log(user);
 
       this.notification['preview'] = true;
 
-       this._userService.sendMailNotifyEvents(user, this.notification).subscribe(() => {
-         console.log('Mail sent correctly');
+      if (this.notification['type'] == 1 || this.notification['type'] == 4 ){
+        this._userService.sendMailNotifyEvents(user, this.notification).subscribe(() => {
+         console.log('Mail sent correctly: sendMailNotifyEvents');
     
-      });
+        });
+      } else if (this.notification['type'] == 5){
+        this._userService.sendMailNotifyGeneralEvents(user, this.notification).subscribe(() => {
+         console.log('Mail sent correctly: sendMailNotifyGeneralEvents');
+         });
+      
+      }
+
 
   	}
 
@@ -177,6 +203,8 @@ export class NotificationScheduledListComponent implements OnInit {
   		console.log(idNotification);
 
     	this.selectIdNotification.emit(idNotification);
+
+      this.selectTypeNotification.emit(-1);
   	}
 
     ngOnChanges(changes: SimpleChanges ) {

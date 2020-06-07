@@ -11,6 +11,7 @@ export class AdminPaintingsComponent implements OnInit {
 
 	selectedIdSerie: Number;
 	selectedPainting: Painting;
+  selectedPaintingAux: Painting;
 
   constructor() { 
   }
@@ -26,5 +27,9 @@ export class AdminPaintingsComponent implements OnInit {
 	processSelectedPainting(painting: Painting){
     this.selectedPainting = painting;
 	}
+
+  processSelectedPaintingAux(painting: Painting){
+    this.selectedPaintingAux = painting;
+  }
 
 }

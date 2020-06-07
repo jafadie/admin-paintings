@@ -4,11 +4,11 @@
 		<div class="col-lg-4">
 			<app-serie-create (selectIdSerie)="processSelectedIdSerie($event)"></app-serie-create>
 
-			<app-serie-list [idSerie]="selectedIdSerie" (selectIdSerie)="processSelectedIdSerie($event)"></app-serie-list>
+			<app-serie-list [idSerie]="selectedIdSerie" (selectIdSerie)="processSelectedIdSerie($event)" (selectPainting)="processSelectedPainting($event)"></app-serie-list>
 		</div>
 
 		<div class="col-lg-8">
-			<app-painting-list [idSerie]="selectedIdSerie" (selectPainting)="processSelectedPainting($event)" [paintingSelected]="selectedPainting"></app-painting-list>
+			<app-painting-list [idSerie]="selectedIdSerie" (selectPainting)="processSelectedPainting($event)" [paintingSelected]="selectedPainting" (selectIdSerie)="processSelectedIdSerie($event)"></app-painting-list>
 
 			<app-painting-create [idSerie]="selectedIdSerie" [paintingSelected]="selectedPainting" (selectIdSerie)="processSelectedIdSerie($event)" (selectPainting)="processSelectedPainting($event)"></app-painting-create>
 		</div>

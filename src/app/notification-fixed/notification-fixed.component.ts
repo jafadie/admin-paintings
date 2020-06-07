@@ -22,6 +22,9 @@ export class NotificationFixedComponent implements OnInit {
     @Output()
 	selectTypeNotification = new EventEmitter<Number>();
 
+	@Output()
+  	selectIdNotification = new EventEmitter<Number>();
+
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -38,6 +41,8 @@ export class NotificationFixedComponent implements OnInit {
 
 	onSelectTypeNotification(typeNotification: Number) {
     	this.selectTypeNotification.emit(typeNotification);
+
+    	this.selectIdNotification.emit(-2);
   	}
 
   	

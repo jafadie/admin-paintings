@@ -166,7 +166,28 @@ export class PaintingCreateComponent implements OnInit {
 	ngOnChanges(changes: SimpleChanges ) {
 		this.is_edit = false;
 		this.nameButton = 'Create painting';
-  		if( changes['paintingSelected'] && changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue ) {
+
+		console.log('ngOnChanges painting create');
+		console.log(changes['paintingSelected']);
+		console.log(changes['idSerie']);
+
+		if(!changes['paintingSelected'] && changes['idSerie'] && !changes['idSerie'].firstChange && changes['idSerie'].previousValue != changes['idSerie'].currentValue){
+			this.is_visible = false;
+		} else if (changes['idSerie'] && changes['idSerie'].firstChange) {
+			this.is_visible = false;
+
+		} else if (changes['paintingSelected'] && changes['paintingSelected'].firstChange) {
+			this.is_visible = false;
+		}
+		
+
+  		else if( changes['paintingSelected'] && changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue ) {
+  			this.is_visible = true;
+  			if(changes['paintingSelected'].currentValue != -1 && changes['idSerie'] && changes['idSerie'].previousValue != changes['idSerie'].currentValue ) {
+				this.is_visible = false;
+			} else if (changes['paintingSelected'] && changes['paintingSelected'].currentValue == -3) {
+				this.is_visible = false;
+			}
 
   			// si se ha hecho clic en Anyadir nuevo painting
   			// llega un -1 de la invocación de ese metodo
@@ -175,7 +196,6 @@ export class PaintingCreateComponent implements OnInit {
 
 				this.painting['available'] = true;
 				this.painting['visible'] = true;
-				this.is_visible = true;
 
 				// si se ha seleccionado para editar un painting
 				if (this.paintingSelected && this.paintingSelected['idPainting']){
@@ -200,3 +220,4 @@ export class PaintingCreateComponent implements OnInit {
   	}
 
 }
+

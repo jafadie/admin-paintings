@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SerieService } from '../services/serie.service';
 import { Serie } from '../models/serie.model';
+import { Painting } from '../models/painting.model';
 
 @Component({
   selector: 'app-serie-list',
@@ -18,6 +19,9 @@ export class SerieListComponent implements OnInit {
 
 	@Output()
 	selectIdSerie = new EventEmitter<Number>();
+
+	@Output()
+	selectPainting = new EventEmitter<Painting>();
 	
 	constructor(
 		private _route: ActivatedRoute,
@@ -47,6 +51,12 @@ export class SerieListComponent implements OnInit {
 
 	onSelectIdSerie(idSerie: Number) {
     	this.selectIdSerie.emit(idSerie);
+
+    	console.log('onSelectIdSerie');
+    	console.log(idSerie);
+
+    	//al cambiar de serie reseteo el valor de paintingSelected
+    	this.selectPainting.emit(-3);
   	}
 
   	onDeleteSerie(idSerie: Number){

@@ -6,14 +6,14 @@
 		<div class="col-md-10 col-sm-10 col-xs-10">
 			<div *ngIf="isVisible" style="margin-bottom: 3em;">
 				<a (click)="onSelectPainting(-1)">
-					<span style="font-size: 1.4em;">Add new painting</span> <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 1.4em; margin-left: 0.2em; color:#012e67;"></i>
+					<span style="font-size: 1.4em; cursor:pointer;">Add new painting</span> <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 1.4em; margin-left: 0.2em; color:#012e67; cursor:pointer;"></i>
 				</a>
 			</div>
 
 	
 
 			<div *ngIf="paintings">
-				<div class="example-container" *ngIf="!paintings[0] && idSerie">
+				<div class="example-container" *ngIf="!paintings[0] && idSerie && idSerie != -1">
 					<span style="font-size: 1.8em;">No paintings in this serie</span>
 				</div>
 
