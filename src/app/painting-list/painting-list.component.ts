@@ -4,6 +4,7 @@ import { PaintingService } from '../services/painting.service';
 import { Painting } from '../models/painting.model';
 import { Serie } from '../models/serie.model';
 import { GLOBAL } from '../services/global';
+import Swal from 'sweetalert2';
 import {
   CdkDrag,
   CdkDragStart,
@@ -96,7 +97,24 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 		);
 	}
 
-	onDeletePainting(id){
+  onDeletePainting(id: Number){
+    Swal.fire({
+          text: "¿Desea eliminar el cuadro?",
+          showCancelButton: true,
+          confirmButtonColor: '#012e67',
+          cancelButtonColor: '#9B9B9B',
+          confirmButtonText: 'Aceptar',
+          cancelButtonText: 'Cancelar'
+
+        }).then((result) => {
+  
+          if (result.value) {
+            this.deletePainting(id);
+          }
+      })
+  }
+
+	deletePainting(id: Number){
 		this._paintingService.deletePainting(id).subscribe(
 			result => {
 				console.log(result);

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SerieService } from '../services/serie.service';
 import { Serie } from '../models/serie.model';
 import { Painting } from '../models/painting.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-serie-list',
@@ -59,7 +60,24 @@ export class SerieListComponent implements OnInit {
     	this.selectPainting.emit(-3);
   	}
 
-  	onDeleteSerie(idSerie: Number){
+  	onDeleteSerie(idSerie: Number) {
+  		Swal.fire({
+	        text: "¿Desea eliminar la serie?",
+	        showCancelButton: true,
+	        confirmButtonColor: '#012e67',
+	        cancelButtonColor: '#9B9B9B',
+	        confirmButtonText: 'Aceptar',
+	        cancelButtonText: 'Cancelar'
+
+      	}).then((result) => {
+  
+	        if (result.value) {
+	          this.deleteSerie(idSerie);
+	        }
+     	})
+  	}
+
+  	deleteSerie(idSerie: Number){
   		this._serieService.deleteSerie(idSerie).subscribe(
 			result => {
 				console.log(result);
@@ -69,7 +87,6 @@ export class SerieListComponent implements OnInit {
 			error => {
 				console.log(<any>error);
 			}
-
 		);
   	}
 

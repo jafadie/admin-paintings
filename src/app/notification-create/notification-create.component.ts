@@ -545,7 +545,21 @@ export class NotificationCreateComponent implements OnInit {
     }
 
     onSendNotification(form){
-      this.sendNotification(form)
+      Swal.fire({
+        text: "Va a enviar la notificación a sus clientes, ¿desea continuar?",
+        showCancelButton: true,
+        confirmButtonColor: '#012e67',
+        cancelButtonColor: '#9B9B9B',
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar'
+
+      }).then((result) => {
+  
+        if (result.value) {
+          this.sendNotification(form);
+        }
+      })
+      
     }
   
 

@@ -7,6 +7,7 @@ import { NotificationType } from '../models/notificationType.model';
 import { User } from '../models/user.model';
 import { EventType } from '../models/eventType.model';
 import { MediaType } from '../models/mediaType.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-notification-scheduled-list',
@@ -132,7 +133,20 @@ export class NotificationScheduledListComponent implements OnInit {
   }
 
   onDeleteSelectedIdNotification(idNotification: Number) {
-    this.onDeleteNotification(idNotification);
+      Swal.fire({
+        text: "¿Desea eliminar la notificación?",
+        showCancelButton: true,
+        confirmButtonColor: '#012e67',
+        cancelButtonColor: '#9B9B9B',
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar'
+
+      }).then((result) => {
+  
+        if (result.value) {
+          this.onDeleteNotification(idNotification);
+        }
+      })
   }
 
   onDeleteNotification(idNotification: Number){
