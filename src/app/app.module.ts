@@ -24,9 +24,7 @@ import { UserService } from './services/user.service';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { NotificationCreateComponent } from './notification-create/notification-create.component';
 import { NotificationScheduledListComponent } from './notification-scheduled-list/notification-scheduled-list.component';
-import { NotificationSentListComponent } from './notification-sent-list/notification-sent-list.component';
 import { NotificationService } from './services/notification.service';
-import { NotificationSentService } from './services/notificationSent.service';
 import { NotificationFixedComponent } from './notification-fixed/notification-fixed.component';
 
 @NgModule({
@@ -45,7 +43,6 @@ import { NotificationFixedComponent } from './notification-fixed/notification-fi
     AdminUsersComponent,
     NotificationCreateComponent,
     NotificationScheduledListComponent,
-    NotificationSentListComponent,
     NotificationFixedComponent
   ],
   imports: [
@@ -62,8 +59,7 @@ import { NotificationFixedComponent } from './notification-fixed/notification-fi
     PaintingService,
     SerieService,
     UserService,
-    NotificationService,
-    NotificationSentService
+    NotificationService
   ],
   bootstrap: [AppComponent],
   schemas: [

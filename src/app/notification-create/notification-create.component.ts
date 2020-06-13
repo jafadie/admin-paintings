@@ -4,10 +4,8 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
 import { EventType } from '../models/eventType.model';
 import { MediaType } from '../models/mediaType.model';
-import { NotificationService } from '../services/notification.service';
-import { NotificationSentService } from '../services/notificationSent.service';
 import { Notification } from '../models/notification.model';
-import { NotificationSent } from '../models/notificationSent.model';
+import { NotificationService } from '../services/notification.service';
 import Swal from 'sweetalert2'
 declare var jQuery: any;
 import { GLOBAL } from '../services/global';
@@ -17,7 +15,7 @@ import { GLOBAL } from '../services/global';
   selector: 'app-notification-create',
   templateUrl: './notification-create.component.html',
   styleUrls: ['./notification-create.component.css'],
-  providers: [UserService, NotificationService, NotificationSentService]
+  providers: [UserService, NotificationService]
 })
 export class NotificationCreateComponent implements OnInit {
 
@@ -25,7 +23,6 @@ export class NotificationCreateComponent implements OnInit {
 	public eventTypes: EventType[];
 	public mediaTypes: MediaType[];
 	public notification: Notification;
-	public notificationSent: NotificationSent;
 	public filesToUpload;
 	public myUserList: any = [];
 	public buttonName: string;
@@ -53,11 +50,9 @@ export class NotificationCreateComponent implements OnInit {
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _userService: UserService,
-		private _notificationService: NotificationService,
-		private _notificationSentService: NotificationSentService
+		private _notificationService: NotificationService
 	){
-  		this.notification = new Notification(0, 0, true, 0, '', '', '', '', '', '', 0, '', [], '', false); 		
-  		this.notificationSent = new NotificationSent(0, 0, 0, true, 0, '', '', '', '', '', '', 0, '', []);
+  		this.notification = new Notification(0, 0, true, 0, '', '', '', '', '', '', 0, '', [], '', false);
       this.idNotificationAux = -1;
   }
 
@@ -213,35 +208,6 @@ export class NotificationCreateComponent implements OnInit {
   		)
   	}
 
-
-  	/*createNewNotificationSent() {
-  		this._notificationSentService.getSequenceNumber().subscribe(
-  			result => {
-				this.notificationSent['idNotificationSent'] = result['seq'];
-				
-				
-				this.createNotificationSent();
-			},
-			error => {
-				console.log(<any>error);
-			}
-  		);
-  	}*/
-
-  	/*createNotificationSent(){
-  		this._notificationSentService.createNotificationSent(this.notificationSent).subscribe(
-  			result => {
-				console.log('NotificationSent successfully created!');
-
-				this.sendNotification();//to all users selected
-
-
-			},
-			error => {
-				console.log(<any>error);
-			}
-  		)
-  	}*/
 
     sendPreviewNotification(){
       //correo lorena garcia
