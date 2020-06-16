@@ -165,8 +165,8 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
   	this.selectPainting.emit(painting);
 
     //falta resetear idSerie
-    if (painting == -1)
-      this.selectIdSerie.emit(-1);
+    //if (painting == -1)
+      //this.selectIdSerie.emit(-1);
   }
 
   	ngAfterViewInit() {

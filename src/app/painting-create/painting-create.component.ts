@@ -171,7 +171,7 @@ export class PaintingCreateComponent implements OnInit {
 		console.log(changes['paintingSelected']);
 		console.log(changes['idSerie']);
 
-		if(!changes['paintingSelected'] && changes['idSerie'] && !changes['idSerie'].firstChange && changes['idSerie'].previousValue != changes['idSerie'].currentValue){
+		/*if(!changes['paintingSelected'] && changes['idSerie'] && !changes['idSerie'].firstChange && changes['idSerie'].previousValue != changes['idSerie'].currentValue){
 			this.is_visible = false;
 		} else if (changes['idSerie'] && changes['idSerie'].firstChange) {
 			this.is_visible = false;
@@ -181,7 +181,7 @@ export class PaintingCreateComponent implements OnInit {
 		}
 		
 
-  		else if( changes['paintingSelected'] && changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue ) {
+  		else*/ if( changes['paintingSelected'] && changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue ) {
   			this.is_visible = true;
   			if(changes['paintingSelected'].currentValue != -1 && changes['idSerie'] && changes['idSerie'].previousValue != changes['idSerie'].currentValue ) {
 				this.is_visible = false;
