@@ -13,6 +13,7 @@ declare var jQuery: any;
 export class HeaderComponent implements OnInit {
 
 	public series:any = [];
+	public navbarOpen = false;
 
   constructor(
   		private _route: ActivatedRoute,
@@ -89,6 +90,8 @@ export class HeaderComponent implements OnInit {
 
 	highlightMenuNav(){
 
+		this.navbarOpen = false;
+
 		(function ($) {
 	  		$(document).ready(function(){
 	  			$('#navbarDropdown1').addClass( 'active' );
@@ -98,6 +101,8 @@ export class HeaderComponent implements OnInit {
 	}
 
 	unhighlightMenuNav(){
+
+		this.navbarOpen = false;
 
 		(function ($) {
 	  		$(document).ready(function(){
@@ -115,5 +120,9 @@ export class HeaderComponent implements OnInit {
 		})(jQuery);
         
 	}
+
+	toggleNavbar() {
+    	this.navbarOpen = !this.navbarOpen;
+  	}
 
 }

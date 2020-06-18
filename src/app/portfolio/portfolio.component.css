@@ -5,13 +5,27 @@
     border: 1em solid white;
 }
 
-.img_vertical {
-    width: 33%;
+@media (max-width:820px){
+	.img_vertical {
+    width: 30%;
+	}
+
+	.img_horizontal {
+	    width: 60%;
+	}
 }
 
-.img_horizontal {
-    width: 66%;
+@media (min-width:820px){
+	.img_vertical {
+    width: 33%;
+	}
+
+	.img_horizontal {
+	    width: 66%;
+	}
 }
+
+
 
 .header_painting {
 	border: 0.5em solid white;

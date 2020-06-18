@@ -1,59 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff; color: #000000">
+  <div id="topheader" class="container-fluid">
+    <div class="logo logo2 pull-left">
+      <a class="nav-item nav-link active" routerLinkActive="active" routerLink="/app-home"><span class="logoGris">Lorena</span><span class="logoGris">García</span><span class="logoIndigo">Mateu</span></a>
+    </div>
 
-<header>
+    <button class="navbar-toggler custom-toggler" type="button" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{ 'show': navbarOpen }">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Portfolio
+          </a>
+          <div class="dropdown-menu" style="width: 15em !important;" aria-labelledby="navbarDropdown1">
+            <a *ngFor="let serie of series" class="dropdown-item" href="#" (click)="highlightMenuNav()" [routerLink]="['/app-portfolio', serie.idSerie]">{{serie.title}}</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" (click)="highlightMenuNav()" routerLink="/app-portfolio">Vista en exposición</a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/app-bio" (click)="unhighlightMenuNav()" href="#">Bio</a>
+        </li>
+
+        <li class="nav-item" >
+          <a class="nav-link" routerLinkActive="active" routerLink="/painting-create" (click)="unhighlightMenuNav()">Exhibitions</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#" (click)="unhighlightMenuNav()">Press</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/app-contact" href="#" (click)="unhighlightMenuNav()">Contact</a>
+        </li>
+
+        
+      </ul>
+    </div>
+  </div>
+
   
-  <!-- MENU BLOCK -->
-  <div class="menu_block">
-  
-    <!-- CONTAINER -->
-    
-    <nav class="navbar navbar-expand-lg" style="background-color: #ffffff; color: #000000">
-      <div id="topheader" class="container-fluid">
-        <div class="logo pull-left">
-          <a class="nav-item nav-link active" routerLinkActive="active" routerLink="/app-home"><span class="logoGris">Lorena</span><span class="logoGris">García</span><span class="logoIndigo">Mateu</span></a>
-        </div>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Portfolio
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                <a *ngFor="let serie of series" class="dropdown-item" href="#" (click)="highlightMenuNav()" [routerLink]="['/app-portfolio', serie.idSerie]">{{serie.title}}</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" (click)="highlightMenuNav()" routerLink="/app-portfolio">Vista en exposición</a>
-              </div>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" routerLinkActive="active" routerLink="/app-bio" (click)="unhighlightMenuNav()" href="#">Bio</a>
-            </li>
-
-            <li class="nav-item" >
-              <a class="nav-link" routerLinkActive="active" routerLink="/painting-create" (click)="unhighlightMenuNav()">Exhibitions</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="#" (click)="unhighlightMenuNav()">Catalog</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="#" (click)="unhighlightMenuNav()">Privacy</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" routerLinkActive="active" routerLink="/app-contact" href="#" (click)="unhighlightMenuNav()">Contact</a>
-            </li>
-
-            
-          </ul>
-        </div>
-      </div>
-    </nav>
-      
-    
-  </div><!-- //CONTAINER -->
-</header><!-- //HEADER -->
+</nav>
