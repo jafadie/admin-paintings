@@ -60,7 +60,7 @@ export class PortfolioComponent implements OnInit {
 	loadLibraries() {
 		this.loadScript('https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js');
 		this.loadScript('../../assets/js/lightgallery-all.min.js');
-		this.loadScript('../../assets/js/jquery.mousewheel.min.js');
+		//this.loadScript('../../assets/js/jquery.mousewheel.min.js');
 
 		this.loadScript('../../assets/js/lg-thumbnail.min.js');
 		this.loadScript('../../assets/js/lg-fullscreen.min.js');
@@ -73,23 +73,13 @@ export class PortfolioComponent implements OnInit {
 		this.loadScript('../../assets/js/lg-video.min.js');
 	}
 
-	getPaintings(){
-		this._paintingService.getPaintings().subscribe(
-			result => {
-				console.log(result);
-				this.paintings = result;
-			},
-			error => {
-				console.log(<any>error);
-			}
-		);
-	}
-
 	getPaintingsByIdSerie(idSerie: Number){
 		this._paintingService.getPaintingsByIdSerie(idSerie).subscribe(
 			result => {
 				console.log(result);
 				this.paintings = result;
+
+				this.clickExecuted = true;
 			},
 			error => {
 				console.log(<any>error);
@@ -113,8 +103,13 @@ export class PortfolioComponent implements OnInit {
 
 	onClickImage(){
 		this.loadLibraries();
+		//esperar un tiempo hasta que se carguen
+
+		
 
 		if (this.clickExecuted) {
+
+			console.log('dentrooooooo');
         	// Do all the things with the stuff
         	this.clickExecuted = false; // set it to false until you need to trigger again
 
@@ -122,6 +117,14 @@ export class PortfolioComponent implements OnInit {
 	      		$(document).ready(function(){
 	      		
 					var $customEvents = $('#lightgallery');
+
+					console.log($customEvents.data('lightGallery'));
+
+					//para cuando se cambia de serie necesito la carga de la libreria
+					if ($customEvents.data('lightGallery') != undefined){
+						$customEvents.data('lightGallery').destroy(true);
+					}
+
 
 					$customEvents.lightGallery({
 						mode: 'lg-slide',
@@ -145,10 +148,10 @@ export class PortfolioComponent implements OnInit {
 
 
 					$customEvents.on('onBeforeSlide.lg',function(event){
-						//$('.lg-item').css('margin-top', '7em');
+						$('.lg-item').css('margin-top', '5em');
 						$('.lg-item').css('max-width', '100%');
 						$('.lg-item').css('max-height', '100%');
-						$('.lg-item').css('height', '95%');
+						$('.lg-item').css('height', '90%');
 
 						
 						$('.lg-toolbar').css('background-color', '#ffffff');
@@ -169,25 +172,13 @@ export class PortfolioComponent implements OnInit {
     					$('.lg-sub-html').css('border', '2px solid #717D85');
 
 					});
-
 	        		
 	      		});
     		})(jQuery);
-        }
 
-	}
 
-	onDeletePainting(id){
-		this._paintingService.deletePainting(id).subscribe(
-			result => {
-				console.log(result);
-				this.getPaintings();
-			},
-			error => {
-				console.log(<any>error);
-			}
+        } 
 
-		);
 	}
 
 	setPaintingClasses(painting){

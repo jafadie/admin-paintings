@@ -17,11 +17,18 @@
 
 @media (min-width:820px){
 	.img_vertical {
-    width: 33%;
+  		max-width:33%;
+  		
+  		max-height:39em;
+  		width: auto;
+  		height: auto;
 	}
 
 	.img_horizontal {
-	    width: 66%;
+	    max-width: 66%;
+	    
+	    width: auto;
+  		height: auto;
 	}
 }
 
