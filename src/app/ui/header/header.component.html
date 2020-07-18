@@ -16,8 +16,8 @@
           </a>
           <div class="dropdown-menu" style="width: 15em !important;" aria-labelledby="navbarDropdown1">
             <a *ngFor="let serie of series" class="dropdown-item" href="#" (click)="highlightMenuNav()" [routerLink]="['/app-portfolio', serie.idSerie]">{{serie.title}}</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" (click)="highlightMenuNav()" routerLink="/app-portfolio">Vista en exposición</a>
+            <!--<div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" (click)="highlightMenuNav()" routerLink="/app-portfolio">Vista en exposición</a>-->
           </div>
         </li>
 
@@ -25,13 +25,17 @@
           <a class="nav-link" routerLinkActive="active" routerLink="/app-bio" (click)="unhighlightMenuNav()" href="#">Bio</a>
         </li>
 
-        <li class="nav-item" >
+        <!--<li class="nav-item" >
           <a class="nav-link" routerLinkActive="active" routerLink="/painting-create" (click)="unhighlightMenuNav()">Exhibitions</a>
+        </li>-->
+
+        <li class="nav-item" >
+          <a class="nav-link" routerLinkActive="active" routerLink="/app-events" (click)="unhighlightMenuNav()">Events</a>
         </li>
 
-        <li class="nav-item">
+        <!--<li class="nav-item">
           <a class="nav-link" href="#" (click)="unhighlightMenuNav()">Press</a>
-        </li>
+        </li>-->
 
         <li class="nav-item">
           <a class="nav-link" routerLinkActive="active" routerLink="/app-contact" href="#" (click)="unhighlightMenuNav()">Contact</a>

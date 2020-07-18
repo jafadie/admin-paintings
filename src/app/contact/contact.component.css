@@ -25,3 +25,25 @@
 	border: 0.1em solid #012e67;
 	margin-right: 1%;
 }
+
+.galleryLight {
+	margin-top: 0.7em;
+	font-family: 'roboto-light', sans-serif;
+}
+
+.galleryName {
+	font-size: 1.3em;
+	font-family: 'roboto-bold', sans-serif;
+}
+
+.galleryLink {
+	color:#012e67;
+}
+
+.galleryLink:hover {
+	color:#aaa;
+}
+
+.galleryLink:active {
+	color:#012e67;
+}

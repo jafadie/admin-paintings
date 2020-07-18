@@ -11,6 +11,7 @@ import { SerieListComponent } from './serie-list/serie-list.component';
 import { AdminPaintingsComponent } from './admin-paintings/admin-paintings.component';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { EventsComponent } from './events/events.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'app-portfolio/:id', component: PortfolioComponent },
   { path: 'app-bio', component: BioComponent },
   { path: 'app-contact', component: ContactComponent },
+  { path: 'app-events', component: EventsComponent },
   { path: 'painting-list', component: PaintingListComponent },
   { path: 'painting-create', component: PaintingCreateComponent },
   { path: 'serie-create', component: SerieCreateComponent },
