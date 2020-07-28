@@ -27,6 +27,7 @@ import { NotificationScheduledListComponent } from './notification-scheduled-lis
 import { NotificationService } from './services/notification.service';
 import { NotificationFixedComponent } from './notification-fixed/notification-fixed.component';
 import { EventsComponent } from './events/events.component';
+import { TextsComponent } from './texts/texts.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { EventsComponent } from './events/events.component';
     NotificationCreateComponent,
     NotificationScheduledListComponent,
     NotificationFixedComponent,
-    EventsComponent
+    EventsComponent,
+    TextsComponent
   ],
   imports: [
     BrowserModule,

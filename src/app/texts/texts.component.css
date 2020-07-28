@@ -1,0 +1,23 @@
+.center {
+  text-align: justify;
+  text-justify: inter-word;
+  line-height : 2em;
+}
+
+.text_color {
+	font-size: 1.6em; 
+	font-family: 'roboto-light', sans-serif;
+	margin-top: 4em;
+}
+
+.text_name {
+	margin-top: 3em; 
+	font-weight: bold; 
+	color:#012e67;
+	font-size: 1.5em;
+}
+
+.text_otros {
+	font-size: 1.2em; 
+	font-family: 'roboto-light', sans-serif;
+}

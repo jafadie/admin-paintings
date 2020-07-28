@@ -54,7 +54,7 @@ export class SerieListComponent implements OnInit {
     	this.selectIdSerie.emit(idSerie);
 
     	console.log('onSelectIdSerie');
-    	console.log(idSerie);
+    	console.log(this.idSerie);
 
     	//al cambiar de serie reseteo el valor de paintingSelected
     	this.selectPainting.emit(-3);

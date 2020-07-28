@@ -1,4 +1,4 @@
-<div class="container-fluid" *ngIf="is_visible">
+<div class="container-fluid" *ngIf="is_visible" style="position: relative; top: 8em">
 	<div class="row">
 		<div class="col-md-1 col-sm-1 col-xs-1">
 		</div>
@@ -62,7 +62,7 @@
 					<div class="row">
 						<div class="col-md-10 col-sm-10 col-xs-10">
 							<div class="form-group"> <!-- Available-->						    	
-							    <span><input type="checkbox" name="available" #available="ngModel" id="available" [(ngModel)]="painting['available']" style="opacity: 0;" checked required><label for="available" style="">Available</label></span>
+							    <span><input type="checkbox" name="available" #available="ngModel" id="available" [(ngModel)]="painting['available']" style="opacity: 0;" checked><label for="available" style="">Available</label></span>
 							</div>
 						</div>
 					</div>

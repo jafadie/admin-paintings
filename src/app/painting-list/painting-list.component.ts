@@ -261,8 +261,9 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 		
 		let classes = {
 			my_box: true,
-			box_vertical: painting.width <= painting.height,
-			box_horizontal: painting.width > painting.height
+			box_vertical: painting.width < painting.height,
+			box_horizontal: painting.width > painting.height,
+      box_cuadrado: painting.width == painting.height
 		}
 
 		return classes;

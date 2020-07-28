@@ -108,8 +108,6 @@ export class PortfolioComponent implements OnInit {
 		
 
 		if (this.clickExecuted) {
-
-			console.log('dentrooooooo');
         	// Do all the things with the stuff
         	this.clickExecuted = false; // set it to false until you need to trigger again
 
@@ -184,8 +182,9 @@ export class PortfolioComponent implements OnInit {
 	setPaintingClasses(painting){
 		
 		let classes = {
-        	img_vertical: painting.width <= painting.height,
+        	img_vertical: painting.width < painting.height,
         	img_horizontal: painting.width > painting.height,
+        	img_cuadrado: painting.width == painting.height,
         	img_painting: true
     	};
     	return classes;

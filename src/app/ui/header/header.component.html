@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff; color: #000000">
+<div style="position: fixed; z-index: 3; width: 100%;">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff; color: #000000;">
   <div id="topheader" class="container-fluid">
     <div class="logo logo2 pull-left">
       <a class="nav-item nav-link active" routerLinkActive="active" routerLink="/app-home"><span class="logoGris">Lorena</span><span class="logoGris">García</span><span class="logoIndigo">Mateu</span></a>
@@ -33,6 +34,10 @@
           <a class="nav-link" routerLinkActive="active" routerLink="/app-events" (click)="unhighlightMenuNav()">Events</a>
         </li>
 
+        <li class="nav-item" >
+          <a class="nav-link" routerLinkActive="active" routerLink="/app-texts" (click)="unhighlightMenuNav()">Texts</a>
+        </li>
+
         <!--<li class="nav-item">
           <a class="nav-link" href="#" (click)="unhighlightMenuNav()">Press</a>
         </li>-->
@@ -46,6 +51,5 @@
     </div>
   </div>
 
-  
-
 </nav>
+</div>
