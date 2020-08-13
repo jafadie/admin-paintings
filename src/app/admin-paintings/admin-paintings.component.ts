@@ -13,7 +13,16 @@ export class AdminPaintingsComponent implements OnInit {
 	selectedPainting: Painting;
   selectedPaintingAux: Painting;
 
-  constructor() { 
+  public username: string;
+  public password: string;
+  public isAdmin: boolean;
+  public mostrarError: boolean;
+
+  constructor() {
+    this.username = '';
+    this.password = '';
+    this.isAdmin = false;
+    this.mostrarError = false;
   }
 
   ngOnInit() {
@@ -31,5 +40,16 @@ export class AdminPaintingsComponent implements OnInit {
   processSelectedPaintingAux(painting: Painting){
     this.selectedPaintingAux = painting;
   }
+
+  onSubmit(){
+     console.log(this.username);
+     console.log(this.password);
+
+     if (this.username == 'lgmateu' && this.password == 'mocito_bueno%37'){
+        this.isAdmin = true;
+     } else {
+        this.mostrarError = true;
+     }
+    }
 
 }

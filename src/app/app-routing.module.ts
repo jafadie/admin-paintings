@@ -29,8 +29,8 @@ const routes: Routes = [
   { path: 'serie-create', component: SerieCreateComponent },
   { path: 'serie-list', component: SerieListComponent },
   { path: 'admin-paintings', component: AdminPaintingsComponent },
-  { path: 'admin-users', component: AdminUsersComponent }
-  //,{path: '**', component: ErrorComponent}
+  { path: 'admin-users', component: AdminUsersComponent },
+  {path: '**', component: HomeComponent}
 ];
 
 @NgModule({

@@ -71,8 +71,10 @@ export class ContactComponent implements OnInit {
       result => {
         console.log(result);
         this.notification = result[0];
-        this.sendMailSubscription();
+        //this.sendMailSubscription();
         //falta cargarla en el control
+        
+        this.initializeUser();
       },
       error => {
         console.log(<any>error);

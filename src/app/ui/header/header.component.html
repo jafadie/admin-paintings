@@ -5,9 +5,13 @@
       <a class="nav-item nav-link active" routerLinkActive="active" routerLink="/app-home"><span class="logoGris">Lorena</span><span class="logoGris">García</span><span class="logoIndigo">Mateu</span></a>
     </div>
 
-    <button class="navbar-toggler custom-toggler" type="button" (click)="toggleNavbar()">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="pull-right">
+      <button class="navbar-toggler custom-toggler" type="button" (click)="toggleNavbar();">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{ 'show': navbarOpen }">
       <ul class="navbar-nav ml-auto">

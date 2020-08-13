@@ -105,7 +105,7 @@ h6 {margin:0 0 15px; line-height:20px; font-size:12px;}
 /*-----------------------------------------------------------------------------------*/
 /* __________ Contact Form __________ */
 textarea,
-input[type="text"] {
+input[type="text"], input[type="password"] {
 	width:100%;
 	margin:0 0 0.7em;
 	padding: 10px 8px;
@@ -300,8 +300,7 @@ input[type="color"]:focus {
   border-color: #012e67;
 } 
 
-
-@media (min-width:320px){
+@media (max-width:5320px){
   /* __________ Logo __________ */
 .logo {
   float:left;
@@ -329,7 +328,59 @@ input[type="color"]:focus {
   font-size: 2.4em;
   font-family: 'roboto-light', sans-serif;
 }
+.text_space_contact {
+	margin-top: 1%;
 }
+.text_space_bio {
+	margin-top: 1%;
+}
+.img_contact_visible {
+	display: visible;
+}
+}
+
+@media (max-width:768px){
+  /* __________ Logo __________ */
+.logo {
+  float:left;
+  margin-left: 10%;
+}
+
+.logo a {
+  /*text-transform:uppercase;*/
+  line-height: 4em;
+  color:#012e67;
+  font-family: 'Roboto', sans-serif;
+}
+.logo a span {
+  padding-right: 0.5%;
+
+}
+
+.logo a span.logoIndigo {
+  font-size: 2.2em;
+  font-family: 'roboto-medium', sans-serif;
+}
+
+.logo a span.logoGris {
+  color: #A19C9B;
+  font-size: 1.5em;
+  font-family: 'roboto-light', sans-serif;
+}
+.text_space_contact {
+	margin-top: 5%;
+}
+.text_space_bio {
+	margin-top: 8%;
+}
+.img_contact_visible {
+	display: none;
+}
+}
+
+
+
+
 
 
 /* __________ Fonts __________ */
