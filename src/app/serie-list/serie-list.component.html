@@ -12,35 +12,58 @@
 				<ul>
 					<li *ngFor="let serie of series">
 						<div class="container-fluid">
-							<div class="row">
+							<div class="row" *ngIf="!idSerie || serie.idSerie != idSerie">
 								<div class="col-md-8 col-sm-8 col-xs-8">
-								<!--<div class="col-md-8 col-sm-8 col-xs-8" *ngIf="!idSerie || serie.idSerie != idSerie">-->
 									<strong>{{serie.title}}</strong>
 								</div>
 
-
-								<!--<div class="col-md-8 col-sm-8 col-xs-8" *ngIf="idSerie && serie.idSerie == idSerie">
-									<form #formEditSerie="ngForm" (ngSubmit)="onSubmit()" id="form-editSerie">
-										<div class="form-group">
-											<input type="text" id="serie" name="serie" #title="ngModel" [(ngModel)]="serie['title']" placeholder="Name serie" required>
-										</div>
-									</form>
-								</div>-->
-
-
-
-								<div class="col-md-3 col-sm-3 col-xs-3">
+								<div class="col-md-4 col-sm-4 col-xs-4">
 									<i (click)="onSelectIdSerie(serie.idSerie)" class="fa fa-pencil-square-o" aria-hidden="true" style="margin-left: 1em; color:#012e67; cursor:pointer;"></i>
 
-									<!--<i *ngIf="idSerie && serie.idSerie == idSerie" (click)="onSelectIdSerie(serie.idSerie)" class="fa fa-save" aria-hidden="true" style="margin-left: 1em; color:#012e67; cursor:pointer;"></i>-->
-						
 									<i (click)="onDeleteSerie(serie.idSerie)" class="fa fa-trash" aria-hidden="true" style="margin-left: 0.2em; color:#012e67; cursor:pointer;"></i>
 								</div>
 							</div>
-						</div>
+							
 
-						
-						
+
+							<div class="row" *ngIf="idSerie && serie.idSerie == idSerie">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<form #formEditSerie="ngForm" id="form-editSerie">
+										<div class="container-fluid">
+											<div class="row">
+												
+												<div class="col-md-8 col-sm-8 col-xs-8">
+									
+													<div class="form-group">
+														<input type="text" id="title" name="title" #title="ngModel" [(ngModel)]="serieEdition['title']" placeholder="Name serie" required>
+													</div>
+												
+												</div>
+
+												<div class="col-md-4 col-sm-4 col-xs-4">
+													<div class="form-group"> <!-- Create Button -->
+														<i (click)="onSaveIdSerie(serieEdition.idSerie)" class="fa fa-save" aria-hidden="true" style="margin-left: 1em; color:#012e67; cursor:pointer;"></i>
+
+
+
+														<i (click)="onUnSelectIdSerie()" class="fa fa-times-circle" aria-hidden="true" style="margin-left: 0.2em; color:#012e67; cursor:pointer;"></i>
+													</div>
+
+													
+													
+												</div>
+												
+
+
+											</div>
+										</div>
+									</form>
+									
+								</div>
+								
+							</div>
+							
+						</div>
 							
 					</li>
 				</ul>

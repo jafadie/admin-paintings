@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 export class SerieListComponent implements OnInit {
 
 	public series:any = [];
+	public serieEdition : Serie;
 
 	@Input()
     idSerie: Number;
@@ -34,6 +35,11 @@ export class SerieListComponent implements OnInit {
 	ngOnInit() {
 		console.log('serie-list.component.ts cargado');
 
+		this.serieEdition = new Serie(0, '', true);
+		this.serieEdition['idSerie'] = 0;
+		this.serieEdition['title'] = '';
+		this.serieEdition['visible'] = true;
+
 		this.getSeries();
 	}
 
@@ -51,10 +57,15 @@ export class SerieListComponent implements OnInit {
 	}
 
 	onSelectIdSerie(idSerie: Number) {
-    	this.selectIdSerie.emit(idSerie);
+		this.selectionIdSerie(idSerie);
+  	}
 
-    	console.log('onSelectIdSerie');
-    	console.log(this.idSerie);
+  	onUnSelectIdSerie() {
+  		this.selectionIdSerie(-1);
+  	}
+
+  	selectionIdSerie(idSerie: Number){
+  		this.selectIdSerie.emit(idSerie);
 
     	//al cambiar de serie reseteo el valor de paintingSelected
     	this.selectPainting.emit(-3);
@@ -94,7 +105,45 @@ export class SerieListComponent implements OnInit {
 		//si se ha seleccionado una serie diferente
   		if( changes['idSerie'] && changes['idSerie'].previousValue != changes['idSerie'].currentValue ) {
     		this.getSeries();
+
+    		for (var serieAux of this.series) {
+    			if (serieAux['idSerie']==changes['idSerie'].currentValue)
+    			{
+    				this.serieEdition['idSerie'] = changes['idSerie'].currentValue;
+					this.serieEdition['title'] = serieAux['title'];
+					this.serieEdition['visible'] = serieAux['visible'];
+    			}
+			}
+
   		}
   	}
+
+  	onSaveIdSerie() {
+    	//this.selectIdSerie.emit(idSerie);
+
+    	console.log('onSaveIdSerie');
+    	console.log(this.idSerie);
+    	console.log(this.serieEdition['idSerie']);
+    	console.log(this.serieEdition['title']);
+
+    	this.updateSerie();
+
+    	//al cambiar de serie reseteo el valor de paintingSelected
+    	//this.selectPainting.emit(-3);
+  	}
+
+  	updateSerie(){
+      this._serieService.updateSerie(this.serieEdition['idSerie'] ,this.serieEdition).subscribe(
+	  	result => {
+	    	console.log('Serie successfully updated!');
+
+	      	//this.onSelectIdSerie(this.serieEdition['idSerie']);
+	      	this.onSelectIdSerie(-1);
+	    },
+	    error => {
+	      console.log(<any>error);
+	    }
+      );
+    }
 
 }
