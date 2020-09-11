@@ -129,29 +129,44 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 	}
 
 	ngOnChanges(changes: SimpleChanges ) {
+    console.log('ngOnChanges paintinglist');
+    console.log(changes['paintingSelected']);
+    console.log(this.idSerie);
 
-  		//si se ha seleccionado una serie diferente
-  		if( changes['idSerie'] && changes['idSerie'].currentValue /*&& changes['idSerie'].previousValue != changes['idSerie'].currentValue*/ ) {		
-			  jQuery("#myPaintings").css('display', 'inline');
-	        
-  			this.isVisible = true;
+      /*if (!changes['paintingSelected']) {
+        console.log('ueueueuueueueueueueueueueueueue');
+          console.log(changes['paintingSelected']);
+          console.log(this.idSerie);
 
-        this.getPaintingsByIdSerie(changes['idSerie'].currentValue);
-  		}
-  		// si se ha guardado el painting y el selectedPainting = -2 (forzado desde el save)
-  		else if( changes['paintingSelected'] 
-  			&& (changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue)
-  			&& changes['paintingSelected'].currentValue == this.valorReseteoPainting) {
+          console.log(this.paintings[0]);
+          this.isVisible = false;
+      } else {*/
 
-  				this.getPaintingsByIdSerie(this.idSerie);
-  		}
-      else if( changes['paintingSelected'] 
-        && (changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue)
-        && changes['paintingSelected'].currentValue == -3) {
-        
-        this.isVisible = true;
-        this.getPaintingsByIdSerie(this.idSerie);
-      }
+
+
+    		//si se ha seleccionado una serie diferente
+    		if( changes['idSerie'] && changes['idSerie'].currentValue /*&& changes['idSerie'].previousValue != changes['idSerie'].currentValue*/ ) {		
+  			  jQuery("#myPaintings").css('display', 'inline');
+  	        
+    			this.isVisible = true;
+
+          this.getPaintingsByIdSerie(changes['idSerie'].currentValue);
+    		}
+    		// si se ha guardado el painting y el selectedPainting = -2 (forzado desde el save)
+    		else if( changes['paintingSelected'] 
+    			&& (changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue)
+    			&& changes['paintingSelected'].currentValue == this.valorReseteoPainting) {
+
+    				this.getPaintingsByIdSerie(this.idSerie);
+    		}
+        else if( changes['paintingSelected'] 
+          && (changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue)
+          && changes['paintingSelected'].currentValue == -3) {
+          
+          this.isVisible = true;
+          this.getPaintingsByIdSerie(this.idSerie);
+        }
+      /*}*/
 	}
 
 	onSelectPainting(painting: Painting) {

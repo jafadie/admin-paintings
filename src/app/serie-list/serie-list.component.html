@@ -13,18 +13,23 @@
 					<li *ngFor="let serie of series">
 						<div class="container-fluid">
 							<div class="row" *ngIf="!idSerie || serie.idSerie != idSerie">
-								<div class="col-md-8 col-sm-8 col-xs-8">
+								<div class="col-md-7 col-sm-7 col-xs-7">
 									<strong>{{serie.title}}</strong>
 								</div>
 
-								<div class="col-md-4 col-sm-4 col-xs-4">
+								<div class="col-md-5 col-sm-5 col-xs-5">
 									<i (click)="onSelectIdSerie(serie.idSerie)" class="fa fa-pencil-square-o" aria-hidden="true" style="margin-left: 1em; color:#012e67; cursor:pointer;"></i>
 
 									<i (click)="onDeleteSerie(serie.idSerie)" class="fa fa-trash" aria-hidden="true" style="margin-left: 0.2em; color:#012e67; cursor:pointer;"></i>
+
+									<i *ngIf="serie.order == 0" (click)="onOrderSerieUp(serie)" class="fa fa-arrow-up"  aria-hidden="true" style="margin-left: 0.2em; visibility: hidden; color:#012e67; cursor:pointer;"></i>
+
+									<i *ngIf="serie.order != 0" (click)="onOrderSerieUp(serie)" class="fa fa-arrow-up" aria-hidden="true" style="margin-left: 0.2em; color:#012e67; cursor:pointer;"></i>
+
+									<i *ngIf="serie.order != series.length - 1" (click)="onOrderSerieDown(serie)" class="fa fa-arrow-down" aria-hidden="true" style="margin-left: 0.2em; color:#012e67; cursor:pointer;"></i>
 								</div>
 							</div>
 							
-
 
 							<div class="row" *ngIf="idSerie && serie.idSerie == idSerie">
 								<div class="col-md-12 col-sm-12 col-xs-12">
@@ -32,7 +37,7 @@
 										<div class="container-fluid">
 											<div class="row">
 												
-												<div class="col-md-8 col-sm-8 col-xs-8">
+												<div class="col-md-7 col-sm-7 col-xs-7">
 									
 													<div class="form-group">
 														<input type="text" id="title" name="title" #title="ngModel" [(ngModel)]="serieEdition['title']" placeholder="Name serie" required>
@@ -40,15 +45,21 @@
 												
 												</div>
 
-												<div class="col-md-4 col-sm-4 col-xs-4">
+												<div class="col-md-5 col-sm-5 col-xs-5">
 													<div class="form-group"> <!-- Create Button -->
 														<i (click)="onSaveIdSerie(serieEdition.idSerie)" class="fa fa-save" aria-hidden="true" style="margin-left: 1em; color:#012e67; cursor:pointer;"></i>
 
 
 
 														<i (click)="onUnSelectIdSerie()" class="fa fa-times-circle" aria-hidden="true" style="margin-left: 0.2em; color:#012e67; cursor:pointer;"></i>
-													</div>
 
+														<i *ngIf="serie.order == 0" (click)="onOrderSerieUp(serieEdition)" class="fa fa-arrow-up" aria-hidden="true" style="margin-left: 0.2em; visibility: hidden; color:#012e67; cursor:pointer;"></i>
+
+														<i *ngIf="serie.order != 0" (click)="onOrderSerieUp(serieEdition)" class="fa fa-arrow-up" aria-hidden="true" style="margin-left: 0.2em; color:#012e67; cursor:pointer;"></i>
+
+														<i *ngIf="serie.order != series.length - 1" (click)="onOrderSerieDown(serieEdition)" class="fa fa-arrow-down" aria-hidden="true" style="margin-left: 0.2em; color:#012e67; cursor:pointer;"></i>
+
+													</div>
 													
 													
 												</div>

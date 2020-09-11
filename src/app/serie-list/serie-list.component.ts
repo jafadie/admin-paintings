@@ -35,10 +35,15 @@ export class SerieListComponent implements OnInit {
 	ngOnInit() {
 		console.log('serie-list.component.ts cargado');
 
-		this.serieEdition = new Serie(0, '', true);
+		this.initialize();
+	}
+
+	initialize(){
+		this.serieEdition = new Serie(0, '', true, 0);
 		this.serieEdition['idSerie'] = 0;
 		this.serieEdition['title'] = '';
 		this.serieEdition['visible'] = true;
+		this.serieEdition['order'] = 0;
 
 		this.getSeries();
 	}
@@ -106,16 +111,18 @@ export class SerieListComponent implements OnInit {
   		if( changes['idSerie'] && changes['idSerie'].previousValue != changes['idSerie'].currentValue ) {
     		this.getSeries();
 
-    		for (var serieAux of this.series) {
+			for (var serieAux of this.series) {
     			if (serieAux['idSerie']==changes['idSerie'].currentValue)
     			{
     				this.serieEdition['idSerie'] = changes['idSerie'].currentValue;
 					this.serieEdition['title'] = serieAux['title'];
 					this.serieEdition['visible'] = serieAux['visible'];
+					this.serieEdition['order'] = serieAux['order'];
     			}
 			}
-
+    	
   		}
+  		
   	}
 
   	onSaveIdSerie() {
@@ -126,10 +133,29 @@ export class SerieListComponent implements OnInit {
     	console.log(this.serieEdition['idSerie']);
     	console.log(this.serieEdition['title']);
 
-    	this.updateSerie();
+    	this.updateSerieWithSubmit();
+
+    	
+
+    	
 
     	//al cambiar de serie reseteo el valor de paintingSelected
     	//this.selectPainting.emit(-3);
+  	}
+
+  	updateSerieWithSubmit(){
+  		this._serieService.updateSerie(this.serieEdition['idSerie'] ,this.serieEdition).subscribe(
+	  	result => {
+	    	console.log('Serie successfully updated!');
+
+	    	//this.onSelectIdSerie(this.serieEdition['idSerie']);
+            this.onSelectIdSerie(-1);
+            //comprobar si sirve para algo cuando le doy al botón guardar
+	    },
+	    error => {
+	      console.log(<any>error);
+	    }
+      );
   	}
 
   	updateSerie(){
@@ -137,13 +163,74 @@ export class SerieListComponent implements OnInit {
 	  	result => {
 	    	console.log('Serie successfully updated!');
 
-	      	//this.onSelectIdSerie(this.serieEdition['idSerie']);
-	      	this.onSelectIdSerie(-1);
+	    	//this.onSelectIdSerie(this.serieEdition['idSerie']);
+            //this.onSelectIdSerie(-1);
+            //comprobar si sirve para algo cuando le doy al botón guardar
 	    },
 	    error => {
 	      console.log(<any>error);
 	    }
       );
+    }
+
+
+    onOrderSerieUp(serie){
+    	//buscar serie order superior para restar 1 a order
+    	//sumar 1 a order de esta serie
+
+    	let serieSubirOrden: Serie = 0;
+    	let serieSuperior: Serie = 0;
+    	for (var serieAux of this.series) {
+    		if (serieAux['idSerie'] == serie['idSerie']){
+    			serieSubirOrden = serieAux;
+    			break;
+    		}
+    		serieSuperior = serieAux;
+		}
+
+		this.serieEdition = serieSuperior;
+		this.serieEdition['order'] = serieSuperior['order'] + 1;
+		this.updateSerie();
+
+		this.serieEdition = serieSubirOrden;
+		this.serieEdition['order'] = serieSubirOrden['order'] - 1;
+		this.updateSerie();
+
+		this.initialize();
+		
+    }
+
+    onOrderSerieDown(serie){
+    	//buscar serie inferior para sumar 1 a order
+    	//restar 1 a order de esta serie
+
+    	let serieBajarOrden: Serie = 0;
+    	let serieInferior: Serie = 0;
+    	let encontrada: boolean = false;
+    	for (var serieAux of this.series) {
+    		if (encontrada)
+    		{
+    			serieInferior = serieAux;
+    			break;
+    		}
+
+    		if (serieAux['idSerie'] == serie['idSerie']){
+    			serieBajarOrden = serieAux;
+    			encontrada = true;
+    			continue;
+    		}
+    		
+		}
+
+		this.serieEdition = serieInferior;
+		this.serieEdition['order'] = serieInferior['order'] - 1;
+		this.updateSerie();
+
+		this.serieEdition = serieBajarOrden;
+		this.serieEdition['order'] = serieBajarOrden['order'] + 1;
+		this.updateSerie();
+
+		this.initialize();
     }
 
 }

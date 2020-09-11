@@ -10,7 +10,9 @@ import { Serie } from '../models/serie.model';
   providers: [SerieService]
 })
 export class SerieCreateComponent implements OnInit {
+	public series:any = [];
 	public serie : Serie;
+	public lastOrder: number;
 
 	@Output()
 	selectIdSerie = new EventEmitter<Number>();
@@ -28,11 +30,11 @@ export class SerieCreateComponent implements OnInit {
   	}
 
   	initializeSerie(){
-		this.serie = new Serie(0, '', true);
+		this.serie = new Serie(0, '', true, 0);
   	}
 
 	onSubmit(){
-		this.createNewSerie();
+		this.createNewOrderSerie();
 
 		console.log('New serie saved');
 	}
@@ -55,12 +57,36 @@ export class SerieCreateComponent implements OnInit {
 				console.log('Serie successfully created!');
 				this.initializeSerie();
 
-				this.selectIdSerie.emit(result['idSerie']);
+				//this.selectIdSerie.emit(result['idSerie']);
+				this.selectIdSerie.emit(-3);
 			},
 			error => {
 				console.log(<any>error);
 			}
   		)
+  	}
+
+  	getOrderLastSerie() : any{
+		this._serieService.getSeries().subscribe(
+			result => {
+				console.log(result);
+
+				this.series = result;
+				this.lastOrder = this.series[this.series.length-1]['order'];
+
+				//llamar a create con el order actualizado (order + 1)
+  				this.serie['order'] = this.lastOrder + 1;
+
+  				this.createNewSerie();
+			},
+			error => {
+				console.log(<any>error);
+			}
+		);
+	}
+
+  	createNewOrderSerie(){
+  		this.getOrderLastSerie();
   	}
 
   	
