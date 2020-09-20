@@ -28,6 +28,9 @@ import { NotificationService } from './services/notification.service';
 import { NotificationFixedComponent } from './notification-fixed/notification-fixed.component';
 import { EventsComponent } from './events/events.component';
 import { TextsComponent } from './texts/texts.component';
+import { SeriePreviewService } from './services/serie-preview.service';
+import { PaintingPreviewService } from './services/painting-preview.service';
+import { PortfolioPreviewComponent } from './portfolio-preview/portfolio-preview.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,8 @@ import { TextsComponent } from './texts/texts.component';
     NotificationScheduledListComponent,
     NotificationFixedComponent,
     EventsComponent,
-    TextsComponent
+    TextsComponent,
+    PortfolioPreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +67,9 @@ import { TextsComponent } from './texts/texts.component';
     PaintingService,
     SerieService,
     UserService,
-    NotificationService
+    NotificationService,
+    SeriePreviewService,
+    PaintingPreviewService
   ],
   bootstrap: [AppComponent],
   schemas: [

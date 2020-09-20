@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SerieService } from '../services/serie.service';
+import { SeriePreviewService } from '../services/serie-preview.service';
 import { Serie } from '../models/serie.model';
 import { Painting } from '../models/painting.model';
 import Swal from 'sweetalert2';
@@ -9,7 +10,7 @@ import Swal from 'sweetalert2';
   selector: 'app-serie-list',
   templateUrl: './serie-list.component.html',
   styleUrls: ['./serie-list.component.css'],
-  providers: [SerieService]
+  providers: [SerieService, SeriePreviewService]
 })
 export class SerieListComponent implements OnInit {
 
@@ -18,6 +19,9 @@ export class SerieListComponent implements OnInit {
 
 	@Input()
     idSerie: Number;
+
+    @Input()
+    isAdmin: boolean;
 
 	@Output()
 	selectIdSerie = new EventEmitter<Number>();
@@ -28,7 +32,8 @@ export class SerieListComponent implements OnInit {
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
-		private _serieService: SerieService
+		private _serieService: SerieService,
+		private _seriePreviewService: SeriePreviewService
 	){
 	}
 
@@ -44,9 +49,8 @@ export class SerieListComponent implements OnInit {
 		this.serieEdition['title'] = '';
 		this.serieEdition['visible'] = true;
 		this.serieEdition['order'] = 0;
-
-		this.getSeries();
 	}
+
 
 	getSeries() : any{
 		this._serieService.getSeries().subscribe(
@@ -60,6 +64,18 @@ export class SerieListComponent implements OnInit {
 			}
 		);
 	}
+
+	getSeriesPreview() : any{
+		this._seriePreviewService.getSeries().subscribe(
+			result => {
+				this.series = result;
+			},
+			error => {
+				console.log(<any>error);
+			}
+		);
+	}
+
 
 	onSelectIdSerie(idSerie: Number) {
 		this.selectionIdSerie(idSerie);
@@ -107,9 +123,17 @@ export class SerieListComponent implements OnInit {
   	}
 
   	ngOnChanges(changes: SimpleChanges ) {
-		//si se ha seleccionado una serie diferente
+  		if (changes['isAdmin'] && changes['isAdmin'].firstChange) {
+
+			setTimeout(() => {  
+	            this.getSeriesPreview();
+	          }, 3000);
+
+  		} else 
+
+  		//si se ha seleccionado una serie diferente
   		if( changes['idSerie'] && changes['idSerie'].previousValue != changes['idSerie'].currentValue ) {
-    		this.getSeries();
+    		this.getSeriesPreview();
 
 			for (var serieAux of this.series) {
     			if (serieAux['idSerie']==changes['idSerie'].currentValue)

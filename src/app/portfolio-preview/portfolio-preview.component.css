@@ -1,0 +1,65 @@
+.img_painting {
+    max-width: 100%;
+    max-height: 100%;
+    margin-bottom: 1.2em;
+    border: 1em solid white;
+}
+/*
+@media (max-width:3000px){
+	.img_vertical {
+    width: 30%;
+	}
+
+	.img_horizontal {
+	    width: 60%;
+	}
+}*/
+
+/*
+@media (min-width:820px){
+	.img_vertical {
+  		max-width:33%;
+  		
+  		max-height:39em;
+  		width: auto;
+  		height: auto;
+	}
+
+	.img_horizontal {
+	    max-width: 66%;
+	    
+	    width: auto;
+  		height: auto;
+	}
+}*/
+
+.img_vertical {
+	width: 30%;
+}
+
+.img_horizontal {
+    width: 60%;
+}
+
+.img_cuadrado {
+	width: 45%;
+}
+
+
+
+.header_painting {
+	border: 0.5em solid white;
+	text-align: left;
+	font-size: 2.1em;
+	font-family: "Lato", sans-serif;
+}
+
+.caption_painting {
+	margin-top:-12%;
+	text-align:left;
+	margin-left:6%;
+	width:20%;
+	white-space:normal;
+	font-size: 1.3em;
+	font-family: "Lato", sans-serif;
+}

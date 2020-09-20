@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, throwError, from } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { GLOBAL } from './global';
 
@@ -76,6 +76,14 @@ export class PaintingService {
     )
   }
 
+  //Copy Painting to PaintingPreview
+  copyPainting(id, data): Observable<any> {
+    let url = `${this.baseUri}/paintingCopy/${id}`;
+    return this.http.put(url, data, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+
 
   // Delete painting
   deletePainting(id): Observable<any> {
@@ -91,6 +99,28 @@ export class PaintingService {
     let formData = new FormData(); 
     formData.append('image', imagenParaSubir, imagenParaSubir.name);
     return this.http.post(url, formData);
+  }
+
+  deleteAllPaintings(): Observable<any> {
+
+      return this.getPaintings()
+      .pipe(mergeMap((result: any) =>
+              from(result).pipe(
+
+                  mergeMap(painting => this.deletePainting(painting['idPainting']))
+                )
+          ));       
+  }
+
+  copyAllPaintings(): Observable<any> {
+
+      return this.getPaintings()
+      .pipe(mergeMap((result: any) =>
+              from(result).pipe(
+
+                mergeMap(painting => this.copyPainting(painting['idPainting'], painting))
+              )
+          ));       
   }
 
 

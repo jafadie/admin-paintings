@@ -1,14 +1,34 @@
 
-<div class="container-fluid" style="position: relative; top: 5em" *ngIf="isAdmin">
-	<div class="row">
-		<div class="col-lg-4">
-			<app-serie-create (selectIdSerie)="processSelectedIdSerie($event)"></app-serie-create>
 
-			<app-serie-list [idSerie]="selectedIdSerie" (selectIdSerie)="processSelectedIdSerie($event)" (selectPainting)="processSelectedPainting($event)"></app-serie-list>
+<div class="container-fluid" style="position: relative; top: 10em" *ngIf="isAdmin">
+	<div class="row">
+		<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+			<button type="button" (click)="onAcceptChanges()" class="btn btn-md btn-default">
+				Aceptar cambios
+			</button>
 		</div>
 
-		<div class="col-lg-8">
-			<app-painting-list [idSerie]="selectedIdSerie" (selectPainting)="processSelectedPainting($event)" [paintingSelected]="selectedPainting" (selectIdSerie)="processSelectedIdSerie($event)"></app-painting-list>
+		<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+			<button type="button" (click)="onCancelChanges()" class="btn btn-md btn-default">
+				Cancelar cambios
+			</button>
+		</div>
+
+		<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+			<button type="button" [routerLink]="['/app-portfolio-preview', selectedIdSerie]" class="btn btn-md btn-default">
+				Vista previa
+			</button>
+		</div>
+		
+
+		<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+			<app-serie-create (selectIdSerie)="processSelectedIdSerie($event)"></app-serie-create>
+
+			<app-serie-list [idSerie]="selectedIdSerie" (selectIdSerie)="processSelectedIdSerie($event)" (selectPainting)="processSelectedPainting($event)" [isAdmin]="isAdmin"></app-serie-list>
+		</div>
+
+		<div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
+			<app-painting-list [idSerie]="selectedIdSerie" (selectPainting)="processSelectedPainting($event)" [paintingSelected]="selectedPainting" (selectIdSerie)="processSelectedIdSerie($event)" [isAdmin]="isAdmin"></app-painting-list>
 
 			<app-painting-create [idSerie]="selectedIdSerie" [paintingSelected]="selectedPainting" (selectIdSerie)="processSelectedIdSerie($event)" (selectPainting)="processSelectedPainting($event)"></app-painting-create>
 		</div>

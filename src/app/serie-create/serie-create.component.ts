@@ -72,10 +72,16 @@ export class SerieCreateComponent implements OnInit {
 				console.log(result);
 
 				this.series = result;
-				this.lastOrder = this.series[this.series.length-1]['order'];
+				this.serie['order'] = 0;
+				
+				if (this.series.length > 0)
+				{
+					this.lastOrder = this.series[this.series.length-1]['order'];
 
-				//llamar a create con el order actualizado (order + 1)
-  				this.serie['order'] = this.lastOrder + 1;
+					//llamar a create con el order actualizado (order + 1)
+  					this.serie['order'] = this.lastOrder + 1;
+				}
+				
 
   				this.createNewSerie();
 			},

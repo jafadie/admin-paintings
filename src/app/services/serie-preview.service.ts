@@ -7,14 +7,14 @@ import { GLOBAL } from './global';
 @Injectable({
   providedIn: 'root'
 })
-export class SerieService {
+export class SeriePreviewService {
 
-  baseUri:string = GLOBAL.baseUri + '/api/serie';
+  baseUri:string = GLOBAL.baseUri + '/api/seriePreview';
 	headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 	constructor(private http: HttpClient) { }
 
-	// Create serie
+	// Create seriePreview
   createSerie(data): Observable<any> {
     let url = `${this.baseUri}/create`;
     return this.http.post(url, data)
@@ -23,12 +23,13 @@ export class SerieService {
       )
   }
 
-  // Get all series
+  // Get all seriesPreview
   getSeries() {
+  	console.log('Get all seriesPreview');
     return this.http.get(`${this.baseUri}`);
   }
 
-  // Get serie
+  // Get seriePreview
   getSerie(id): Observable<any> {
     let url = `${this.baseUri}/read/${id}`;
 
@@ -46,7 +47,7 @@ export class SerieService {
     return this.http.get(url);
   }
 
-  // Update serie
+  // Update seriePreview
   updateSerie(id, data): Observable<any> {
     let url = `${this.baseUri}/update/${id}`;
     return this.http.put(url, data, { headers: this.headers }).pipe(
@@ -54,7 +55,8 @@ export class SerieService {
     )
   }
 
-  //Copy Serie to SeriePreview
+
+  //Copy SeriePreview to Serie
   copySerie(id, data): Observable<any> {
     let url = `${this.baseUri}/serieCopy/${id}`;
     return this.http.put(url, data, { headers: this.headers }).pipe(
@@ -62,15 +64,14 @@ export class SerieService {
     )
   }
 
-  // Delete Serie
+
+  // Delete SeriePreview
   deleteSerie(id): Observable<any> {
     let url = `${this.baseUri}/delete/${id}`;
     return this.http.delete(url, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )
   }
-
-
 
   deleteAllSeries(): Observable<any> {
 
@@ -93,7 +94,6 @@ export class SerieService {
               )
           ));       
   }
-
 
   // Error handling 
   errorMgmt(error: HttpErrorResponse) {

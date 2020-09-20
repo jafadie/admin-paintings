@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, NgModule, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { PaintingService } from '../services/painting.service';
+import { PaintingPreviewService } from '../services/painting-preview.service';
 import { Painting } from '../models/painting.model';
 import { Serie } from '../models/serie.model';
 import { GLOBAL } from '../services/global';
@@ -17,7 +18,7 @@ declare var jQuery: any;
   selector: 'app-painting-list',
   templateUrl: './painting-list.component.html',
   styleUrls: ['./painting-list.component.css'],
-  providers: [PaintingService]
+  providers: [PaintingService, PaintingPreviewService]
 })
 export class PaintingListComponent implements OnInit, AfterViewInit  {
 
@@ -51,7 +52,8 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
-		private _paintingService: PaintingService
+		private _paintingService: PaintingService,
+    private _paintingPreviewService: PaintingPreviewService
 	){
 		  this.target = null;
     	this.source = null;
@@ -67,6 +69,8 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
     this.valorReseteoPainting = -2;
 	}
 
+  
+
 	getPaintings(){
 		this._paintingService.getPaintings().subscribe(
 			result => {
@@ -79,6 +83,19 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 		);
 	}
 
+  getPaintingsPreview(){
+    this._paintingPreviewService.getPaintings().subscribe(
+      result => {
+        this.paintings = result;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  
+
 	getPaintingsByIdSerie(idSerie: Number){
     this.isVisible = false;
 		if (idSerie != -1){
@@ -86,7 +103,7 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 			this.isVisible = true;
 		}
 
-		this._paintingService.getPaintingsByIdSerie(idSerie).subscribe(
+		this._paintingPreviewService.getPaintingsByIdSerie(idSerie).subscribe(
 			result => {
 				console.log(result);
 				this.paintings = result;
@@ -115,7 +132,7 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
   }
 
 	deletePainting(id: Number){
-		this._paintingService.deletePainting(id).subscribe(
+		this._paintingPreviewService.deletePainting(id).subscribe(
 			result => {
 				console.log(result);
 				//TODO preguntar con jQuery si estas seguro que quieres eliminar
@@ -129,9 +146,9 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 	}
 
 	ngOnChanges(changes: SimpleChanges ) {
-    console.log('ngOnChanges paintinglist');
-    console.log(changes['paintingSelected']);
-    console.log(this.idSerie);
+    //console.log('ngOnChanges paintinglist');
+    //console.log(changes['paintingSelected']);
+    //console.log(this.idSerie);
 
       /*if (!changes['paintingSelected']) {
         console.log('ueueueuueueueueueueueueueueueue');
@@ -227,7 +244,7 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
   }
 
   updateOrderPainting(idPainting, painting){
-    this._paintingService.updateOrderPainting(idPainting, painting).subscribe(
+    this._paintingPreviewService.updateOrderPainting(idPainting, painting).subscribe(
       result => {
         console.log('Order updated successfully');
       },

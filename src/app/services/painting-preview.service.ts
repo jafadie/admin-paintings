@@ -7,15 +7,15 @@ import { GLOBAL } from './global';
 @Injectable({
   providedIn: 'root'
 })
-export class SerieService {
+export class PaintingPreviewService {
 
-  baseUri:string = GLOBAL.baseUri + '/api/serie';
+  baseUri:string = GLOBAL.baseUri + '/api/paintingPreview';
 	headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-	constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-	// Create serie
-  createSerie(data): Observable<any> {
+  // Create paintingPreview
+  createPainting(data): Observable<any> {
     let url = `${this.baseUri}/create`;
     return this.http.post(url, data)
       .pipe(
@@ -23,13 +23,19 @@ export class SerieService {
       )
   }
 
-  // Get all series
-  getSeries() {
+  // Get all paintingsPreview
+  getPaintings() {
     return this.http.get(`${this.baseUri}`);
   }
 
-  // Get serie
-  getSerie(id): Observable<any> {
+  // Get paintingsPreview of a seriePreview
+  getPaintingsByIdSerie(idSerie): Observable<any> {
+    let url = `${this.baseUri}/readSerie/${idSerie}`;
+    return this.http.get(url);
+  }
+
+  // Get paintingPreview
+  getPainting(id): Observable<any> {
     let url = `${this.baseUri}/read/${id}`;
 
     return this.http.get(url, {headers: this.headers}).pipe(
@@ -40,56 +46,79 @@ export class SerieService {
     )
   }
 
-  
-  getSequenceNumber(){
-    let url = `${this.baseUri}/sequenceSeries`;
+
+  // Get order of the last paintingPreview in a seriePreview
+  getOrderPainting(idSerie): Observable<any> {
+    let url = `${this.baseUri}/readOrder/${idSerie}`;
     return this.http.get(url);
   }
 
-  // Update serie
-  updateSerie(id, data): Observable<any> {
+  // Update order of a paintingPreview
+  updateOrderPainting(id, data): Observable<any> {
+    let url = `${this.baseUri}/updateOrder/${id}`;
+    return this.http.put(url, data, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+  
+
+  getSequenceNumber(){
+    let url = `${this.baseUri}/sequencePaintings`;
+    return this.http.get(url);
+  }
+
+  
+  // Update paintingPreview
+  updatePainting(id, data): Observable<any> {
     let url = `${this.baseUri}/update/${id}`;
     return this.http.put(url, data, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )
   }
 
-  //Copy Serie to SeriePreview
-  copySerie(id, data): Observable<any> {
-    let url = `${this.baseUri}/serieCopy/${id}`;
+  //Copy PaintingPreview to Painting
+  copyPainting(id, data): Observable<any> {
+    let url = `${this.baseUri}/paintingCopy/${id}`;
     return this.http.put(url, data, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )
   }
 
-  // Delete Serie
-  deleteSerie(id): Observable<any> {
+
+  // Delete paintingPreview
+  deletePainting(id): Observable<any> {
     let url = `${this.baseUri}/delete/${id}`;
     return this.http.delete(url, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )
   }
 
+  postFileImagen(imagenParaSubir: File){
+    let url = `${this.baseUri}/uploadFile`;
 
+    let formData = new FormData(); 
+    formData.append('image', imagenParaSubir, imagenParaSubir.name);
+    return this.http.post(url, formData);
+  }
 
-  deleteAllSeries(): Observable<any> {
+  deleteAllPaintings(): Observable<any> {
 
-      return this.getSeries()
+      return this.getPaintings()
       .pipe(mergeMap((result: any) =>
               from(result).pipe(
 
-                  mergeMap(serie => this.deleteSerie(serie['idSerie']))
+                  mergeMap(painting => this.deletePainting(painting['idPainting']))
                 )
           ));       
   }
 
-  copyAllSeries(): Observable<any> {
+  copyAllPaintings(): Observable<any> {
 
-      return this.getSeries()
+      return this.getPaintings()
       .pipe(mergeMap((result: any) =>
               from(result).pipe(
 
-                mergeMap(serie => this.copySerie(serie['idSerie'], serie))
+                mergeMap(painting => this.copyPainting(painting['idPainting'], painting))
               )
           ));       
   }
@@ -108,5 +137,4 @@ export class SerieService {
     console.log(errorMessage);
     return throwError(errorMessage);
   }
-  
 }
