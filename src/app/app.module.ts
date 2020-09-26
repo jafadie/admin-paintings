@@ -55,7 +55,7 @@ import { PortfolioPreviewComponent } from './portfolio-preview/portfolio-preview
     PortfolioPreviewComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'MyPaintings' }),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
