@@ -185,7 +185,7 @@ export class NotificationScheduledListComponent implements OnInit {
       let correoLorena = 'jafadie@gmail.com';
       let nameLorena = 'Lorena';
 
-      let userPreview = new User('', '');
+      let userPreview = new User('', '', '');
       userPreview['nameUser'] = nameLorena;
       userPreview['email'] = correoLorena;
       

@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { PaintingCreateComponent } from './painting-create/painting-create.component';
@@ -69,7 +70,8 @@ import { PortfolioPreviewComponent } from './portfolio-preview/portfolio-preview
     UserService,
     NotificationService,
     SeriePreviewService,
-    PaintingPreviewService
+    PaintingPreviewService,
+    CookieService
   ],
   bootstrap: [AppComponent],
   schemas: [

@@ -167,9 +167,9 @@ export class PaintingCreateComponent implements OnInit {
 		this.is_edit = false;
 		this.nameButton = 'Create painting';
 
-		console.log('ngOnChanges painting create');
-		console.log(changes['paintingSelected']);
-		console.log(changes['idSerie']);
+		//console.log('ngOnChanges painting create');
+		//console.log(changes['paintingSelected']);
+		//console.log(changes['idSerie']);
 
 		if( changes['paintingSelected'] && changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue ) {
   			this.is_visible = true;

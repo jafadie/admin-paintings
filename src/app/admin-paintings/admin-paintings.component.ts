@@ -5,6 +5,7 @@ import { SerieService } from '../services/serie.service';
 import { SeriePreviewService } from '../services/serie-preview.service';
 import { PaintingService } from '../services/painting.service';
 import { PaintingPreviewService } from '../services/painting-preview.service';
+import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -25,6 +26,7 @@ export class AdminPaintingsComponent implements OnInit {
   public mostrarError: boolean;
   public series:any = [];
   public paintings:any = [];
+  public token: any;
 
   constructor(
     private _route: ActivatedRoute,
@@ -32,7 +34,8 @@ export class AdminPaintingsComponent implements OnInit {
     private _serieService: SerieService,
     private _seriePreviewService: SeriePreviewService,
     private _paintingService: PaintingService,
-    private _paintingPreviewService: PaintingPreviewService
+    private _paintingPreviewService: PaintingPreviewService,
+    private _userService: UserService
   ) {
     this.username = '';
     this.password = '';
@@ -42,6 +45,20 @@ export class AdminPaintingsComponent implements OnInit {
 
   ngOnInit() {
     console.log('admin-paintings.component.ts cargado');
+
+    if (this.existeToken()) {
+      console.log('admin true');
+      this.isAdmin = true;
+
+      //faltaría comprobar que el token se corresponde con el usuario logado
+      /*const user = {username: this.username, email: '', password: this.password};
+      console.log(user);
+      this._userService.verifyTokenUser(this.token).subscribe( data => {
+        console.log(data);
+        
+      });*/
+    }
+      
   }
 
   processSelectedIdSerie(idSerie: Number) {
@@ -60,7 +77,13 @@ export class AdminPaintingsComponent implements OnInit {
      console.log(this.username);
      console.log(this.password);
 
+     
+
      if (this.username == 'lgmateu' && this.password == 'mocito_bueno%37'){
+
+        //login
+        this.login();
+
         this.isAdmin = true;
 
         this.cloneSeriesComplete();
@@ -277,6 +300,29 @@ export class AdminPaintingsComponent implements OnInit {
     );
   }
 
+
+  login() {
+    const user = {username: this.username, email: '', password: this.password};
+    this._userService.loginUser(user).subscribe( data => {
+      console.log(data);
+      this._userService.setToken(data.accessToken);
+    });
+  }
+
+  existeToken() {
+    console.log('existeToken');
+    this.token = this._userService.getToken();
+    console.log(this.token);
+    
+    if (!this.token)
+      return false;   
+
+    return true;
+  }
+
+  onSessionClose() {
+    this._userService.deleteToken();
+  }
 
 
 }

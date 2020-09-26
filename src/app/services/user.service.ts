@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { CookieService } from "ngx-cookie-service";
 import { GLOBAL } from './global';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class UserService {
   baseUri:string = GLOBAL.baseUri + '/api/user';
 	headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookies: CookieService) { }
 
   // Create user
   createUser(data): Observable<any> {
@@ -75,6 +76,38 @@ sendMailNotifyGeneralEvents(user, data) {
       catchError(this.errorMgmt)
     )
 }
+
+  loginUser(data): Observable<any> {
+    let url = `${this.baseUri}/login`;
+    return this.http.post(url, data)
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
+
+  verifyTokenUser(data) {
+    let url = `${this.baseUri}/verify`;
+    return this.http.post(url, data)
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
+
+
+
+  setToken(token: string) {
+    this.cookies.set("token", token);
+  }
+  
+  getToken() {
+    return this.cookies.get("token");
+  }
+
+  deleteToken() {
+    this.cookies.delete("token");
+  }
+
+  
 
   // Error handling 
   errorMgmt(error: HttpErrorResponse) {

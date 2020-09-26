@@ -2,21 +2,27 @@
 
 <div class="container-fluid" style="position: relative; top: 10em" *ngIf="isAdmin">
 	<div class="row">
-		<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+		<div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
 			<button type="button" (click)="onAcceptChanges()" class="btn btn-md btn-default">
 				Aceptar cambios
 			</button>
 		</div>
 
-		<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+		<div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
 			<button type="button" (click)="onCancelChanges()" class="btn btn-md btn-default">
 				Cancelar cambios
 			</button>
 		</div>
 
-		<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+		<div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
 			<button type="button" [routerLink]="['/app-portfolio-preview', selectedIdSerie]" class="btn btn-md btn-default">
 				Vista previa
+			</button>
+		</div>
+
+		<div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
+			<button type="button" (click)="onSessionClose()" [routerLink]="['/admin-paintings', 1]" class="btn btn-md btn-default">
+				Cerrar sesión
 			</button>
 		</div>
 		

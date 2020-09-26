@@ -127,7 +127,7 @@ export class SerieListComponent implements OnInit {
 
 			setTimeout(() => {  
 	            this.getSeriesPreview();
-	          }, 3000);
+	          }, 1000);
 
   		} else 
 

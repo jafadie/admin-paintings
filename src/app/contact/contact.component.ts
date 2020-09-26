@@ -30,7 +30,7 @@ export class ContactComponent implements OnInit {
   }
 
   initializeUser(){
-  	this.user = new User('', '');
+  	this.user = new User('', '', '');
   }
 
   onSubmit(){

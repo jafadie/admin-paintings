@@ -30,6 +30,7 @@ const routes: Routes = [
   { path: 'serie-create', component: SerieCreateComponent },
   { path: 'serie-list', component: SerieListComponent },
   { path: 'admin-paintings', component: AdminPaintingsComponent },
+  { path: 'admin-paintings/:id', component: AdminPaintingsComponent }, //lo uso para cerrar sesión
   { path: 'admin-users', component: AdminUsersComponent },
   { path: 'app-portfolio-preview', component: PortfolioPreviewComponent },
   { path: 'app-portfolio-preview/:id', component: PortfolioPreviewComponent },
