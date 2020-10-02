@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SerieService } from '../../services/serie.service';
 import { Serie } from '../../models/serie.model';
 declare var jQuery: any;
+import { isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -14,12 +15,16 @@ export class HeaderComponent implements OnInit {
 
 	public series:any = [];
 	public navbarOpen = false;
+	public testBrowser: boolean;
 
   constructor(
   		private _route: ActivatedRoute,
 		private _router: Router,
-		private _serieService: SerieService) 
-  { }
+		private _serieService: SerieService,
+		@Inject(PLATFORM_ID) platformId: string) 
+  {
+  	this.testBrowser = isPlatformBrowser(platformId);
+  }
 
   public loadScript(url: string) {
 	    const body = <HTMLDivElement> document.body;
@@ -37,42 +42,45 @@ export class HeaderComponent implements OnInit {
 
   	this.loadScript('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js');
 
-  	(function ($) {
-		$(document).ready(function(){
+
+  	if (this.testBrowser) {
+	  	(function ($) {
+			$(document).ready(function(){
 
 
-	      			
-			  const $dropdown = $(".dropdown");
-			  const $dropdownToggle = $(".dropdown-toggle");
-			  const $dropdownMenu = $(".dropdown-menu");
-			  const showClass = "show";
-			   
-			  $(window).on("load resize", function() {
-			    //if (this.matchMedia("(min-width: 768px)").matches) {
-			      $dropdown.hover(
-			        function() {
-			          const $this = $(this);
-			          $this.addClass(showClass);
-			          $this.find($dropdownToggle).attr("aria-expanded", "true");
-			          $this.find($dropdownMenu).addClass(showClass);
-			        },
-			        function() {
-			          const $this = $(this);
-			          $this.removeClass(showClass);
-			          $this.find($dropdownToggle).attr("aria-expanded", "false");
-			          $this.find($dropdownMenu).removeClass(showClass);
-			        }
-			      );
-			    //} else {
-			    //  $dropdown.off("mouseenter mouseleave");
-			    //}
-			  });
+		      			
+				  const $dropdown = $(".dropdown");
+				  const $dropdownToggle = $(".dropdown-toggle");
+				  const $dropdownMenu = $(".dropdown-menu");
+				  const showClass = "show";
+				   
+				  $(window).on("load resize", function() {
+				    //if (this.matchMedia("(min-width: 768px)").matches) {
+				      $dropdown.hover(
+				        function() {
+				          const $this = $(this);
+				          $this.addClass(showClass);
+				          $this.find($dropdownToggle).attr("aria-expanded", "true");
+				          $this.find($dropdownMenu).addClass(showClass);
+				        },
+				        function() {
+				          const $this = $(this);
+				          $this.removeClass(showClass);
+				          $this.find($dropdownToggle).attr("aria-expanded", "false");
+				          $this.find($dropdownMenu).removeClass(showClass);
+				        }
+				      );
+				    //} else {
+				    //  $dropdown.off("mouseenter mouseleave");
+				    //}
+				  });
 
 
-	        		console.log("Hello from jQuery!");
-	      		});
-    		})(jQuery);
+		        		console.log("Hello from jQuery!");
+		      		});
+	    		})(jQuery);
     }
+   }
 
     getSeries() : any{
 		this._serieService.getSeries().subscribe(

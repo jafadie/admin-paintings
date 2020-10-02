@@ -19,8 +19,6 @@ import { SerieListComponent } from './serie-list/serie-list.component';
 import { SerieService } from './services/serie.service';
 import { AdminPaintingsComponent } from './admin-paintings/admin-paintings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { UserService } from './services/user.service';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { NotificationCreateComponent } from './notification-create/notification-create.component';
@@ -45,7 +43,6 @@ import { PortfolioPreviewComponent } from './portfolio-preview/portfolio-preview
     SerieCreateComponent,
     SerieListComponent,
     AdminPaintingsComponent,
-    DragDropComponent,
     AdminUsersComponent,
     NotificationCreateComponent,
     NotificationScheduledListComponent,
@@ -55,24 +52,23 @@ import { PortfolioPreviewComponent } from './portfolio-preview/portfolio-preview
     PortfolioPreviewComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     UiModule,
-    BrowserAnimationsModule,
-    DragDropModule
+    BrowserAnimationsModule
   ],
   providers: [
-    PaintingService,
+  PaintingService,
     SerieService,
     UserService,
     NotificationService,
     SeriePreviewService,
     PaintingPreviewService,
     CookieService
-  ],
+	],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

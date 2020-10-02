@@ -9,12 +9,10 @@ import { ContactComponent } from './contact/contact.component';
 import { SerieCreateComponent } from './serie-create/serie-create.component';
 import { SerieListComponent } from './serie-list/serie-list.component';
 import { AdminPaintingsComponent } from './admin-paintings/admin-paintings.component';
-import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { EventsComponent } from './events/events.component';
 import { TextsComponent } from './texts/texts.component';
 import { PortfolioPreviewComponent } from './portfolio-preview/portfolio-preview.component';
-
 
 const routes: Routes = [
   { path: '', redirectTo: '/app-home', pathMatch: 'full' },
@@ -35,15 +33,12 @@ const routes: Routes = [
   { path: 'app-portfolio-preview', component: PortfolioPreviewComponent },
   { path: 'app-portfolio-preview/:id', component: PortfolioPreviewComponent },
   {path: '**', component: HomeComponent}
-];
+  ];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    [RouterModule.forRoot(routes)]
-  ],
-  exports: [
-  	[RouterModule]
-  ]
+  imports: [RouterModule.forRoot(routes, {
+    initialNavigation: 'enabled'
+})],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }
