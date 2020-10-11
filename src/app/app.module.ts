@@ -3,6 +3,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { AppComponent } from './app.component';
 import { PaintingCreateComponent } from './painting-create/painting-create.component';
@@ -58,7 +59,8 @@ import { PortfolioPreviewComponent } from './portfolio-preview/portfolio-preview
     ReactiveFormsModule,
     HttpClientModule,
     UiModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxSpinnerModule
   ],
   providers: [
   PaintingService,

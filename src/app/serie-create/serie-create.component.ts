@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { SerieService } from '../services/serie.service';
+import { SeriePreviewService } from '../services/serie-preview.service';
 import { Serie } from '../models/serie.model';
 
 @Component({
   selector: 'app-serie-create',
   templateUrl: './serie-create.component.html',
   styleUrls: ['./serie-create.component.css'],
-  providers: [SerieService]
+  providers: [SeriePreviewService]
 })
 export class SerieCreateComponent implements OnInit {
 	public series:any = [];
@@ -20,7 +20,7 @@ export class SerieCreateComponent implements OnInit {
 	constructor(
     	private _route: ActivatedRoute,
 		private _router: Router,
-		private _serieService: SerieService
+		private _serieServicePreview: SeriePreviewService
 	){
 		this.initializeSerie();
 	}
@@ -40,7 +40,7 @@ export class SerieCreateComponent implements OnInit {
 	}
 
   	createNewSerie(){
-  		this._serieService.getSequenceNumber().subscribe(
+  		this._serieServicePreview.getSequenceNumber().subscribe(
   			result => {
 				this.serie['idSerie'] = result['seq'];
 				this.createSerie();
@@ -52,13 +52,13 @@ export class SerieCreateComponent implements OnInit {
   	}
 
   	createSerie(){
-  		this._serieService.createSerie(this.serie).subscribe(
+  		this._serieServicePreview.createSerie(this.serie).subscribe(
   			result => {
 				console.log('Serie successfully created!');
-				this.initializeSerie();
 
-				//this.selectIdSerie.emit(result['idSerie']);
-				this.selectIdSerie.emit(-3);
+				this.selectIdSerie.emit((-1) * result['idSerie']);
+				this.initializeSerie();
+				
 			},
 			error => {
 				console.log(<any>error);
@@ -67,7 +67,7 @@ export class SerieCreateComponent implements OnInit {
   	}
 
   	getOrderLastSerie() : any{
-		this._serieService.getSeries().subscribe(
+		this._serieServicePreview.getSeries().subscribe(
 			result => {
 				console.log(result);
 

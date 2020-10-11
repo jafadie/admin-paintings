@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { PaintingService } from '../services/painting.service';
+import { PaintingPreviewService } from '../services/painting-preview.service';
 import { Painting } from '../models/painting.model';
 import { GLOBAL } from '../services/global';
 
@@ -8,7 +8,7 @@ import { GLOBAL } from '../services/global';
   selector: 'app-painting-create',
   templateUrl: './painting-create.component.html',
   styleUrls: ['./painting-create.component.css'],
-  providers: [PaintingService]
+  providers: [PaintingPreviewService]
 })
 export class PaintingCreateComponent implements OnInit {
 	public painting : Painting;
@@ -38,7 +38,7 @@ export class PaintingCreateComponent implements OnInit {
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
-		private _paintingService: PaintingService
+		private _paintingServicePreview: PaintingPreviewService
 	){
 		this.painting = this.initializePainting();
 		this.nameButton = 'Create painting';
@@ -74,7 +74,7 @@ export class PaintingCreateComponent implements OnInit {
   	}
 
   	createNewPaintingWithOrderInSerie(){
-  		this._paintingService.getOrderPainting(this.idSerie).subscribe(
+  		this._paintingServicePreview.getOrderPainting(this.idSerie).subscribe(
   			result => {
 				console.log('Order calculated from database');
 
@@ -97,7 +97,7 @@ export class PaintingCreateComponent implements OnInit {
   	}
 
   	createNewPainting() {
-  		this._paintingService.getSequenceNumber().subscribe(
+  		this._paintingServicePreview.getSequenceNumber().subscribe(
   			result => {
 				this.painting['idPainting'] = result['seq'];
 				this.painting['idSerie'] = this.idSerie;
@@ -115,7 +115,7 @@ export class PaintingCreateComponent implements OnInit {
   	}
 
   	createPainting(){
-  		this._paintingService.createPainting(this.painting).subscribe(
+  		this._paintingServicePreview.createPainting(this.painting).subscribe(
   			result => {
 				console.log('Painting successfully created!');
 
@@ -131,7 +131,7 @@ export class PaintingCreateComponent implements OnInit {
 
 
   	updatePainting(){
-      this._paintingService.updatePainting(this.painting['idPainting'] ,this.painting).subscribe(
+      this._paintingServicePreview.updatePainting(this.painting['idPainting'] ,this.painting).subscribe(
 	  	result => {
 	    	console.log('Painting successfully updated!');
 	      	this.is_visible = false;
@@ -152,7 +152,7 @@ export class PaintingCreateComponent implements OnInit {
 
   	cargandoImagen(files: FileList){
   		console.log(files);
-		this._paintingService.postFileImagen(files[0]).subscribe(
+		this._paintingServicePreview.postFileImagen(files[0]).subscribe(
 
 			response => {
 				console.log(response);

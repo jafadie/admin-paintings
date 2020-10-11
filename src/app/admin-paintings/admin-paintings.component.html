@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
 			<button type="button" (click)="onAcceptChanges()" class="btn btn-md btn-default">
-				Aceptar cambios
+				Publicar cambios
 			</button>
 		</div>
 
@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
-			<button type="button" [routerLink]="['/app-portfolio-preview', selectedIdSerie]" class="btn btn-md btn-default">
+			<button type="button" (click)="openPreview(selectedIdSerie)"  class="btn btn-md btn-default">
 				Vista previa
 			</button>
 		</div>
@@ -38,8 +38,19 @@
 
 			<app-painting-create [idSerie]="selectedIdSerie" [paintingSelected]="selectedPainting" (selectIdSerie)="processSelectedIdSerie($event)" (selectPainting)="processSelectedPainting($event)"></app-painting-create>
 		</div>
+
+		<ngx-spinner name="sp2" bdColor="#fff" color="#012e67" [fullScreen]="false" type="ball-spin-clockwise" size="medium"></ngx-spinner>
 	</div>
 </div>
+
+
+<!--<div class="container-fluid" style="position: relative; top: 15em" *ngIf="!isAdmin">
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<ngx-spinner name="sp2" color="#012e67" [fullScreen]="false" type="ball-spin-clockwise" size="medium"></ngx-spinner>
+		</div>
+	</div>
+</div>-->
 
 
 <div class="container-fluid" style="position: relative; top: 15em" *ngIf="!isAdmin">
@@ -47,8 +58,10 @@
 		<div class="col-md-3 col-sm-3 col-xs-3">
 		</div>
 
+		
+
 		<div class="col-md-6 col-sm-6 col-xs-6">
-			<form #formLogin="ngForm" (ngSubmit)="onSubmit()" id="form-login">
+			<form #formLogin="ngForm" (ngSubmit)="onSubmit()" [routerLink]="['/admin-paintings']" id="form-login">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-4 col-sm-4 col-xs-4" >
@@ -77,9 +90,14 @@
 								<button type="submit" class="btn btn-default input_format btn_format" [disabled]="!formLogin.valid">Login</button>
 							</div>
 							<span *ngIf="mostrarError">Usuario y contraseña incorrectos</span>
+							
 						</div>
 
-						<div class="col-md-9 col-sm-9 col-xs-9">
+						<div class="col-md-4 col-sm-4 col-xs-4">
+							<ngx-spinner name="sp2" bdColor="#fff" color="#012e67" [fullScreen]="false" type="ball-spin-clockwise" size="medium"></ngx-spinner>
+						</div>
+
+						<div class="col-md-5 col-sm-5 col-xs-5">
 						</div>
 						
 					</div>

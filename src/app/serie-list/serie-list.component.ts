@@ -55,8 +55,6 @@ export class SerieListComponent implements OnInit {
 	getSeries() : any{
 		this._serieService.getSeries().subscribe(
 			result => {
-				console.log(result);
-
 				this.series = result;
 			},
 			error => {
@@ -92,7 +90,7 @@ export class SerieListComponent implements OnInit {
     	this.selectPainting.emit(-3);
   	}
 
-  	onDeleteSerie(idSerie: Number) {
+  	onDeleteSerie(idSerie: Number, order: Number) {
   		Swal.fire({
 	        text: "¿Desea eliminar la serie?",
 	        showCancelButton: true,
@@ -104,17 +102,16 @@ export class SerieListComponent implements OnInit {
       	}).then((result) => {
   
 	        if (result.value) {
-	          this.deleteSerie(idSerie);
+	          this.deleteSerie(idSerie, order);
 	        }
      	})
   	}
 
-  	deleteSerie(idSerie: Number){
-  		this._serieService.deleteSerie(idSerie).subscribe(
+  	deleteSerie(idSerie: Number, order: Number){
+  		this._seriePreviewService.deleteSerie(idSerie).subscribe(
 			result => {
-				console.log(result);
 				//TODO preguntar con jQuery si estas seguro que quieres eliminar
-				this.getSeries();
+				this.getSeriesPreviewDeleting(order);				
 			},
 			error => {
 				console.log(<any>error);
@@ -122,59 +119,93 @@ export class SerieListComponent implements OnInit {
 		);
   	}
 
-  	ngOnChanges(changes: SimpleChanges ) {
-  		if (changes['isAdmin'] && changes['isAdmin'].firstChange) {
+  	
 
-			setTimeout(() => {  
-	            this.getSeriesPreview();
-	          }, 1000);
+  	getSeriesPreviewDeleting(order) : any{
+		this._seriePreviewService.getSeries().subscribe(
+			result => {
+				this.series = result;
+				this.reorderSeries(order);
+			},
+			error => {
+				console.log(<any>error);
+			}
+		);
+	}
+
+  	reorderSeries(order) { 		  		
+  		for (var serieAux of this.series) {
+  			// todas las series que esten por debajo del orden
+  			// les resto 1 para subirlas en el orden actual
+  			if (serieAux['order'] > order){
+  				serieAux['order'] = serieAux['order'] - 1;
+  			}
+  		}
+  		this.updateOrderSeries();
+  	}
+
+  	updateOrderSeries(){
+  		for (var serieAux of this.series) {
+  			this._seriePreviewService.updateSerie(serieAux['idSerie'] ,serieAux).subscribe(
+		  	result => {
+		    	//console.log('Serie successfully updated!');
+
+		    },
+		    error => {
+		      console.log(<any>error);
+		    }
+	      );
+  		}
+
+  		this.onSelectIdSerie(-1);
+  	}
+
+  	ngOnChanges(changes: SimpleChanges ) {
+  		if ((changes['isAdmin'] && changes['isAdmin'].currentValue == true)
+  				|| (changes['isAdmin'] == undefined && changes['idSerie'] 
+  						&& changes['idSerie'].currentValue < 0 )) {
+
+  			this.getSeriesPreview();
 
   		} else 
 
   		//si se ha seleccionado una serie diferente
   		if( changes['idSerie'] && changes['idSerie'].previousValue != changes['idSerie'].currentValue ) {
-    		this.getSeriesPreview();
-
-			for (var serieAux of this.series) {
-    			if (serieAux['idSerie']==changes['idSerie'].currentValue)
-    			{
-    				this.serieEdition['idSerie'] = changes['idSerie'].currentValue;
-					this.serieEdition['title'] = serieAux['title'];
-					this.serieEdition['visible'] = serieAux['visible'];
-					this.serieEdition['order'] = serieAux['order'];
-    			}
-			}
-    	
+    		this.getSeriesPreviewEdition(changes['idSerie'].currentValue);
   		}
   		
   	}
 
+  	getSeriesPreviewEdition(idSerie) : any{
+		this._seriePreviewService.getSeries().subscribe(
+			result => {
+				this.series = result;
+
+				for (var serieAux of this.series) {
+	    			if (serieAux['idSerie']==idSerie)
+	    			{
+	    				this.serieEdition['idSerie'] = idSerie;
+						this.serieEdition['title'] = serieAux['title'];
+						this.serieEdition['visible'] = serieAux['visible'];
+						this.serieEdition['order'] = serieAux['order'];
+	    			}
+				}
+			},
+			error => {
+				console.log(<any>error);
+			}
+		);
+	}
+
   	onSaveIdSerie() {
-    	//this.selectIdSerie.emit(idSerie);
-
-    	console.log('onSaveIdSerie');
-    	console.log(this.idSerie);
-    	console.log(this.serieEdition['idSerie']);
-    	console.log(this.serieEdition['title']);
-
     	this.updateSerieWithSubmit();
-
-    	
-
-    	
-
-    	//al cambiar de serie reseteo el valor de paintingSelected
-    	//this.selectPainting.emit(-3);
   	}
 
   	updateSerieWithSubmit(){
-  		this._serieService.updateSerie(this.serieEdition['idSerie'] ,this.serieEdition).subscribe(
+  		this._seriePreviewService.updateSerie(this.serieEdition['idSerie'] ,this.serieEdition).subscribe(
 	  	result => {
-	    	console.log('Serie successfully updated!');
-
-	    	//this.onSelectIdSerie(this.serieEdition['idSerie']);
+	    	//console.log('Serie successfully updated!');
             this.onSelectIdSerie(-1);
-            //comprobar si sirve para algo cuando le doy al botón guardar
 	    },
 	    error => {
 	      console.log(<any>error);
@@ -182,14 +213,25 @@ export class SerieListComponent implements OnInit {
       );
   	}
 
-  	updateSerie(){
-      this._serieService.updateSerie(this.serieEdition['idSerie'] ,this.serieEdition).subscribe(
+  	updateSerie1(serie1: Serie, serie2: Serie, direction: Number){
+    	this._seriePreviewService.updateSerie(serie1['idSerie'] ,serie1).subscribe(
 	  	result => {
-	    	console.log('Serie successfully updated!');
+	    	//console.log('Serie successfully updated!');
 
-	    	//this.onSelectIdSerie(this.serieEdition['idSerie']);
-            //this.onSelectIdSerie(-1);
-            //comprobar si sirve para algo cuando le doy al botón guardar
+            this.updateSerie2(serie2, direction);
+	    },
+	    error => {
+	      console.log(<any>error);
+	    }
+      );
+    }
+
+    updateSerie2(serie2: Serie, direction: any){
+      this._seriePreviewService.updateSerie(serie2['idSerie'] ,serie2).subscribe(
+	  	result => {
+	    	//console.log('Serie successfully updated!');
+
+	    	this.onSelectIdSerie((direction)*(serie2['idSerie']+serie2['order']));
 	    },
 	    error => {
 	      console.log(<any>error);
@@ -212,14 +254,9 @@ export class SerieListComponent implements OnInit {
     		serieSuperior = serieAux;
 		}
 
-		this.serieEdition = serieSuperior;
-		this.serieEdition['order'] = serieSuperior['order'] + 1;
-		this.updateSerie();
-
-		this.serieEdition = serieSubirOrden;
-		this.serieEdition['order'] = serieSubirOrden['order'] - 1;
-		this.updateSerie();
-
+		serieSuperior['order'] = serieSuperior['order'] + 1;
+		serieSubirOrden['order'] = serieSubirOrden['order'] - 1;
+		this.updateSerie1(serieSuperior, serieSubirOrden, -1);
 		this.initialize();
 		
     }
@@ -246,14 +283,9 @@ export class SerieListComponent implements OnInit {
     		
 		}
 
-		this.serieEdition = serieInferior;
-		this.serieEdition['order'] = serieInferior['order'] - 1;
-		this.updateSerie();
-
-		this.serieEdition = serieBajarOrden;
-		this.serieEdition['order'] = serieBajarOrden['order'] + 1;
-		this.updateSerie();
-
+		serieInferior['order'] = serieInferior['order'] - 1;
+		serieBajarOrden['order'] = serieBajarOrden['order'] + 1;
+		this.updateSerie1(serieInferior, serieBajarOrden, -2);
 		this.initialize();
     }
 

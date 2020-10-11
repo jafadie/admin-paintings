@@ -91,7 +91,9 @@ export class SerieService {
 
                 mergeMap(serie => this.copySerie(serie['idSerie'], serie))
               )
-          ));       
+          ));
+
+            
   }
 
 
