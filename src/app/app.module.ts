@@ -31,6 +31,7 @@ import { TextsComponent } from './texts/texts.component';
 import { SeriePreviewService } from './services/serie-preview.service';
 import { PaintingPreviewService } from './services/painting-preview.service';
 import { PortfolioPreviewComponent } from './portfolio-preview/portfolio-preview.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { PortfolioPreviewComponent } from './portfolio-preview/portfolio-preview
     HttpClientModule,
     UiModule,
     BrowserAnimationsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    DragDropModule
   ],
   providers: [
   PaintingService,
