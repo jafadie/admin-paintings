@@ -18,11 +18,10 @@
 				</div>
 
 				<div class="example-container" cdkDropListGroup *ngIf="paintings[0]">
-			  		<div cdkDropList [cdkDropListEnterPredicate]="enter" (cdkDropListDropped)="drop()" #placeholder>
-			  		</div>
-				  	<div cdkDropList *ngFor="let painting of paintings; let i = index;"
-				       [cdkDropListEnterPredicate]="enter" (cdkDropListDropped)="drop()">
-				    	<div cdkDrag [cdkDragData]="i" [ngClass]="setPaintingClasses(painting)" >
+			  		<div cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)"></div>
+				  	<div cdkDropList *ngFor="let painting of paintings;"
+				       [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)">
+				    	<div cdkDrag (cdkDragMoved)="dragMoved($event);" [ngClass]="setPaintingClasses(painting)" >
 				    		<div>
 
 				    			<div class="thumbnail">

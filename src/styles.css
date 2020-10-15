@@ -398,3 +398,6 @@ input[type="color"]:focus {
   font-family: roboto-light;
   src: url(assets/fonts/Roboto-Light.ttf) format("truetype");
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

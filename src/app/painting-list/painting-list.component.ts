@@ -9,9 +9,10 @@ import Swal from 'sweetalert2';
 import {
   CdkDrag,
   CdkDragStart,
-  CdkDropList, CdkDropListContainer, CdkDropListGroup,
+  CdkDropList, CdkDropListGroup, CdkDragMove, CdkDragEnter,
   moveItemInArray
 } from "@angular/cdk/drag-drop";
+import {ViewportRuler} from "@angular/cdk/overlay";
 declare var jQuery: any;
 
 @Component({
@@ -22,13 +23,15 @@ declare var jQuery: any;
 })
 export class PaintingListComponent implements OnInit, AfterViewInit  {
 
-  @ViewChild(CdkDropListGroup, {static: false}) listGroup: CdkDropListGroup<CdkDropList>;
-  @ViewChild(CdkDropList, {static: false}) placeholder: CdkDropList;
+  @ViewChild(CdkDropListGroup) listGroup: CdkDropListGroup<CdkDropList>;
+  @ViewChild(CdkDropList) placeholder: CdkDropList;
 
   public target: CdkDropList;
   public targetIndex: number;
-  public source: CdkDropListContainer;
+  public source: CdkDropList;
   public sourceIndex: number;
+  public dragIndex: number;
+  public activeContainer;
 
 	public paintings:any;
 	public isVisible: Boolean;
@@ -53,7 +56,8 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _paintingService: PaintingService,
-    private _paintingPreviewService: PaintingPreviewService
+    private _paintingPreviewService: PaintingPreviewService,
+    private viewportRuler: ViewportRuler
 	){
 		  this.target = null;
     	this.source = null;
@@ -146,44 +150,28 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 	}
 
 	ngOnChanges(changes: SimpleChanges ) {
-    //console.log('ngOnChanges paintinglist');
-    //console.log(changes['paintingSelected']);
-    //console.log(this.idSerie);
+ 		//si se ha seleccionado una serie diferente
+		if( changes['idSerie'] && changes['idSerie'].currentValue /*&& changes['idSerie'].previousValue != changes['idSerie'].currentValue*/ ) {		
+		  jQuery("#myPaintings").css('display', 'inline');
+        
+			this.isVisible = true;
 
-      /*if (!changes['paintingSelected']) {
-        console.log('ueueueuueueueueueueueueueueueue');
-          console.log(changes['paintingSelected']);
-          console.log(this.idSerie);
+      this.getPaintingsByIdSerie(changes['idSerie'].currentValue);
+		}
+		// si se ha guardado el painting y el selectedPainting = -2 (forzado desde el save)
+		else if( changes['paintingSelected'] 
+			&& (changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue)
+			&& changes['paintingSelected'].currentValue == this.valorReseteoPainting) {
 
-          console.log(this.paintings[0]);
-          this.isVisible = false;
-      } else {*/
-
-
-
-    		//si se ha seleccionado una serie diferente
-    		if( changes['idSerie'] && changes['idSerie'].currentValue /*&& changes['idSerie'].previousValue != changes['idSerie'].currentValue*/ ) {		
-  			  jQuery("#myPaintings").css('display', 'inline');
-  	        
-    			this.isVisible = true;
-
-          this.getPaintingsByIdSerie(changes['idSerie'].currentValue);
-    		}
-    		// si se ha guardado el painting y el selectedPainting = -2 (forzado desde el save)
-    		else if( changes['paintingSelected'] 
-    			&& (changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue)
-    			&& changes['paintingSelected'].currentValue == this.valorReseteoPainting) {
-
-    				this.getPaintingsByIdSerie(this.idSerie);
-    		}
-        else if( changes['paintingSelected'] 
-          && (changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue)
-          && changes['paintingSelected'].currentValue == -3) {
-          
-          this.isVisible = true;
-          this.getPaintingsByIdSerie(this.idSerie);
-        }
-      /*}*/
+				this.getPaintingsByIdSerie(this.idSerie);
+		}
+    else if( changes['paintingSelected'] 
+      && (changes['paintingSelected'].previousValue != changes['paintingSelected'].currentValue)
+      && changes['paintingSelected'].currentValue == -3) {
+      
+      this.isVisible = true;
+      this.getPaintingsByIdSerie(this.idSerie);
+    }
 	}
 
 	onSelectPainting(painting: Painting) {
@@ -201,24 +189,49 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
       //this.selectIdSerie.emit(-1);
   }
 
-  	ngAfterViewInit() {
-  		if (this.placeholder)
-  		{
-  			let phElement = this.placeholder.element.nativeElement;
+	ngAfterViewInit() {
+    let phElement: any;
 
-    		phElement.style.display = 'none';
-    		phElement.parentNode.removeChild(phElement);
-  		}
-  	}
+    if (this.placeholder != undefined) {
+      phElement = this.placeholder.element.nativeElement;
+
+      phElement.style.display = 'none';
+      phElement.parentElement.removeChild(phElement);
+    }
+
+    
+  }
 
 
-  drop() {
+  updateOrderPainting(idPainting, painting){
+    this._paintingPreviewService.updateOrderPainting(idPainting, painting).subscribe(
+      result => {
+        console.log('Order updated successfully');
+      },
+      error => {
+        console.log(<any>error);
+      }
+      );
+  }
+
+
+  dragMoved(e: CdkDragMove) {
+    let point = this.getPointerPositionOnPage(e.event);
+
+    this.listGroup._items.forEach(dropList => {
+      if (__isInsideDropListClientRect(dropList, point.x, point.y)) {
+        this.activeContainer = dropList;
+        return;
+      }
+    });
+  }
+
+  dropListDropped(event: CdkDropList) {
     if (!this.target)
       return;
 
-
     let phElement = this.placeholder.element.nativeElement;
-    let parent = phElement.parentNode;
+    let parent = phElement.parentElement;
 
     phElement.style.display = 'none';
 
@@ -228,6 +241,12 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 
     this.target = null;
     this.source = null;
+
+    console.log('dropListDropped');
+    console.log(this.sourceIndex);
+    console.log(this.targetIndex);
+    console.log(this.paintings);
+    console.log('end dropListDropped');
 
     if (this.sourceIndex != this.targetIndex){
       moveItemInArray(this.paintings, this.sourceIndex, this.targetIndex);
@@ -243,50 +262,52 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
     }
   }
 
-  updateOrderPainting(idPainting, painting){
-    this._paintingPreviewService.updateOrderPainting(idPainting, painting).subscribe(
-      result => {
-        console.log('Order updated successfully');
-      },
-      error => {
-        console.log(<any>error);
-      }
-      );
-  }
-
-  enter = (drag: CdkDrag, drop: CdkDropList) => {
+  dropListEnterPredicate = (drag: CdkDrag, drop: CdkDropList) => {
     if (drop == this.placeholder)
       return true;
 
+    if (drop != this.activeContainer)
+      return false;
+
     let phElement = this.placeholder.element.nativeElement;
+    let sourceElement = drag.dropContainer.element.nativeElement;
     let dropElement = drop.element.nativeElement;
 
-    let dragIndex = __indexOf(dropElement.parentNode.children, drag.dropContainer.element.nativeElement);
-    let dropIndex = __indexOf(dropElement.parentNode.children, dropElement);
+    let dragIndex = __indexOf(dropElement.parentElement.children, (this.source ? phElement : sourceElement));
+    let dropIndex = __indexOf(dropElement.parentElement.children, dropElement);
 
     if (!this.source) {
       this.sourceIndex = dragIndex;
       this.source = drag.dropContainer;
 
-      let sourceElement = this.source.element.nativeElement;
       phElement.style.width = sourceElement.clientWidth + 'px';
       phElement.style.height = sourceElement.clientHeight + 'px';
       
-      sourceElement.parentNode.removeChild(sourceElement);
+      sourceElement.parentElement.removeChild(sourceElement);
     }
 
     this.targetIndex = dropIndex;
     this.target = drop;
 
     phElement.style.display = '';
-    dropElement.parentNode.insertBefore(phElement, (dragIndex < dropIndex)
-      ? dropElement.nextSibling : dropElement);
+    dropElement.parentElement.insertBefore(phElement, (dropIndex > dragIndex 
+      ? dropElement.nextSibling : dropElement));
 
-    this.source.start();
     this.placeholder.enter(drag, drag.element.nativeElement.offsetLeft, drag.element.nativeElement.offsetTop);
-
     return false;
   }
+  
+  /** Determines the point of the page that was touched by the user. */
+  getPointerPositionOnPage(event: MouseEvent | TouchEvent) {
+    // `touches` will be empty for start/end events so we have to fall back to `changedTouches`.
+    const point = __isTouchEvent(event) ? (event.touches[0] || event.changedTouches[0]) : event;
+        const scrollPosition = this.viewportRuler.getViewportScrollPosition();
+
+        return {
+            x: point.pageX - scrollPosition.left,
+            y: point.pageY - scrollPosition.top
+        };
+    }
 
 
   setPaintingClasses(painting){
@@ -305,5 +326,15 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
 }
 
 function __indexOf(collection, node) {
-    return Array.prototype.indexOf.call(collection, node);
-  };
+  return Array.prototype.indexOf.call(collection, node);
+};
+
+/** Determines whether an event is a touch event. */
+function __isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
+  return event.type.startsWith('touch');
+}
+
+function __isInsideDropListClientRect(dropList: CdkDropList, x: number, y: number) {
+  const {top, bottom, left, right} = dropList.element.nativeElement.getBoundingClientRect();
+  return y >= top && y <= bottom && x >= left && x <= right; 
+}
