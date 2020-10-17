@@ -44,8 +44,8 @@ export class ExhibitionsComponent implements OnInit {
 	  	this.photos.push('11.Kristin-Hejllegerde-London-Bridge-A-Splendour-Among-Shadows-09082020_154208.jpg');
 	  	this.photos.push('12.Kristin-Hejllegerde-London-Bridge-A-Splendour-Among-Shadows-09082020_154926.jpg');
 
-		$("#photo_exhibition").css("display", "inline");
-		$("#video_exhibition").css("display", "inline");		
+		jQuery("#photo_exhibition").css("display", "inline");
+		jQuery("#video_exhibition").css("display", "inline");		
   	}
   }
 
