@@ -32,6 +32,7 @@ import { SeriePreviewService } from './services/serie-preview.service';
 import { PaintingPreviewService } from './services/painting-preview.service';
 import { PortfolioPreviewComponent } from './portfolio-preview/portfolio-preview.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ExhibitionsComponent } from './exhibitions/exhibitions.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NotificationFixedComponent,
     EventsComponent,
     TextsComponent,
-    PortfolioPreviewComponent
+    PortfolioPreviewComponent,
+    ExhibitionsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

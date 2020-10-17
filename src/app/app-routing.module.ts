@@ -13,6 +13,7 @@ import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { EventsComponent } from './events/events.component';
 import { TextsComponent } from './texts/texts.component';
 import { PortfolioPreviewComponent } from './portfolio-preview/portfolio-preview.component';
+import { ExhibitionsComponent } from './exhibitions/exhibitions.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/app-home', pathMatch: 'full' },
@@ -32,6 +33,8 @@ const routes: Routes = [
   { path: 'admin-users', component: AdminUsersComponent },
   { path: 'app-portfolio-preview', component: PortfolioPreviewComponent },
   { path: 'app-portfolio-preview/:id', component: PortfolioPreviewComponent },
+  { path: 'app-exhibitions', component: ExhibitionsComponent },
+  { path: 'app-exhibitions/:id', component: ExhibitionsComponent },
   {path: '**', component: HomeComponent}
   ];
 

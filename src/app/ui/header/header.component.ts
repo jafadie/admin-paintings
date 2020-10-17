@@ -2,6 +2,7 @@ import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SerieService } from '../../services/serie.service';
 import { Serie } from '../../models/serie.model';
+import { ExhibitionType } from '../../models/exhibitionType.model';
 declare var jQuery: any;
 import { isPlatformBrowser} from '@angular/common';
 
@@ -14,6 +15,7 @@ import { isPlatformBrowser} from '@angular/common';
 export class HeaderComponent implements OnInit {
 
 	public series:any = [];
+	public exhibitions:any = [];
 	public navbarOpen = false;
 	public testBrowser: boolean;
 
@@ -37,6 +39,8 @@ export class HeaderComponent implements OnInit {
   	}
 
   ngOnInit() {
+
+  	this.fillListExhibitions();
 
   	this.getSeries();
 
@@ -80,6 +84,19 @@ export class HeaderComponent implements OnInit {
 		      		});
 	    		})(jQuery);
     }
+   }
+
+   fillListExhibitions(){
+   	this.createExhibition(1, 'Kristin Hjellegjerde Gallery, 2020');
+   }
+
+   createExhibition(id, title){
+   	let exhibition : any;
+   	exhibition = new ExhibitionType(0, '');
+   	exhibition['id'] = id;
+   	exhibition['title'] = title;
+
+   	this.exhibitions.push(exhibition);
    }
 
     getSeries() : any{

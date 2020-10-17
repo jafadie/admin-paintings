@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.10/dist/css/lg-transitions.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.10/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+
+<div id="photo_exhibition" class="container-fluid" style="position: relative; top: 7em; display: none;">
+	<div class="row">
+		<div class="col-md-1 col-sm-1 col-xs-1">
+		</div>
+
+		<div class="col-md-10 col-sm-10 col-xs-10">
+			<div class="header_photo">
+                <a href="https://kristinhjellegjerde.com/" target="_blank" class="galleryLink">
+                    Kristin Hjellegjerde Gallery, 2020
+                </a>
+                </div>
+
+			<div id="relative-caption">
+                <div id="lightgallery">
+                    <a *ngFor="let photo of photos;" href="../../assets/images/exhibitions/{{photo}}" data-sub-html=".caption" data-html=".caption">
+                        
+                        <img class="img_photo img_horizontal" src="../../assets/images/exhibitions/{{photo}}" />
+                        
+                        {{onClickImage()}}
+
+                        <div class="caption" style="display: none;">
+                            <h5 class="caption_photo"><b>Kristin Hjellegjerde Gallery</b><br/>A splendour among shadows<br/>Richard Stone & Lorena García Mateu<br/>London, 2020<br/></h5>
+                        </div>
+
+                    </a>
+                </div>
+            </div>
+		</div>
+
+		<div class="col-md-1 col-sm-1 col-xs-1">
+		</div>
+
+	</div>
+</div>
+
+<div id="video_exhibition" class="container-fluid" style="position: relative; top: 12em; display: none;">
+    <div class="row">
+        <div class="col-md-1 col-sm-1 col-xs-1">
+        </div>
+
+        <div class="col-md-10 col-sm-10 col-xs-10" style="text-align: center;">
+            <video style="width: 80%;" src="../../assets/images/exhibitions/videos/Kristin-Hjellegjerde-London-Bridge-A-Splendour-Among-Shadows-LONG-INTRO-480p-MP4.mp4" controls>
+              Tu navegador no implementa el elemento <code>video</code>.
+            </video>
+        </div>
+
+        <div class="col-md-1 col-sm-1 col-xs-1">
+        </div>
+    </div>
+</div>
+
+

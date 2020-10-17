@@ -337,6 +337,15 @@ input[type="color"]:focus {
 .img_contact_visible {
 	display: visible;
 }
+
+.portada{
+	display: inline;
+}
+
+.portadaMovil{
+	display: none;
+}
+
 }
 
 @media (max-width:768px){
@@ -376,6 +385,15 @@ input[type="color"]:focus {
 .img_contact_visible {
 	display: none;
 }
+
+.portada{
+	display: none;
+}
+
+.portadaMovil{
+	display: inline;
+}
+
 }
 
 
