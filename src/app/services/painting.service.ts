@@ -101,6 +101,16 @@ export class PaintingService {
     return this.http.post(url, formData);
   }
 
+  copyFiles(){
+    let url = `${this.baseUri}/copyImages`;
+    return this.http.post(url, null);
+  }
+
+  updateDirectoryImages(){
+    let url = `${this.baseUri}/updateFolderImages`;
+    return this.http.post(url, null);
+  }
+
   deleteAllPaintings(): Observable<any> {
 
       return this.getPaintings()

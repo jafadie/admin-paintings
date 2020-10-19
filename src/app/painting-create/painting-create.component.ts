@@ -38,7 +38,7 @@ export class PaintingCreateComponent implements OnInit {
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
-		private _paintingServicePreview: PaintingPreviewService
+		private _paintingPreviewService: PaintingPreviewService
 	){
 		this.painting = this.initializePainting();
 		this.nameButton = 'Create painting';
@@ -58,23 +58,46 @@ export class PaintingCreateComponent implements OnInit {
   	}
 
   	onSubmit(){
-  		if (this.filesToUpload){
-			this.cargandoImagen(this.filesToUpload);
-			this.painting['image'] = this.filesToUpload[0].name;
-  		}
 
 		if (this.is_edit){
-			this.updatePainting();
-			console.log('Existing painting saved');
+			if (this.filesToUpload && this.filesToUpload[0].name != this.painting['image']){
+				this.deleteFile(this.painting);
+			}
+
+			setTimeout (() => {
+		         console.log("Hello from setTimeout");
+		         if (this.filesToUpload){
+					this.cargandoImagen(this.filesToUpload);
+					this.painting['image'] = this.filesToUpload[0].name;
+		  		 }
+		         this.updatePainting();
+		         console.log('Existing painting saved');
+		      }, 1000);
+			
 		}
 		else{
+			if (this.filesToUpload){
+				this.cargandoImagen(this.filesToUpload);
+				this.painting['image'] = this.filesToUpload[0].name;
+  			}
 			this.createNewPaintingWithOrderInSerie();
 			console.log('New painting saved');
 		}
   	}
 
+  	deleteFile(paintingDeleteImage){
+    this._paintingPreviewService.deleteFile(paintingDeleteImage).subscribe(
+      result => {
+      
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
   	createNewPaintingWithOrderInSerie(){
-  		this._paintingServicePreview.getOrderPainting(this.idSerie).subscribe(
+  		this._paintingPreviewService.getOrderPainting(this.idSerie).subscribe(
   			result => {
 				console.log('Order calculated from database');
 
@@ -97,7 +120,7 @@ export class PaintingCreateComponent implements OnInit {
   	}
 
   	createNewPainting() {
-  		this._paintingServicePreview.getSequenceNumber().subscribe(
+  		this._paintingPreviewService.getSequenceNumber().subscribe(
   			result => {
 				this.painting['idPainting'] = result['seq'];
 				this.painting['idSerie'] = this.idSerie;
@@ -115,7 +138,7 @@ export class PaintingCreateComponent implements OnInit {
   	}
 
   	createPainting(){
-  		this._paintingServicePreview.createPainting(this.painting).subscribe(
+  		this._paintingPreviewService.createPainting(this.painting).subscribe(
   			result => {
 				console.log('Painting successfully created!');
 
@@ -131,7 +154,7 @@ export class PaintingCreateComponent implements OnInit {
 
 
   	updatePainting(){
-      this._paintingServicePreview.updatePainting(this.painting['idPainting'] ,this.painting).subscribe(
+      this._paintingPreviewService.updatePainting(this.painting['idPainting'] ,this.painting).subscribe(
 	  	result => {
 	    	console.log('Painting successfully updated!');
 	      	this.is_visible = false;
@@ -152,7 +175,7 @@ export class PaintingCreateComponent implements OnInit {
 
   	cargandoImagen(files: FileList){
   		console.log(files);
-		this._paintingServicePreview.postFileImagen(files[0]).subscribe(
+		this._paintingPreviewService.postFileImagen(files[0]).subscribe(
 
 			response => {
 				console.log(response);

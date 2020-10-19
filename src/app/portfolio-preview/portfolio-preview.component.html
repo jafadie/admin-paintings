@@ -17,9 +17,9 @@
 
                 <div id="relative-caption">
                     <div id="lightgallery">
-                        <a *ngFor="let painting of paintings;" href="{{baseUri}}/images/{{painting['image']}}" data-sub-html=".caption" data-html=".caption">
+                        <a *ngFor="let painting of paintings;" href="{{baseUri}}/imagesPreview/{{painting['image']}}" data-sub-html=".caption" data-html=".caption">
                             
-                            <img [ngClass]="setPaintingClasses(painting)" src="{{baseUri}}/images/{{painting['image']}}" />
+                            <img [ngClass]="setPaintingClasses(painting)" src="{{baseUri}}/imagesPreview/{{painting['image']}}" />
                             
                             {{onClickImage()}}
 

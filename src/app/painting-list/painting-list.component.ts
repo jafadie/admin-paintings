@@ -130,9 +130,38 @@ export class PaintingListComponent implements OnInit, AfterViewInit  {
         }).then((result) => {
   
           if (result.value) {
-            this.deletePainting(id);
+            this.deletePaintingAndImage(id);
           }
       })
+  }
+
+  deletePaintingAndImage(id){
+    let paintingDeleteImage: Painting;
+    for (var paintingAux of this.paintings){
+      if (paintingAux['idPainting'] == id){
+        paintingDeleteImage = paintingAux
+        break;
+      }
+    }
+
+    this.deleteFile(paintingDeleteImage);
+
+    setTimeout (() => {
+         console.log("Hello from setTimeout");
+         this.deletePainting(id);
+      }, 1000);
+
+  }
+
+  deleteFile(paintingDeleteImage){
+    this._paintingPreviewService.deleteFile(paintingDeleteImage).subscribe(
+      result => {
+      
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
   }
 
 	deletePainting(id: Number){

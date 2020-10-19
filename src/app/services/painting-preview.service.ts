@@ -14,9 +14,20 @@ export class PaintingPreviewService {
 
   constructor(private http: HttpClient) { }
 
+  
   // Create paintingPreview
   createPainting(data): Observable<any> {
     let url = `${this.baseUri}/create`;
+    return this.http.post(url, data)
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
+
+  // Delete image file
+  deleteFile(data): Observable<any> {
+    let url = `${this.baseUri}/deleteImage`;
+
     return this.http.post(url, data)
       .pipe(
         catchError(this.errorMgmt)
@@ -96,9 +107,20 @@ export class PaintingPreviewService {
   postFileImagen(imagenParaSubir: File){
     let url = `${this.baseUri}/uploadFile`;
 
-    let formData = new FormData(); 
+    let formData = new FormData();
     formData.append('image', imagenParaSubir, imagenParaSubir.name);
     return this.http.post(url, formData);
+  }
+
+  copyFiles(){
+    let url = `${this.baseUri}/copyImages`;
+    return this.http.post(url, null);
+  }
+
+
+  updateDirectoryImages(){
+    let url = `${this.baseUri}/updateFolderImages`;
+    return this.http.post(url, null);
   }
 
   deleteAllPaintings(): Observable<any> {

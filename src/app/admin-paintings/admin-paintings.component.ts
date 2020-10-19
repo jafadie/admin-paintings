@@ -9,6 +9,7 @@ import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 
+
 @Component({
   selector: 'app-admin-paintings',
   templateUrl: './admin-paintings.component.html',
@@ -125,13 +126,31 @@ export class AdminPaintingsComponent implements OnInit {
     this.spinner.show();
      if (this.username == 'lgmateu' && this.password == 'mocito_bueno%37'){
 
-        this.loginButtonComplete();
+      this.updateContentImagePreview();
+
+      setTimeout (() => {
+         console.log("Hello from setTimeout");
+         this.loginButtonComplete();
+      }, 1000);   
 
      } else {
         this.mostrarError = true;
      }
 
   }
+
+
+  updateContentImagePreview(){
+    this._paintingPreviewService.updateDirectoryImages().subscribe(
+      result => {
+      
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
 
   loginButtonComplete(){
     this._serieService.getSeries().subscribe(
@@ -220,8 +239,25 @@ export class AdminPaintingsComponent implements OnInit {
 
     this.spinner.show();
 
-    this.acceptButtonComplete();    
+    this.updateContentImage();
+
+    setTimeout (() => {
+       console.log("Hello from setTimeout");
+       this.acceptButtonComplete();
+    }, 1000);
+
   }
+
+  updateContentImage(){
+    this._paintingService.updateDirectoryImages().subscribe(
+      result => {
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
 
   onCancelChanges(){
       //console.log('onCancelChanges');
@@ -229,9 +265,16 @@ export class AdminPaintingsComponent implements OnInit {
       this.spinner.show();
 
       //pantalla de confirmación de cancelar cambios
-      
-      this.cancelButtonComplete();
+
+      this.updateContentImagePreview();
+
+      setTimeout (() => {
+         console.log("Hello from setTimeout");
+         this.cancelButtonComplete();
+      }, 1000);
+
   }
+
 
   cancelButtonComplete(){
     this._seriePreviewService.getSeries().subscribe(
