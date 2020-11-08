@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { PaintingService } from '../services/painting.service';
 import { SerieService } from '../services/serie.service';
 import { Painting } from '../models/painting.model';
 import { Serie } from '../models/serie.model';
 import { GLOBAL } from '../services/global';
+import { isPlatformBrowser } from '@angular/common';
+import { Title, Meta } from '@angular/platform-browser';
 declare var jQuery: any;
 
 @Component({
@@ -15,18 +17,25 @@ declare var jQuery: any;
 })
 export class PortfolioComponent implements OnInit {
 
+  private title = 'Portfolio - Lorena García Mateu';
+
   public paintings:any = [];
   public serie: Serie;
   public idPainting: number;
   public clickExecuted = true; // initialize it to true for the first run
   baseUri:string = GLOBAL.baseUri;
+  public isBrowser: boolean;
 	
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _paintingService: PaintingService,
-		private _serieService: SerieService
+		private _serieService: SerieService,
+		@Inject(PLATFORM_ID) platformId,
+		private titleService: Title,
+    	private metaTagService: Meta
 	){
+		this.isBrowser = isPlatformBrowser(platformId);
 	}
 
 	public loadScript(url: string) {
@@ -41,7 +50,12 @@ export class PortfolioComponent implements OnInit {
 
 
 	ngOnInit() {
-		console.log('painting-list.component.ts cargado');
+		console.log('portfolio.component.ts cargado');
+
+		this.titleService.setTitle(this.title);
+		this.metaTagService.updateTag(
+	  		{ name: 'description', content: 'Portfolio Official Web Lorena García Mateu' }
+		);
 
 
 		this.loadLibraries();

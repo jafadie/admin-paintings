@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-bio',
@@ -6,15 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bio.component.css']
 })
 export class BioComponent implements OnInit {
+	private title = 'Bio - Lorena García Mateu';
 	
-	constructor(){
+	constructor(private titleService: Title,
+    			private metaTagService: Meta
+    	){
 	}
 
 	
 	ngOnInit() {
-		console.log('bio.component.ts cargado');	
+		console.log('bio.component.ts cargado');
+
+		this.titleService.setTitle(this.title);
+    	this.metaTagService.updateTag(
+      		{ name: 'description', content: 'Bio Official Web Lorena García Mateu' }
+    	);	
 	}
 
-	
 
 }

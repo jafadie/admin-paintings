@@ -19,8 +19,10 @@
                     <a *ngFor="let photo of photos;" href="../../assets/images/exhibitions/{{photo}}" data-sub-html=".caption" data-html=".caption">
                         
                         <img class="img_photo img_horizontal" src="../../assets/images/exhibitions/{{photo}}" />
+
+                        <span *ngIf="isBrowser">{{onClickImage()}}</span>
                         
-                        {{onClickImage()}}
+                        
 
                         <div class="caption" style="display: none;">
                             <h5 class="caption_photo"><b>Kristin Hjellegjerde Gallery</b><br/>A splendour among shadows<br/>Richard Stone & Lorena García Mateu<br/>London, 2020<br/></h5>

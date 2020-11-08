@@ -4,7 +4,8 @@ import { UserService } from '../services/user.service';
 import { NotificationService } from '../services/notification.service';
 import { User } from '../models/user.model';
 import { Notification } from '../models/notification.model';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact',
@@ -13,6 +14,8 @@ import Swal from 'sweetalert2'
   providers: [UserService, NotificationService]
 })
 export class ContactComponent implements OnInit {
+  private title = 'Contact - Lorena García Mateu';
+
 	public user : User;
   public notification : Notification;
 
@@ -20,13 +23,20 @@ export class ContactComponent implements OnInit {
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _userService: UserService,
-    private _notificationService: NotificationService
+    private _notificationService: NotificationService,
+    private titleService: Title,
+    private metaTagService: Meta
 	){
 		this.initializeUser();
   }
 
   ngOnInit() {
   	console.log('contact.component.ts cargado');
+
+    this.titleService.setTitle(this.title);
+      this.metaTagService.updateTag(
+          { name: 'description', content: 'Contact Official Web Lorena García Mateu' }
+      );
   }
 
   initializeUser(){

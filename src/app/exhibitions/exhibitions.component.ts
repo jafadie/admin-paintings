@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
+import { Title, Meta } from '@angular/platform-browser';
 declare var jQuery: any;
 
 
@@ -10,16 +12,30 @@ declare var jQuery: any;
 })
 export class ExhibitionsComponent implements OnInit {
 
+	private title = 'Exhibitions - Lorena García Mateu';
+
 	public photos:any = [];
 	public clickExecuted = true; // initialize it to true for the first run
+	public isBrowser: boolean;
 
   constructor(
 	private _route: ActivatedRoute,
-	private _router: Router
+	private _router: Router,
+	@Inject(PLATFORM_ID) platformId,
+	private titleService: Title,
+    private metaTagService: Meta
   ){
+  	this.isBrowser = isPlatformBrowser(platformId);
   }
 
   ngOnInit(): void {
+  	console.log('bio.component.ts cargado');
+
+	this.titleService.setTitle(this.title);
+	this.metaTagService.updateTag(
+  		{ name: 'description', content: 'Exhibitions Official Web Lorena García Mateu' }
+	);
+    	
   	this._route.params.subscribe(params => {
 		let id = params['id'];
 

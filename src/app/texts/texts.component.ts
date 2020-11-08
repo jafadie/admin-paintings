@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-texts',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TextsComponent implements OnInit {
 
-  constructor() { }
+	private title = 'Texts - Lorena García Mateu';
+
+  constructor(private titleService: Title,
+    		  private metaTagService: Meta
+  ) { }
 
   ngOnInit() {
+  	console.log('texts.component.ts cargado');
+
+  	this.titleService.setTitle(this.title);
+  	this.metaTagService.updateTag(
+    	{ name: 'description', content: 'Texts Official Web Lorena García Mateu' }
+  	);
   }
 
 }
