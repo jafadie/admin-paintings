@@ -33,6 +33,8 @@ import { PaintingPreviewService } from './services/painting-preview.service';
 import { PortfolioPreviewComponent } from './portfolio-preview/portfolio-preview.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExhibitionsComponent } from './exhibitions/exhibitions.component';
+import { SeoService } from './services/seo.service';
+import { GoogleAnalyticsService } from './services/google-analytics.service';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import { ExhibitionsComponent } from './exhibitions/exhibitions.component';
     NotificationService,
     SeriePreviewService,
     PaintingPreviewService,
-    CookieService
+    CookieService,
+    SeoService,
+    GoogleAnalyticsService
 	],
   bootstrap: [AppComponent],
   schemas: [

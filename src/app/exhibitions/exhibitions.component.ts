@@ -1,18 +1,23 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
+import { SeoService } from '../services/seo.service';
 declare var jQuery: any;
+//declare var ga: Function;
 
 
 @Component({
   selector: 'app-exhibitions',
   templateUrl: './exhibitions.component.html',
-  styleUrls: ['./exhibitions.component.css']
+  styleUrls: ['./exhibitions.component.css'],
+  providers: [SeoService]
 })
 export class ExhibitionsComponent implements OnInit {
 
-	private title = 'Exhibitions - Lorena García Mateu';
+	private title = 'Exhibitions - Lorena Garcia Mateu';
+	private description = 'Exhibitions Lorena Garcia Mateu';
+  	private slug = 'app-exhibitions';
 
 	public photos:any = [];
 	public clickExecuted = true; // initialize it to true for the first run
@@ -23,18 +28,31 @@ export class ExhibitionsComponent implements OnInit {
 	private _router: Router,
 	@Inject(PLATFORM_ID) platformId,
 	private titleService: Title,
-    private metaTagService: Meta
+    private metaTagService: Meta,
+    private _seoService: SeoService
   ){
-  	this.isBrowser = isPlatformBrowser(platformId);
+  	/*this.isBrowser = isPlatformBrowser(platformId);
+
+  	if (this.isBrowser){
+  		this._router.events.subscribe(event => {
+		    if (event instanceof NavigationEnd) {
+		        ga('set', 'page', event.urlAfterRedirects);
+		        ga('send', 'pageview');
+	    	}
+	    });
+  	}*/
+  	
   }
 
   ngOnInit(): void {
   	console.log('bio.component.ts cargado');
 
 	this.titleService.setTitle(this.title);
-	this.metaTagService.updateTag(
-  		{ name: 'description', content: 'Exhibitions Official Web Lorena García Mateu' }
-	);
+	this._seoService.generateTags({
+	    title: this.title,
+	    description: this.description,
+	    slug: this.slug
+	});
     	
   	this._route.params.subscribe(params => {
 		let id = params['id'];

@@ -21,7 +21,7 @@
                             
                             <img [ngClass]="setPaintingClasses(painting)" src="{{baseUri}}/images/{{painting['image']}}" />
                             
-                            <span *ngIf="isBrowser">{{onClickImage()}}</span>
+                            <span>{{onClickImage()}}</span>
 
                             <div class="caption" style="display: none;">
                                 <h5 class="caption_painting" ><b>{{painting['title']}}</b> | {{painting['year']}} <br/> {{painting.height}}cm x {{painting['width']}}cm <br/> {{painting['technique']}} <br/> <span *ngIf="painting.available">Available</span></h5>

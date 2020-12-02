@@ -1,5 +1,5 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { PaintingService } from '../services/painting.service';
 import { SerieService } from '../services/serie.service';
 import { Painting } from '../models/painting.model';
@@ -7,24 +7,28 @@ import { Serie } from '../models/serie.model';
 import { GLOBAL } from '../services/global';
 import { isPlatformBrowser } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
+import { SeoService } from '../services/seo.service';
 declare var jQuery: any;
+//declare var ga: Function;
 
 @Component({
   selector: 'app-portfolio',
   templateUrl: './portfolio.component.html',
   styleUrls: ['./portfolio.component.css'],
-  providers: [PaintingService, SerieService]
+  providers: [PaintingService, SerieService, SeoService]
 })
 export class PortfolioComponent implements OnInit {
 
-  private title = 'Portfolio - Lorena García Mateu';
+  private title = 'Portfolio - Lorena Garcia Mateu';
+  private description = 'Portfolio Lorena Garcia Mateu';
+  private slug = 'app-portfolio';
 
   public paintings:any = [];
   public serie: Serie;
   public idPainting: number;
   public clickExecuted = true; // initialize it to true for the first run
   baseUri:string = GLOBAL.baseUri;
-  public isBrowser: boolean;
+  //public isBrowser: boolean;
 	
 	constructor(
 		private _route: ActivatedRoute,
@@ -33,9 +37,20 @@ export class PortfolioComponent implements OnInit {
 		private _serieService: SerieService,
 		@Inject(PLATFORM_ID) platformId,
 		private titleService: Title,
-    	private metaTagService: Meta
+    	private metaTagService: Meta,
+    	private _seoService: SeoService
 	){
-		this.isBrowser = isPlatformBrowser(platformId);
+		/*this.isBrowser = isPlatformBrowser(platformId);
+
+		if (this.isBrowser){
+			this._router.events.subscribe(event => {
+			    if (event instanceof NavigationEnd) {
+			        ga('set', 'page', event.urlAfterRedirects);
+			        ga('send', 'pageview');
+		    	}
+		    });
+		}*/
+		
 	}
 
 	public loadScript(url: string) {
@@ -53,9 +68,11 @@ export class PortfolioComponent implements OnInit {
 		console.log('portfolio.component.ts cargado');
 
 		this.titleService.setTitle(this.title);
-		this.metaTagService.updateTag(
-	  		{ name: 'description', content: 'Portfolio Official Web Lorena García Mateu' }
-		);
+		this._seoService.generateTags({
+		    title: this.title,
+		    description: this.description,
+		    slug: this.slug
+		});
 
 
 		this.loadLibraries();
