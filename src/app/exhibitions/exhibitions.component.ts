@@ -31,9 +31,9 @@ export class ExhibitionsComponent implements OnInit {
     private metaTagService: Meta,
     private _seoService: SeoService
   ){
-  	/*this.isBrowser = isPlatformBrowser(platformId);
+  	this.isBrowser = isPlatformBrowser(platformId);
 
-  	if (this.isBrowser){
+  	/*if (this.isBrowser){
   		this._router.events.subscribe(event => {
 		    if (event instanceof NavigationEnd) {
 		        ga('set', 'page', event.urlAfterRedirects);

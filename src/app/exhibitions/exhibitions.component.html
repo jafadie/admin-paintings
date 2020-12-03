@@ -18,9 +18,9 @@
                 <div id="lightgallery">
                     <a *ngFor="let photo of photos;" href="../../assets/images/exhibitions/{{photo}}" data-sub-html=".caption" data-html=".caption">
                         
-                        <img class="img_photo img_horizontal" src="../../assets/images/exhibitions/{{photo}}" />
+                        <img class="img_photo img_horizontal" src="../../assets/images/exhibitions/{{photo}}" alt="Exhibitions Lorena Garcia Mateu" />
 
-                        <span>{{onClickImage()}}</span>
+                        <span *ngIf="isBrowser">{{onClickImage()}}</span>
                         
                         
 

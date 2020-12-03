@@ -28,7 +28,7 @@ export class PortfolioComponent implements OnInit {
   public idPainting: number;
   public clickExecuted = true; // initialize it to true for the first run
   baseUri:string = GLOBAL.baseUri;
-  //public isBrowser: boolean;
+  public isBrowser: boolean;
 	
 	constructor(
 		private _route: ActivatedRoute,
@@ -40,9 +40,9 @@ export class PortfolioComponent implements OnInit {
     	private metaTagService: Meta,
     	private _seoService: SeoService
 	){
-		/*this.isBrowser = isPlatformBrowser(platformId);
+		this.isBrowser = isPlatformBrowser(platformId);
 
-		if (this.isBrowser){
+		/*if (this.isBrowser){
 			this._router.events.subscribe(event => {
 			    if (event instanceof NavigationEnd) {
 			        ga('set', 'page', event.urlAfterRedirects);
