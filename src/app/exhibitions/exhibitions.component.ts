@@ -1,10 +1,10 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { SeoService } from '../services/seo.service';
+import { CanonicalService } from '../services/canonical.service';
 declare var jQuery: any;
-//declare var ga: Function;
 
 
 @Component({
@@ -29,18 +29,10 @@ export class ExhibitionsComponent implements OnInit {
 	@Inject(PLATFORM_ID) platformId,
 	private titleService: Title,
     private metaTagService: Meta,
-    private _seoService: SeoService
+    private _seoService: SeoService,
+    private canonicalService: CanonicalService
   ){
   	this.isBrowser = isPlatformBrowser(platformId);
-
-  	/*if (this.isBrowser){
-  		this._router.events.subscribe(event => {
-		    if (event instanceof NavigationEnd) {
-		        ga('set', 'page', event.urlAfterRedirects);
-		        ga('send', 'pageview');
-	    	}
-	    });
-  	}*/
   	
   }
 
@@ -53,6 +45,8 @@ export class ExhibitionsComponent implements OnInit {
 	    description: this.description,
 	    slug: this.slug
 	});
+
+	this.canonicalService.setCanonicalURL();
     	
   	this._route.params.subscribe(params => {
 		let id = params['id'];

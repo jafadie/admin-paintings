@@ -1,15 +1,13 @@
-import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { NotificationService } from '../services/notification.service';
 import { User } from '../models/user.model';
 import { Notification } from '../models/notification.model';
 import Swal from 'sweetalert2';
 import { Title, Meta } from '@angular/platform-browser';
-import { isPlatformBrowser } from '@angular/common';
 import { SeoService } from '../services/seo.service';
 import { GoogleAnalyticsService } from '../services/google-analytics.service';
-declare var ga: Function;
 
 @Component({
   selector: 'app-contact',
@@ -33,19 +31,9 @@ export class ContactComponent implements OnInit {
     private titleService: Title,
     private metaTagService: Meta,
     private _seoService: SeoService,
-    @Inject(PLATFORM_ID) platformId,
     private _googleAnalyticsService: GoogleAnalyticsService
 	){
 		this.initializeUser();
-
-    /*if (isPlatformBrowser(platformId)){
-      this._router.events.subscribe(event => {
-        if (event instanceof NavigationEnd) {
-            ga('set', 'page', event.urlAfterRedirects);
-            ga('send', 'pageview');
-        }
-      });
-    }*/
     
   }
 

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://lorenagarciamateu.es/sitemap.xml

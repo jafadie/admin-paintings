@@ -8,8 +8,8 @@ import { GLOBAL } from '../services/global';
 import { isPlatformBrowser } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { SeoService } from '../services/seo.service';
+import { CanonicalService } from '../services/canonical.service';
 declare var jQuery: any;
-//declare var ga: Function;
 
 @Component({
   selector: 'app-portfolio',
@@ -38,19 +38,11 @@ export class PortfolioComponent implements OnInit {
 		@Inject(PLATFORM_ID) platformId,
 		private titleService: Title,
     	private metaTagService: Meta,
-    	private _seoService: SeoService
+    	private _seoService: SeoService,
+    	private canonicalService: CanonicalService
 	){
 		this.isBrowser = isPlatformBrowser(platformId);
 
-		/*if (this.isBrowser){
-			this._router.events.subscribe(event => {
-			    if (event instanceof NavigationEnd) {
-			        ga('set', 'page', event.urlAfterRedirects);
-			        ga('send', 'pageview');
-		    	}
-		    });
-		}*/
-		
 	}
 
 	public loadScript(url: string) {
@@ -73,6 +65,8 @@ export class PortfolioComponent implements OnInit {
 		    description: this.description,
 		    slug: this.slug
 		});
+
+		this.canonicalService.setCanonicalURL();
 
 
 		this.loadLibraries();

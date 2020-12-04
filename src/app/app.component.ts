@@ -1,6 +1,5 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-import { CanonicalService } from './services/canonical.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { environment } from './environments/environment.prod';
@@ -17,7 +16,6 @@ export class AppComponent implements OnInit {
   title = 'MyPaintings';
 
   constructor(private metaTagService: Meta,
-  			  private canonicalService: CanonicalService,
           private router: Router,
           @Inject(PLATFORM_ID) platformId)
   {
@@ -54,7 +52,6 @@ export class AppComponent implements OnInit {
       { charset: 'UTF-8' }
     ]);
 
-    this.canonicalService.setCanonicalURL();
   }
 
 }

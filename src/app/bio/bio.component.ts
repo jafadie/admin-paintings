@@ -1,8 +1,5 @@
-import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
-import { Router, NavigationEnd } from '@angular/router';
-declare var ga: Function;
-import { isPlatformBrowser } from '@angular/common';
 import { SeoService } from '../services/seo.service';
 
 @Component({
@@ -18,19 +15,9 @@ export class BioComponent implements OnInit {
 	
 	constructor(private titleService: Title,
     			private metaTagService: Meta,
-    			private _router: Router,
-    			@Inject(PLATFORM_ID) platformId,
     			private _seoService: SeoService
     	){
-		/*if (isPlatformBrowser(platformId))
-		{
-			this._router.events.subscribe(event => {
-			    if (event instanceof NavigationEnd) {
-			        ga('set', 'page', event.urlAfterRedirects);
-			        ga('send', 'pageview');
-		    	}
-		    });
-		}*/
+		
 	}
 
 	

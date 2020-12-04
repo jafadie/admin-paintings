@@ -1,9 +1,6 @@
-import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { SeoService } from '../services/seo.service';
-import { isPlatformBrowser } from '@angular/common';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-declare var ga: Function;
 
 @Component({
   selector: 'app-home',
@@ -19,23 +16,11 @@ export class HomeComponent implements OnInit {
   public isBrowser: boolean;
 
   constructor(
-          private _route: ActivatedRoute,
-          private _router: Router,
-          @Inject(PLATFORM_ID) platformId,
           private titleService: Title,
     		  private metaTagService: Meta,
           private _seoService: SeoService
   ) {
-    /*this.isBrowser = isPlatformBrowser(platformId);
-
-    if (this.isBrowser){
-      this._router.events.subscribe(event => {
-        if (event instanceof NavigationEnd) {
-            ga('set', 'page', event.urlAfterRedirects);
-            ga('send', 'pageview');
-        }
-      });
-    }*/
+    
   }
 
 	public loadScript(url: string) {
